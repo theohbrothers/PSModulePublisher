@@ -17,7 +17,7 @@ try {
     "Test the module manifest" | Write-Host
     & "$PSScriptRoot\module\test-modulemanifest.ps1" -Path $ModuleManifestPath | Out-Host
 
-    "Test the module" | Write-Host
+    "Test the module via the generated module manifest" | Write-Host
     & "$PSScriptRoot\module\test-module.ps1" -Path $ModuleManifestPath | Out-Host
 
 }catch {

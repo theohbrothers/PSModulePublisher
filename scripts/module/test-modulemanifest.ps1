@@ -7,6 +7,7 @@ param(
 
 try {
     # Test the module manifest
+    "Testing the module manifest" | Write-Host
     $manifest = Test-ModuleManifest -Path $Path
 
     # Display the manifest

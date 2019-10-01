@@ -41,7 +41,7 @@ try {
     }
 
     # Publish the module
-    "Publishing module" | Write-Host
+    "Publishing the module" | Write-Host
     $publishModuleArgs = @{
         Path = $modulesDir
         Repository = $Repository

@@ -10,7 +10,7 @@ $ErrorActionPreference = 'Stop'
 . "$PSScriptRoot\module\common\get-projectvariables.ps1"
 
 try {
-    "Install Dependencies" | Write-Host
+    "Install build dependencies" | Write-Host
     & "$PSScriptRoot\module\install-dependencies.ps1" | Out-Host
 
     "Generate the module manifest" | Write-Host

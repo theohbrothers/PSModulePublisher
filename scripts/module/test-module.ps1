@@ -6,7 +6,8 @@ param(
 )
 
 try {
-    # Import the module using the manifest file
+    # Import the module via the module manifest file
+    "Importing the module via the module manifest file" | Write-Host
     $manifest = Test-ModuleManifest -Path $Path
     Import-Module -Name $Path -Force
 

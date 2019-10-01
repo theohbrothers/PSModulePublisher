@@ -29,9 +29,11 @@ try {
     $moduleManifestArgs['ModuleVersion'] = if ($env:MODULE_VERSION) { $env:MODULE_VERSION } else { '0.0.0' }
 
     # Create the new manifest (overrides existing)
+    "Generating the module manifest" | Write-Host
     New-ModuleManifest @moduleManifestArgs
 
     # Run Update-ModuleManifest for standardizing the manifest and correctly populate the manifest's PrivateData properties
+    "Updating the module manifest" | Write-Host
     $updateModuleManifestArgs = @{
         Path = $moduleManifestArgs['Path']
         PrivateData = $moduleManifestArgs['PrivateData']
