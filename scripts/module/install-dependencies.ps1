@@ -9,15 +9,15 @@ try {
     # Install PowershellGet module of the specified version
     "Installing PowerShellGet" | Write-Host
     $powershellGetRequiredVersion = '2.1.2'
-    $powershellGetInstalledVersions = (Get-Module PowerShellGet -ListAvailable).Version | % { $_.ToString() }
+    $powershellGetInstalledVersions = (Get-Module 'PowerShellGet' -ListAvailable).Version | % { $_.ToString() }
     if ($powershellGetRequiredVersion -notin $powershellGetInstalledVersions) {
-        Install-Module -Name PowershellGet -Repository 'PSGallery' -RequiredVersion $powershellGetRequiredVersion -Scope CurrentUser -Force
+        Install-Module -Name 'PowershellGet' -Repository 'PSGallery' -RequiredVersion $powershellGetRequiredVersion -Scope CurrentUser -Force
     }
 
     # Import and get info on PowershellGet
     "Importing PowerShellGet" | Write-Host
-    Import-Module -Name PowerShellGet -RequiredVersion $powershellGetRequiredVersion -Force
-    Get-Module -Name PowerShellGet -ListAvailable | Out-String | Write-Verbose
+    Import-Module -Name 'PowerShellGet' -RequiredVersion $powershellGetRequiredVersion -Force
+    Get-Module -Name 'PowerShellGet' -ListAvailable | Out-String | Write-Verbose
 
 }catch {
     throw
