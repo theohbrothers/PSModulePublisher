@@ -1,0 +1,21 @@
+trigger:
+  branches:
+    include:
+      - '*'
+  tags:
+    include:
+      - '*'
+pr: none
+
+stages:
+- stage: Build_Test_Publish
+  displayName: Build, Test, Publish
+  jobs:
+  - job: Windows
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - checkout: self
+      submodules: true | recursive
+    - template: build/PSModulePublisher/azure-pipelines/windows/continuous-build.yml
+    - template: build/PSModulePublisher/azure-pipelines/common/publish-module.yml

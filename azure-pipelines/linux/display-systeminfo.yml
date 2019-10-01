@@ -1,0 +1,4 @@
+steps:
+- bash: |
+    ./build/PSModulePublisher/scripts/system/display-systeminfo-linux.sh 
+  displayName: Display System Info

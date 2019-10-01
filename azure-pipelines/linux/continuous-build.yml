@@ -1,0 +1,4 @@
+steps:
+- template: display-systeminfo.yml
+- template: ../common/process-civariables.yml
+- template: ../common/build-test-module.yml

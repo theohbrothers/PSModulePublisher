@@ -1,0 +1,43 @@
+trigger:
+  branches:
+    include:
+      - '*'
+  tags:
+    include:
+      - '*'
+pr: none
+
+stages:
+- stage: Build_Test
+  displayName: Build, Test
+  jobs:
+  # Build and Test on Windows
+  - job: Windows
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - checkout: self
+      submodules: true | recursive
+    - template: build/PSModulePublisher/azure-pipelines/windows/continuous-build.yml
+  # Build and Test on Linux
+  - job: Linux
+    pool:
+      vmImage: 'ubuntu-16.04'
+    container: joeltimothyoh/powershell:6.1.0-ubuntu-18.04-git
+    steps:
+    - checkout: self
+      submodules: true | recursive
+    - template: build/PSModulePublisher/azure-pipelines/linux/continuous-build.yml
+- stage: Publish
+  dependsOn:
+  - Build_Test
+  jobs:
+  # Publish the module
+  - job: Windows
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - checkout: self
+      submodules: true | recursive
+    - template: build/PSModulePublisher/azure-pipelines/windows/continuous-build.yml
+    - template: build/PSModulePublisher/azure-pipelines/common/publish-module.yml

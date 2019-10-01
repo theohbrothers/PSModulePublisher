@@ -1,0 +1,51 @@
+# - Initial release: Generate a unique GUID using New-GUID, and fill in all relevant details.
+# - Subsequent releases: Update all relevant details.
+# - To publish the module, git tag the commit to publish and push the tag.
+# - You can run build.ps1 to simulate creating the module manifest and testing the module's exported functions etc. .
+
+@{
+    RootModule = 'MyPowershellModule.psm1'
+    # ModuleVersion = ''                            # Will be overridden in the CD process.
+    GUID = '1a93593f-a64a-4602-9c9e-3e5fd52f436e'
+    Author = 'My Name'
+    CompanyName = 'My Company Name'
+    Copyright = '(c) 2019 My Name'
+    Description = 'A description of MyPowershellModule.'
+    PowerShellVersion = '3.0'
+    # PowerShellHostName = ''
+    # PowerShellHostVersion = ''
+    # DotNetFrameworkVersion = ''
+    # CLRVersion = ''
+    # ProcessorArchitecture = ''
+    # RequiredModules = @()
+    # RequiredAssemblies = @()
+    # ScriptsToProcess = @()
+    # TypesToProcess = @()
+    # FormatsToProcess = @()
+    # NestedModules = @()
+    FunctionsToExport = @(
+        'My-PublicFunction1'
+    )
+    CmdletsToExport = @()
+    VariablesToExport = @()
+    AliasesToExport = @()
+    # DscResourcesToExport = @()
+    # ModuleList = @()
+    # FileList = @()
+    PrivateData = @{
+        # PSData = @{           # Leave the PSData property out when adding or updating PrivateData. Updating PrivateData using Update-ModuleManifest ensures it is correctly added to the module manifest
+            Tags = @(
+                'mycooltag'
+            )
+            LicenseUri = 'https://github.com/myusername/MyPowershellModule/blob/master/LICENSE'
+            ProjectUri = 'https://github.com/myusername/MyPowershellModule'
+            # IconUri = ''
+            # ReleaseNotes = ''
+            # Prerelease = ''
+            # RequireLicenseAcceptance = $false
+            # ExternalModuleDependencies = @()
+        # }
+        # HelpInfoURI = ''
+        # DefaultCommandPrefix = ''
+    }
+}

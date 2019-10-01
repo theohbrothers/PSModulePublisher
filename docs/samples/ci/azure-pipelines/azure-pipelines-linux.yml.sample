@@ -1,0 +1,22 @@
+trigger:
+  branches:
+    include:
+      - '*'
+  tags:
+    include:
+      - '*'
+pr: none
+
+stages:
+- stage: Build_Test_Publish
+  displayName: Build, Test, Publish
+  jobs:
+  - job: Linux
+    pool:
+      vmImage: 'ubuntu-16.04'
+    container: joeltimothyoh/powershell:6.1.0-ubuntu-18.04-git
+    steps:
+    - checkout: self
+      submodules: true | recursive
+    - template: build/PSModulePublisher/azure-pipelines/linux/continuous-build.yml
+    - template: build/PSModulePublisher/azure-pipelines/common/publish-module.yml
