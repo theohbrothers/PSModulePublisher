@@ -10,12 +10,6 @@ param(
 )
 
 try {
-    if ($env:MODULE_VERSION) {
-        "Version: '$env:MODULE_VERSION'" | Write-Host
-    }else {
-        "Version is null." | Write-Host
-    }
-
     # Get the module manifest's definition object
     $moduleManifestArgs = . $DefinitionFile
 
