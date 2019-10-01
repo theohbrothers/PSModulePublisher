@@ -25,11 +25,6 @@ try {
     # Determine the module name
     $moduleName = [System.IO.Path]::GetFileNameWithoutExtension($moduleManifestArgs['RootModule'])
 
-    # Verify the superproject's name matches the value of the RootModule property specified in the specified module manifest definition file
-    if ($moduleName -ne $global:PROJECT['NAME']) {
-        throw "The superproject of name '$($global:PROJECT['NAME'])' does not match value of the RootModule property of value '$($moduleManifestArgs['RootModule'])' in the specified module manifest definition file. Ensure they match and try again."
-    }
-
     # Set the module manifest path
     $moduleManifestArgs['Path'] = $Path
 
