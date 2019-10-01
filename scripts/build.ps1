@@ -14,7 +14,7 @@ try {
     & "$PSScriptRoot\module\install-dependencies.ps1" | Out-Host
 
     "Generate the module manifest" | Write-Host
-    $script:manifest = & "$PSScriptRoot\module\generate-modulemanifest.ps1" -DefinitionPath $global:PROJECT['MODULE_MANIFEST_DEFINITION_PATH'] -Path $global:PROJECT['MODULE_MANIFEST_PATH']
+    $script:manifest = & "$PSScriptRoot\module\generate-modulemanifest.ps1" -DefinitionFile $global:PROJECT['MODULE_MANIFEST_DEFINITION_FILE'] -Path $global:PROJECT['MODULE_MANIFEST_PATH']
 
     # Return the manifest path
     $script:manifest.Fullname

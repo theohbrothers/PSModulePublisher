@@ -2,7 +2,7 @@
 param(
     [Parameter(Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
-    [string]$DefinitionPath
+    [string]$DefinitionFile
     ,
     [Parameter(Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
@@ -20,7 +20,7 @@ try {
     }
 
     # Get the module manifest's definition object
-    $moduleManifestArgs = . $DefinitionPath
+    $moduleManifestArgs = . $DefinitionFile
 
     # Determine the module name
     $moduleName = [System.IO.Path]::GetFileNameWithoutExtension($moduleManifestArgs['RootModule'])
