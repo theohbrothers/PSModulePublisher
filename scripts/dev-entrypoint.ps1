@@ -1,4 +1,4 @@
-# This script acts as an entrypoint for executing all relevant scripts. It is designed to be used in development.
+# This script acts as an entrypoint for executing all relevant scripts. It is designed to be used in development environments.
 # For safety reasons, publishing of the module is designed to fail by default unless a repository is specified
 
 [CmdletBinding()]
