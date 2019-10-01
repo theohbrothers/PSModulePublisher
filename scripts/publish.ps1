@@ -1,8 +1,11 @@
-# This script acts as an entrypoint for executing all relevant scripts. It is designed for use in both development and CI/CD environments.
-# For safety reasons, publishing of the module is designed to fail by default unless a repository is specified.
+# This script acts as an entrypoint for executing all relevant scripts. It is designed for use by CI/CD environments.
 
 [CmdletBinding()]
 param(
+    [Parameter(Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
+    [string]$ModuleManifestPath
+    ,
     [Parameter(Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
     [string]$PublishRepository
@@ -10,18 +13,11 @@ param(
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
-# $VerbosePreference = 'Continue'
-
-# Script constants
-$script:scriptsModuleDir = Join-Path $PSScriptRoot 'module'
-
-$script:scriptBlock = {
-    "Publish the module" | Write-Host
-    & "$script:scriptsModuleDir\publish-module.ps1" -Path $moduleManifestPath -Repository $PublishRepository | Out-Host
-}
 
 try {
-    & $script:scriptBlock
+    "Publish the module" | Write-Host
+    & "$PSScriptRoot\module\publish-module.ps1" -Path $ModuleManifestPath -Repository $PublishRepository | Out-Host
+
 }catch {
     throw
 }
