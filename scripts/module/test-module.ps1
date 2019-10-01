@@ -11,7 +11,8 @@ try {
     $manifest = Test-ModuleManifest -Path $Path
     Import-Module -Name $Path -Force
 
-    # Display the module's properties
+    # Display the imported module's properties
+    "Displaying the imported module's properties" | Write-Host
     Get-Module -Name $manifest.Name | Format-List -Property * | Out-String | Write-Verbose
 
     # Run tests
