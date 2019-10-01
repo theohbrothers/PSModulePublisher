@@ -6,7 +6,7 @@ A project containing the necessary tools to ease publishing of powershell module
 
 ### Initial steps
 
-First, add this project as a submodule under the directory `build` in your main project.
+First, add this project as a submodule under the directory `build` in your main project:
 
 ```shell
 # Add the submodule
@@ -15,7 +15,7 @@ git submodule add 'https://github.com/theohbrothers/PSModulePublisher.git' build
 git commit -m 'Add submodule PSModulePublisher'
 ```
 
-Next, ensure the following files are present on your main project for the submodule to work.
+Next, configure the following files on your main project for the submodule to work.
 
 ### Module definition
 
@@ -41,18 +41,20 @@ The project contains the necessary steps in its CI files for generating and test
 
 ### Publishing modules
 
-Publishing a module requires a tagged commit. The tag must follow [Semantic Versioning](https://semver.org) with a prepended `v` in order for the publish step to run.
+Publishing of modules occurs on tag refs. Tags must follow [Semantic Versioning](https://semver.org/) and be prepended with a lowercase `v`:
 
 ```shell
-# Tag the commit to release
+# Tag the commit to publish
 git tag v1.0.12
 # Push the tag
 git push remotename v1.0.12
 ```
 
-### Managing PSModulePublisher
+Modules will be published to the [PowerShell Gallery](https://www.powershellgallery.com/).
 
-#### Updating
+### Managing the submodule
+
+#### Retrieving updates
 
 To update the submodule:
 
@@ -60,7 +62,7 @@ To update the submodule:
 git submodule update --remote
 ```
 
-#### Using specific version
+#### Using a specific commit / tag
 
 To use a specific commit or tag of the submodule:
 
@@ -79,7 +81,7 @@ cd "$(git rev-parse --show-superproject-working-tree)"
 git commit -m 'Update submodule PSModulePublisher'
 ```
 
-#### Tracking specific branch
+#### Tracking a specific branch
 
 To track a specific branch with `git submodule update`, add the `branch` key-value pair under the submodule's entry in `.gitmodules` like so:
 
@@ -92,5 +94,5 @@ To track a specific branch with `git submodule update`, add the `branch` key-val
 
 ## Best practices
 
-- Use a tagged commit of `PSModulePublisher` in your main project.
+- Use only tagged commits of `PSModulePublisher` in your main project.
 - Ensure your main project's CI file(s) is configured to use the CI templates of [`PSModulePublisher`](https://github.com/theohbrothers/PSModulePublisher) and that the commit used matches that of `PSModulePublisher` used in your main project.
