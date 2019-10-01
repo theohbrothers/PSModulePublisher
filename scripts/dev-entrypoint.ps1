@@ -6,6 +6,9 @@ param(
     [Parameter(Mandatory=$false)]
     [ValidateNotNullOrEmpty()]
     [string]$PublishRepository
+    ,
+    [Parameter(Mandatory=$false)]
+    [switch]$SkipVersionChecks
 )
 
 Set-StrictMode -Version Latest
@@ -22,7 +25,8 @@ try {
     & "$PSScriptRoot\test.ps1" -ModuleManifestPath $manifestPath
 
     # Run the publish entrypoint script
-    & "$PSScriptRoot\publish.ps1" -ModuleManifestPath $manifestPath -PublishRepository $PublishRepository
+    $PublishRepository = 'PSRepository'
+    & "$PSScriptRoot\publish.ps1" -ModuleManifestPath $manifestPath -PublishRepository $PublishRepository -SkipVersionChecks:$SkipVersionChecks
 
 }catch {
     throw

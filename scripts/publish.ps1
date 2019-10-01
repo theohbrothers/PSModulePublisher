@@ -9,6 +9,9 @@ param(
     [Parameter(Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
     [string]$PublishRepository
+    ,
+    [Parameter(Mandatory=$false)]
+    [switch]$SkipVersionChecks
 )
 
 Set-StrictMode -Version Latest
@@ -16,7 +19,7 @@ $ErrorActionPreference = 'Stop'
 
 try {
     "Publish the module" | Write-Host
-    & "$PSScriptRoot\module\publish-module.ps1" -Path $ModuleManifestPath -Repository $PublishRepository | Out-Host
+    & "$PSScriptRoot\module\publish-module.ps1" -Path $ModuleManifestPath -Repository $PublishRepository -SkipVersionChecks:$SkipVersionChecks | Out-Host
 
 }catch {
     throw
