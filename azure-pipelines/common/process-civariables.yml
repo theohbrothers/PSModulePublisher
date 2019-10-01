@@ -1,5 +1,6 @@
 steps:
 - pwsh: |
+    $ErrorActionPreference = 'Stop'
     $matchInfo = $env:BUILD_SOURCEBRANCH | Select-String -Pattern '^refs\/tags\/v((?:\d+\.)+\d+)$'
     $MODULE_VERSION = if ($matchInfo) { $matchInfo.Matches.Groups[1].Value } else { $null }
     "MODULE_VERSION: '$MODULE_VERSION'" | Write-Host

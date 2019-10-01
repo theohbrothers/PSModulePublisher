@@ -1,6 +1,6 @@
 steps:
 - pwsh: |
-    .\build\PSModulePublisher\scripts\publish.ps1 -PublishRepository 'PSGallery' -Verbose
+    .\build\PSModulePublisher\scripts\publish.ps1 -ModuleManifestPath $env:MODULE_MANIFEST_PATH -PublishRepository 'PSGallery' -Verbose
   displayName: Publish Module
   condition: and(startsWith(variables['Build.SourceBranch'], 'refs/tags/'), ne(variables['MODULE_VERSION'], ''))
   env:

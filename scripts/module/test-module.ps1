@@ -5,26 +5,22 @@ param(
     [string]$Path
 )
 
-Set-StrictMode -Version Latest
-$ErrorActionPreference = 'Stop'
+try {
+    # Import the module via the module manifest file
+    "Importing the module via the module manifest file" | Write-Host
+    $manifest = Test-ModuleManifest -Path $Path
+    Import-Module -Name $Path -Force
 
-# Import the module using the manifest file
-$manifest = Test-ModuleManifest -Path $Path
-Import-Module -Name $Path -Force
+    # Display the imported module's properties
+    "Displaying the imported module's properties" | Write-Host
+    Get-Module -Name $manifest.Name | Format-List -Property * | Out-String | Write-Verbose
 
-# Display the module's properties
-Get-Module -Name $manifest.Name | Format-List -Property * | Out-String | Write-Verbose
+    # Run tests
+    if (Test-Path -Path "$($global:PROJECT['TESTS_DIR'])\test.ps1" -PathType Leaf) {
+        "Running tests" | Write-Host
+        & "$($global:PROJECT['TESTS_DIR'])\test.ps1"
+    }
 
-# Run tests
-$superProjectDirRaw = git rev-parse --show-superproject-working-tree
-if ($superProjectDirRaw) {
-    $projectDir = Convert-Path -Path $superProjectDirRaw
-}else {
-    $projectDir = Convert-Path -Path (git rev-parse --show-toplevel)
-}
-$testsDir = Join-Path $projectDir 'tests'
-
-if (Test-Path -Path "$testsDir\test.ps1" -PathType Leaf) {
-    "Running tests" | Write-Host
-    & "$testsDir\test.ps1"
+}catch {
+    throw
 }

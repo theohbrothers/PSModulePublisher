@@ -5,11 +5,14 @@ param(
     [string]$Path
 )
 
-Set-StrictMode -Version Latest
-$ErrorActionPreference = 'Stop'
+try {
+    # Test the module manifest
+    "Testing the module manifest" | Write-Host
+    $manifest = Test-ModuleManifest -Path $Path
 
-# Test the module manifest
-$manifest = Test-ModuleManifest -Path $Path
+    # Display the manifest
+    $manifest | Format-List -Property * | Out-String | Write-Verbose
 
-# Display the manifest
-$manifest | Format-List -Property * | Out-String | Write-Verbose
+}catch {
+    throw
+}

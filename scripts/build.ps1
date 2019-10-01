@@ -5,28 +5,20 @@ param()
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
-# $VerbosePreference = 'Continue'
 
 # Script constants
-$script:scriptsModuleDir = Join-Path $PSScriptRoot 'module'
-
-$script:scriptBlock = {
-    "Install Dependencies" | Write-Host
-    & "$script:scriptsModuleDir\install-dependencies.ps1" | Out-Host
-
-    "Generate the module manifest" | Write-Host
-    $manifest = & "$script:scriptsModuleDir\generate-modulemanifest.ps1"
-    $moduleManifestPath = $manifest.Fullname
-
-    "Test the module manifest" | Write-Host
-    & "$script:scriptsModuleDir\test-modulemanifest.ps1" -Path $moduleManifestPath | Out-Host
-
-    "Test the module" | Write-Host
-    & "$script:scriptsModuleDir\test-module.ps1" -Path $moduleManifestPath | Out-Host
-}
+. "$PSScriptRoot\module\common\get-projectvariables.ps1"
 
 try {
-    & $script:scriptBlock
+    "Install build dependencies" | Write-Host
+    & "$PSScriptRoot\module\install-builddependencies.ps1" | Out-Host
+
+    "Generate the module manifest" | Write-Host
+    $script:manifest = & "$PSScriptRoot\module\generate-modulemanifest.ps1" -DefinitionFile $global:PROJECT['MODULE_MANIFEST_DEFINITION_FILE'] -Path $global:PROJECT['MODULE_MANIFEST_PATH']
+
+    # Return the manifest path
+    $script:manifest.Fullname
+
 }catch {
     throw
 }
