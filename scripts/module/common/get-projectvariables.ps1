@@ -14,7 +14,9 @@ try {
     $global:PROJECT['TESTS_DIR'] = Join-Path $global:PROJECT['BASE_DIR'] 'tests'
     $global:PROJECT['MODULE_MANIFEST_DEFINITION_FILE'] = "$($global:PROJECT['BUILD_DIR'])\definitions\modulemanifest\definition.ps1"
     $global:PROJECT['NAME'] = Split-Path $global:PROJECT['BASE_DIR'] -Leaf
-    $global:PROJECT['MODULE_MANIFEST_PATH'] = "$($global:PROJECT['MODULES_DIR'])\$($global:PROJECT['NAME'])\$($global:PROJECT['NAME']).psd1"
+    $private:definition = . $global:PROJECT['MODULE_MANIFEST_DEFINITION_FILE']
+    $global:PROJECT['MODULE_NAME'] = [System.IO.Path]::GetFileNameWithoutExtension($private:definition['RootModule'])
+    $global:PROJECT['MODULE_MANIFEST_PATH'] = "$($global:PROJECT['MODULES_DIR'])\$($global:PROJECT['MODULE_NAME'])\$($global:PROJECT['MODULE_NAME']).psd1"
 
 }catch {
     throw
