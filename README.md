@@ -89,3 +89,8 @@ To track a specific branch with `git submodule update`, add the `branch` key-val
 	url = https://github.com/theohbrothers/PSModulePublisher.git
 	branch = trackedbranch
 ```
+
+## Best practices
+
+- Use a tagged commit of `PSModulePublisher` in your main project.
+- Ensure your main project's CI file(s) is configured to use the CI templates of [`PSModulePublisher`](https://github.com/theohbrothers/PSModulePublisher) and that the commit used matches that of `PSModulePublisher` used in your main project.
