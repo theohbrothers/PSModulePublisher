@@ -43,7 +43,7 @@ try {
     # Publish the module
     "Publishing module" | Write-Host
     $publishModuleArgs = @{
-        Path = $Path
+        Path = $modulesDir
         Repository = $Repository
     }
     if ($env:NUGET_API_KEY) {
