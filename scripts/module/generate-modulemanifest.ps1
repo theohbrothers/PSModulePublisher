@@ -9,9 +9,6 @@ param(
     [string]$Path
 )
 
-Set-StrictMode -Version Latest
-$ErrorActionPreference = 'Stop'
-
 try {
     if ($env:MODULE_VERSION) {
         "Version: '$env:MODULE_VERSION'" | Write-Host

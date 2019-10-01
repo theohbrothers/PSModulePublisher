@@ -5,9 +5,6 @@ param(
     [string]$Path
 )
 
-Set-StrictMode -Version Latest
-$ErrorActionPreference = 'Stop'
-
 try {
     # Import the module using the manifest file
     $manifest = Test-ModuleManifest -Path $Path

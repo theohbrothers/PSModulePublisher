@@ -9,9 +9,6 @@ param(
     [string]$Repository
 )
 
-Set-StrictMode -Version Latest
-$ErrorActionPreference = 'Stop'
-
 try {
     "Path: $Path" | Write-Verbose
     Get-Item -Path $Path > $null

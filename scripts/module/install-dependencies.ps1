@@ -1,9 +1,6 @@
 [CmdletBinding()]
 param()
 
-Set-StrictMode -Version Latest
-$ErrorActionPreference = 'Stop'
-
 try {
     # Get info on PSGallery repository
     Get-PSRepository -Name 'PSGallery' | Format-List -Property * | Out-String | Write-Verbose
