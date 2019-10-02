@@ -11,7 +11,7 @@ try {
     . "$PSScriptRoot\module\common\get-projectvariables.ps1"
 
     "Install build dependencies" | Write-Host
-    & "$PSScriptRoot\module\install-builddependencies.ps1" | Out-Host
+    & "$PSScriptRoot\module\install-builddependencies.ps1"
 
     "Generate the module manifest" | Write-Host
     $script:manifest = & "$PSScriptRoot\module\generate-modulemanifest.ps1" -DefinitionFile $global:PROJECT['MODULE_MANIFEST_DEFINITION_FILE'] -Path $global:PROJECT['MODULE_MANIFEST_PATH']
