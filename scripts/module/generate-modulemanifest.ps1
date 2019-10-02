@@ -38,6 +38,7 @@ try {
     Update-ModuleManifest @updateModuleManifestArgs
 
     # Display the generated manifest's content
+    "Displaying the generated manifest's content" | Write-Host
     Get-Content -Path $moduleManifestArgs['Path'] | Write-Verbose
 
     # Return the manifest item object
