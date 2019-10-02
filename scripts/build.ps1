@@ -6,10 +6,10 @@ param()
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-# Script constants
-. "$PSScriptRoot\module\common\get-projectvariables.ps1"
-
 try {
+    # Get project variables
+    . "$PSScriptRoot\module\common\get-projectvariables.ps1"
+
     "Install build dependencies" | Write-Host
     & "$PSScriptRoot\module\install-builddependencies.ps1" | Out-Host
 
