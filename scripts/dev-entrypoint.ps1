@@ -1,5 +1,5 @@
-# This script acts as an entrypoint for executing all relevant scripts. It is designed to be used in development environments.
-# For safety reasons, publishing of the module is designed to fail by default unless a repository is specified
+# This script is designed for development environments for executing the same build, test, and publish steps that run on CI/CD environments.
+# For safety reasons, publishing of the module is designed to fail unless a repository is specified.
 
 [CmdletBinding()]
 param(
