@@ -40,7 +40,7 @@ try {
     # Display the generated manifest's content
     Get-Content -Path $moduleManifestArgs['Path'] | Write-Verbose
 
-    # Return the manifest object
+    # Return the manifest item object
     Get-Item -Path $moduleManifestArgs['Path']
 
 }catch {
