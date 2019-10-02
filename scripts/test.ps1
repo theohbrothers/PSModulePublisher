@@ -10,15 +10,15 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-# Script constants
-. "$PSScriptRoot\module\common\get-projectvariables.ps1"
-
 try {
+    # Get project variables
+    . "$PSScriptRoot\module\common\get-projectvariables.ps1"
+
     "Test the module manifest" | Write-Host
-    & "$PSScriptRoot\module\test-modulemanifest.ps1" -Path $ModuleManifestPath | Out-Host
+    & "$PSScriptRoot\module\test-modulemanifest.ps1" -Path $ModuleManifestPath
 
     "Test the module via the generated module manifest" | Write-Host
-    & "$PSScriptRoot\module\test-module.ps1" -Path $ModuleManifestPath | Out-Host
+    & "$PSScriptRoot\module\test-module.ps1" -Path $ModuleManifestPath
 
 }catch {
     throw

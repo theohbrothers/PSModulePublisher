@@ -2,9 +2,9 @@
 
 A project containing the necessary tools to ease publishing of powershell modules.
 
-## Setup
+## Initial Steps
 
-### Initial steps
+### Add the submodule
 
 First, add this project as a submodule under the directory `build` in your main project:
 
@@ -15,23 +15,31 @@ git submodule add 'https://github.com/theohbrothers/PSModulePublisher.git' build
 git commit -m 'Add submodule PSModulePublisher'
 ```
 
-Next, configure the following files on your main project for the submodule to work.
+### Add important files
 
-### Module definition
+Next, configure the following files on your main project to work with the submodule.
+
+#### Module definition
 
 Add a module definition file `build/definitions/modulemanifest/definition.ps1` to your main project containing relevant properties of your powershell module. The definition will be used for generating the manifest used with publishing of the module. Ensure to update the file before publishing your module.
 
 The definition template can be found [here](https://github.com/theohbrothers/PSModulePublisher/blob/master/docs/samples/definitions/modulemanifest/definition.ps1.sample).
 
-### CI files
+#### CI files
 
 Decide on which CI provider to use in your main project based on those supported by this project. Setup the CI file(s) for your main project. Then simply reference the relevant CI files of this project from your main project's CI file(s).
 
 Sample CI files can be found [here](https://github.com/theohbrothers/PSModulePublisher/tree/master/docs/samples/ci).
 
-### Test files (Optional)
+#### Test files (Optional)
 
 The project runs an entrypoint test script at the location `tests/test.ps1` if it exists. Create the script in your main project for your module's tests to be run.
+
+### Add secrets
+
+#### PSGallery API Key
+
+Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https://docs.microsoft.com/en-us/powershell/scripting/gallery/how-to/publishing-packages/publishing-a-package?view=powershell-6#powershell-gallery-account-and-api-key) to your main project's CI settings for publishing your module on [PowerShell Gallery](https://www.powershellgallery.com/).
 
 ## Usage
 
@@ -49,8 +57,6 @@ git tag v1.0.12
 # Push the tag
 git push remotename v1.0.12
 ```
-
-Modules will be published to the [PowerShell Gallery](https://www.powershellgallery.com/).
 
 ### Managing the submodule
 

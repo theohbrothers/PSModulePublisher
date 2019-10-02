@@ -28,16 +28,19 @@ try {
     $manifest = Test-ModuleManifest -Path $Path
     "Module version: $($manifest.Version.ToString())" | Write-Verbose
 
-    # Always checks for a valid module version unless skipping is specified
+    # Verify the module version prior to publishing unless skipped
     if (!$SkipVersionChecks) {
-        # Fail in development environments if possible
-        if (!$env:MODULE_VERSION) {
-            throw "The environment variable '`$env:MODULE_VERSION' is null. Not publishing module."
-        }
-        # Fail if the dummy version '0.0.0' is found when no version was specified in the definition file
+        "Checking module version" | Write-Host
+        # Fail if the dummy version '0.0.0' is found (for development or regular CI build environments)
         if ($manifest.Version.ToString() -eq '0.0.0') {
             throw "Module version is found to have the dummy value of '$($manifest.Version.ToString())'. Not publishing module."
         }
+        # Fail if the environment variable is not set (for CI release environments)
+        if (!$env:MODULE_VERSION) {
+            throw "The environment variable '`$env:MODULE_VERSION' is null. Not publishing module."
+        }
+    }else {
+        "Skipping checks for module version" | Write-Host
     }
 
     # Publish the module

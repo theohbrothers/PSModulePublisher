@@ -19,7 +19,7 @@ $ErrorActionPreference = 'Stop'
 
 try {
     "Publish the module" | Write-Host
-    & "$PSScriptRoot\module\publish-module.ps1" -Path $ModuleManifestPath -Repository $PublishRepository -SkipVersionChecks:$SkipVersionChecks | Out-Host
+    & "$PSScriptRoot\module\publish-module.ps1" -Path $ModuleManifestPath -Repository $PublishRepository -SkipVersionChecks:$SkipVersionChecks
 
 }catch {
     throw

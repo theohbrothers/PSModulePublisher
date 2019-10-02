@@ -19,11 +19,11 @@ stages:
 - stage: Build_Test_Publish
   displayName: Build, Test, Publish
   jobs:
-  - job: Windows
+  - job: macOS
     pool:
-      vmImage: windows-2019
+      vmImage: macOS-10.13
     steps:
     - checkout: self
       submodules: true
-    - template: azure-pipelines/windows/continuous-build.yml@PSModulePublisher
+    - template: azure-pipelines/macos/continuous-build.yml@PSModulePublisher
     - template: azure-pipelines/common/run-publish.yml@PSModulePublisher

@@ -1,9 +1,17 @@
 steps:
 - pwsh: |
     $ErrorActionPreference = 'Stop'
+    ### Begin CI-specific code: Get the git tag name
     $matchInfo = $env:BUILD_SOURCEBRANCH | Select-String -Pattern '^refs\/tags\/v((?:\d+\.)+\d+)$'
     $MODULE_VERSION = if ($matchInfo) { $matchInfo.Matches.Groups[1].Value } else { $null }
+    ### End of CI-specific code
     "MODULE_VERSION: '$MODULE_VERSION'" | Write-Host
-    # Set job-scoped variables
+    if (!$MODULE_VERSION) {
+        "This is a non-release build." | Write-Host
+    }else {
+        "This is a release build." | Write-Host
+    }
+    ### Begin CI-specific code: Set job-scoped variables
     echo "##vso[task.setvariable variable=MODULE_VERSION]${MODULE_VERSION}"
+    ### End of CI-specific code
   displayName: Process CI variables
