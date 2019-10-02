@@ -13,9 +13,6 @@ try {
     # Get the module manifest's definition object
     $moduleManifestArgs = . $DefinitionFile
 
-    # Determine the module name
-    $moduleName = [System.IO.Path]::GetFileNameWithoutExtension($moduleManifestArgs['RootModule'])
-
     # Set the module manifest path
     $moduleManifestArgs['Path'] = $Path
 
