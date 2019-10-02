@@ -16,8 +16,12 @@ try {
     # Set the module manifest path
     $moduleManifestArgs['Path'] = $Path
 
-    # Set the module version based on the git tag if present, else default to 0.0.0 for mock / continuous builds
-    $moduleManifestArgs['ModuleVersion'] = if ($env:MODULE_VERSION) { $env:MODULE_VERSION } else { '0.0.0' }
+    # Set the module version based on the value of the following environment variable which will be set in a CI release environment. Else assume the run to be occurring within a development environment or as a regular CI build, assigning it the dummy value of '0.0.0'
+    $moduleManifestArgs['ModuleVersion'] = if ($env:MODULE_VERSION) {
+                                               $env:MODULE_VERSION
+                                           }else {
+                                               '0.0.0'
+                                           }
 
     # Create the new manifest (overrides existing)
     "Generating the module manifest" | Write-Host
