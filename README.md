@@ -35,9 +35,11 @@ Sample CI files can be found [here](https://github.com/theohbrothers/PSModulePub
 
 The project runs an entrypoint test script at the location `tests/test.ps1` if it exists. Create the script in your main project for your module's tests to be run.
 
-### Set up the PSGallery API Key
+### Add secrets
 
-Add a secret variable named `NUGET_API_KEY` containing your [PSGallery API key](https://docs.microsoft.com/en-us/powershell/scripting/gallery/how-to/publishing-packages/publishing-a-package?view=powershell-6#powershell-gallery-account-and-api-key) to your main project's CI settings for publishing your module on [PowerShell Gallery](https://www.powershellgallery.com/).
+#### PSGallery API Key
+
+Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https://docs.microsoft.com/en-us/powershell/scripting/gallery/how-to/publishing-packages/publishing-a-package?view=powershell-6#powershell-gallery-account-and-api-key) to your main project's CI settings for publishing your module on [PowerShell Gallery](https://www.powershellgallery.com/).
 
 ## Usage
 
