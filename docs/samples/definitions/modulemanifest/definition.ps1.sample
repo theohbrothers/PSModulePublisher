@@ -33,7 +33,7 @@
     # ModuleList = @()
     # FileList = @()
     PrivateData = @{
-        # PSData = @{           # Leave the PSData property out when adding or updating PrivateData. Updating PrivateData using Update-ModuleManifest ensures it is correctly added to the module manifest
+        # PSData = @{           # Properties within PSData will be correctly added to the manifest via Update-ModuleManifest without the PSData key. Leave the key commented out.
             Tags = @(
                 'mycooltag'
             )

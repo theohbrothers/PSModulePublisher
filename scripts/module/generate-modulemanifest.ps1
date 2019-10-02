@@ -21,7 +21,9 @@ try {
 
     # Create the new manifest (overrides existing)
     "Generating the module manifest" | Write-Host
-    New-ModuleManifest @moduleManifestArgs
+    $newModuleManifestArgs = $moduleManifestArgs.Clone()
+    $newModuleManifestArgs.Remove('PrivateData')
+    New-ModuleManifest @newModuleManifestArgs
 
     # Run Update-ModuleManifest for standardizing the manifest and correctly populate the manifest's PrivateData properties
     "Updating the module manifest" | Write-Host
