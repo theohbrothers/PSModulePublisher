@@ -25,7 +25,6 @@ try {
     & "$PSScriptRoot\test.ps1" -ModuleManifestPath $manifestPath
 
     # Run the publish entrypoint script
-    $PublishRepository = 'PSRepository'
     & "$PSScriptRoot\publish.ps1" -ModuleManifestPath $manifestPath -PublishRepository $PublishRepository -SkipVersionChecks:$SkipVersionChecks
 
 }catch {
