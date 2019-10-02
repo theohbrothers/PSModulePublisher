@@ -4,6 +4,11 @@ steps:
     $matchInfo = $env:BUILD_SOURCEBRANCH | Select-String -Pattern '^refs\/tags\/v((?:\d+\.)+\d+)$'
     $MODULE_VERSION = if ($matchInfo) { $matchInfo.Matches.Groups[1].Value } else { $null }
     "MODULE_VERSION: '$MODULE_VERSION'" | Write-Host
+    if (!$MODULE_VERSION) {
+        "This is a non-release build." | Write-Host
+    }else {
+        "This is a release build." | Write-Host
+    }
     # Set job-scoped variables
     echo "##vso[task.setvariable variable=MODULE_VERSION]${MODULE_VERSION}"
   displayName: Process CI variables
