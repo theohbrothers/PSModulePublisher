@@ -5,7 +5,7 @@
 
 @{
     RootModule = 'MyPowershellModule.psm1'
-    # ModuleVersion = ''                            # Will be overridden in the CI process.
+    # ModuleVersion = ''                            # Value will be set on a release based on the release tag. Defaults to '0.0.0' in development environments and regular CI builds
     GUID = 'add-your-unique-guid-here'
     Author = 'My Name'
     CompanyName = 'My Company Name'
