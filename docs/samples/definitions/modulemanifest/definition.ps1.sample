@@ -1,7 +1,7 @@
 # - Initial release: Run 'New-GUID' to generate a unique GUID for identifying the module on PSGallery. Then fill in all other relevant details.
 # - Subsequent releases: Update all relevant details.
-# - To publish the module, git tag the commit to publish and push the tag.
-# - You can run dev-entrypoint.ps1 in your development environment to execute the same build, test, and publish steps that run on CI builds.
+# - To publish the module, tag the commit that is to be published and push the tag.
+# - You can use dev-entrypoint.ps1 in your development environment to simulate generation of the manifest.
 
 @{
     RootModule = 'MyPowershellModule.psm1'
