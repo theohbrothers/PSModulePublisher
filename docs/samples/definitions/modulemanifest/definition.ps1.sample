@@ -37,7 +37,7 @@
             Tags = @(
                 'mycooltag'
             )
-            LicenseUri = 'https://github.com/myusername/MyPowershellModule/blob/master/LICENSE'
+            LicenseUri = 'https://raw.githubusercontent.com/myusername/MyPowershellModule/master/LICENSE'
             ProjectUri = 'https://github.com/myusername/MyPowershellModule'
             # IconUri = ''
             # ReleaseNotes = ''
