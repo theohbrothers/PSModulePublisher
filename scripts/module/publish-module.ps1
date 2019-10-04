@@ -9,7 +9,7 @@ param(
     [string]$Repository
     ,
     [Parameter(Mandatory=$false)]
-    [switch]$SkipVersionChecks
+    [switch]$DryRun
 )
 
 try {
@@ -29,7 +29,7 @@ try {
     "Module version: $($manifest.Version.ToString())" | Write-Verbose
 
     # Verify the module version prior to publishing unless skipped
-    if (!$SkipVersionChecks) {
+    if (!$DryRun) {
         "Checking module version" | Write-Host
         # Fail if the dummy version '0.0.0' is found (for development or regular CI build environments)
         if ($manifest.Version.ToString() -eq '0.0.0') {
@@ -40,7 +40,7 @@ try {
             throw "The environment variable '`$env:MODULE_VERSION' is null. Not publishing module."
         }
     }else {
-        "Skipping checks for module version" | Write-Host
+        "Skipping checks for module version" | Write-Warning
     }
 
     # Publish the module
@@ -51,6 +51,9 @@ try {
     }
     if ($env:NUGET_API_KEY) {
         $publishModuleArgs['NuGetApiKey'] = $env:NUGET_API_KEY
+    }
+    if ($DryRun) {
+        $publishModuleArgs['WhatIf'] = $DryRun
     }
     Publish-Module @publishModuleArgs
 
