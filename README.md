@@ -1,4 +1,7 @@
-# PSModulePublisher
+# PSModulePublisher [![badge-version-github-tag-img][]][badge-version-github-tag-src]
+
+[badge-version-github-tag-img]: https://img.shields.io/github/v/tag/theohbrothers/PSModulePublisher?style=flat-square
+[badge-version-github-tag-src]: https://github.com/theohbrothers/PSModulePublisher/releases
 
 A project containing the necessary tools to ease publishing of powershell modules.
 
