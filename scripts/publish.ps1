@@ -1,4 +1,4 @@
-# This script acts as an entrypoint for executing all relevant scripts. It is designed for use by CI/CD environments.
+# This script acts as an entrypoint for executing all relevant scripts. It is designed for use by CI environments.
 
 [CmdletBinding()]
 param(

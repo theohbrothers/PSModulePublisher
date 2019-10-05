@@ -1,7 +1,7 @@
-##############################################################################################################################################
-# This script is designed for development environments for executing the same build, test, and publish steps that run on CI/CD environments. #
-# You can use the provided switches to test the publishing process in your development environment.                                          #
-##############################################################################################################################################
+###########################################################################################################################################
+# This script is designed for development environments for executing the same build, test, and publish steps that run on CI environments. #
+# You can use the provided switches to test the publishing process in your development environment.                                       #
+###########################################################################################################################################
 
 $private:myArgs = @{
     # PublishRepository = 'PSRepository'
