@@ -1,4 +1,7 @@
-# PSModulePublisher
+# PSModulePublisher [![badge-version-github-tag-img][]][badge-version-github-tag-src]
+
+[badge-version-github-tag-img]: https://img.shields.io/github/v/tag/theohbrothers/PSModulePublisher?style=flat-square
+[badge-version-github-tag-src]: https://github.com/theohbrothers/PSModulePublisher/releases
 
 A project containing the necessary tools to ease publishing of powershell modules.
 
@@ -23,13 +26,13 @@ Next, configure the following files on your main project to work with the submod
 
 Add a module definition file `build/definitions/modulemanifest/definition.ps1` to your main project containing relevant properties of your powershell module. The definition will be used for generating the manifest used with publishing of the module. Ensure to update the file before publishing your module.
 
-The definition template can be found [here](https://github.com/theohbrothers/PSModulePublisher/blob/master/docs/samples/definitions/modulemanifest/definition.ps1.sample).
+The definition template can be found [here](docs/samples/definitions/modulemanifest/definition.ps1.sample).
 
 #### CI files
 
 Decide on which CI provider to use in your main project based on those supported by this project. Setup the CI file(s) for your main project. Then simply reference the relevant CI files of this project from your main project's CI file(s).
 
-Sample CI files can be found [here](https://github.com/theohbrothers/PSModulePublisher/tree/master/docs/samples/ci).
+Sample CI files can be found [here](docs/samples/ci).
 
 #### Test files (Optional)
 
@@ -45,7 +48,7 @@ Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https:
 
 ### Continuous Integration
 
-The project contains the necessary steps in its CI files for generating and testing module manifests, as well as testing of the modules based on the generated manifest. You can configure your main project's CI file(s) to run the steps on every push. Refer to the [sample CI files](https://github.com/theohbrothers/PSModulePublisher/tree/master/docs/samples/ci) for some working examples.
+The project contains the necessary steps in its CI files for generating and testing module manifests, as well as testing of the modules based on the generated manifest. You can configure your main project's CI file(s) to run the steps on every push. Refer to the [sample CI files](docs/samples/ci) for some working examples.
 
 ### Publishing modules
 

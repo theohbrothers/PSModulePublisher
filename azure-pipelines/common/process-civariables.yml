@@ -2,7 +2,7 @@ steps:
 - pwsh: |
     $ErrorActionPreference = 'Stop'
     ### Begin CI-specific code: Get the git tag name
-    $matchInfo = $env:BUILD_SOURCEBRANCH | Select-String -Pattern '^refs\/tags\/v((?:\d+\.)+\d+)$'
+    $matchInfo = $env:BUILD_SOURCEBRANCH | Select-String -Pattern '^refs\/tags\/v(\d+\.\d+\.\d+)$'
     $MODULE_VERSION = if ($matchInfo) { $matchInfo.Matches.Groups[1].Value } else { $null }
     ### End of CI-specific code
     "MODULE_VERSION: '$MODULE_VERSION'" | Write-Host
