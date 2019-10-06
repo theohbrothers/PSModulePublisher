@@ -18,13 +18,25 @@ git submodule add 'https://github.com/theohbrothers/PSModulePublisher.git' build
 git commit -m 'Add submodule PSModulePublisher'
 ```
 
-### Add important files
+### Configuration
 
-Next, configure the following files on your main project to work with the submodule.
+#### Main project structure
+
+`PSModulePublisher` requires the main project to adopt the following directory structure:
+
+```shell
+/build/
+/src/MyPowershellModule/
+/tests/                     # Optional
+```
+
+#### Script Module file
+
+The project must minimally contain the module file `MyPowershellModule.psm1` within the directory `/src/MyPowershellModule/`.
 
 #### Module definition
 
-Add a module definition file `build/definitions/modulemanifest/definition.ps1` to your main project containing relevant properties of your powershell module. The definition will be used for generating the manifest used with publishing of the module. Ensure to update the file before publishing your module.
+The project sources from a definition file to generate a manifest used for publishing the module. Ensure that the file exists in your main project at the location `/build/definitions/modulemanifest/definition.ps1` and that it contains the right properties and values relevant to your powershell module. Remember to update the definition prior to publishing your module.
 
 The definition template can be found [here](docs/samples/definitions/modulemanifest/definition.ps1.sample).
 
@@ -36,11 +48,11 @@ Sample CI files can be found [here](docs/samples/ci).
 
 #### Test files (Optional)
 
-The project runs an entrypoint test script at the location `tests/test.ps1` if it exists. Create the script in your main project for your module's tests to be run.
+The project optionally runs an entrypoint test script at the location `/tests/test.ps1`. You can add the module's main tests' steps in this file for tests to be run.
 
-### Add secrets
+#### Secrets
 
-#### PSGallery API Key
+##### PSGallery API Key
 
 Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https://docs.microsoft.com/en-us/powershell/scripting/gallery/how-to/publishing-packages/publishing-a-package?view=powershell-6#powershell-gallery-account-and-api-key) to your main project's CI settings for publishing your module on [PowerShell Gallery](https://www.powershellgallery.com/).
 
@@ -48,7 +60,7 @@ Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https:
 
 ### Continuous Integration
 
-The project contains the necessary steps in its CI files for generating and testing module manifests, as well as testing of the modules based on the generated manifest. You can configure your main project's CI file(s) to run the steps on every push. Refer to the [sample CI files](docs/samples/ci) for some working examples.
+The project contains the necessary steps in its CI files for generating and testing module manifests, as well as testing of modules based on generated manifests. You can configure your main project's CI file(s) to run the steps on every push. Refer to the [sample CI files](docs/samples/ci) for some working examples.
 
 ### Publishing modules
 
