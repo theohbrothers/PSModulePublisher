@@ -1,19 +1,19 @@
 trigger:
   branches:
     include:
-      - '*'
+    - '*'
   tags:
     include:
-      - '*'
+    - '*'
 pr: none
 
 resources:
   repositories:
-    - repository: PSModulePublisher
-      type: github
-      name: theohbrothers/PSModulePublisher
-      endpoint: myserviceconnection                   # Check for your 'Type: Github' connection under 'Project Settings' > 'Service connections'
-      ref: refs/tags/vx.x.x
+  - repository: PSModulePublisher
+    type: github
+    name: theohbrothers/PSModulePublisher
+    endpoint: myserviceconnection                   # Check for your 'Type: Github' connection under 'Project Settings' > 'Service connections'
+    ref: refs/tags/vx.x.x
 
 stages:
 - stage: Build_Test_Publish
