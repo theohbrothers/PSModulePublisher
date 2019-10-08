@@ -13,7 +13,7 @@ steps:
     }
     $matchInfo = $commitTag | Select-String -Pattern '^v((?:\d+\.)+\d+)$'
     $moduleVersion = if ($matchInfo) { $matchInfo.Matches.Groups[1].Value } else { $null }
-    "moduleVersion: '$moduleVersion'" | Write-Host
+    "Module version: '$moduleVersion'" | Write-Host
     if (!$moduleVersion) {
         "Module version undetermined. The module will not be published." | Write-Host
     }else {
