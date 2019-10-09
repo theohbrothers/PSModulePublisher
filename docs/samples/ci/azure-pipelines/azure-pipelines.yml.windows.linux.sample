@@ -24,14 +24,14 @@ stages:
       vmImage: windows-2019
     steps:
     - checkout: self
-      submodules: true
+      submodules: recursive
     - template: templates/azure-pipelines/windows/continuous-build.yml@PSModulePublisher
   - job: Linux
     pool:
       vmImage: ubuntu-16.04
     steps:
     - checkout: self
-      submodules: true
+      submodules: recursive
     - template: templates/azure-pipelines/linux/continuous-build.yml@PSModulePublisher
 - stage: Publish
   dependsOn:
@@ -42,6 +42,6 @@ stages:
       vmImage: windows-2019
     steps:
     - checkout: self
-      submodules: true
+      submodules: recursive
     - template: templates/azure-pipelines/windows/continuous-build.yml@PSModulePublisher
     - template: templates/azure-pipelines/common/run-publish.yml@PSModulePublisher

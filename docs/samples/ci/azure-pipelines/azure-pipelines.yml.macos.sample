@@ -24,6 +24,6 @@ stages:
       vmImage: macOS-10.13
     steps:
     - checkout: self
-      submodules: true
+      submodules: recursive
     - template: templates/azure-pipelines/macos/continuous-build.yml@PSModulePublisher
     - template: templates/azure-pipelines/common/run-publish.yml@PSModulePublisher
