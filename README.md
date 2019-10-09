@@ -21,8 +21,8 @@ This project works by providing a standard set of CI templates and scripts that 
 /src/MyPowershellModule/                            # The module's root directory
 /src/MyPowershellModule/MyPowershellModule.psm1     # The .psm1 module file
 
-/tests/                                             # Tests for the module [Optional]
-/tests/test.ps1                                     # The test entrypoint script [Optional]
+/test/                                              # Directory containing test files [Optional]
+/test/test.ps1                                      # The test entrypoint script [Optional]
 ```
 
 ## Configuration
@@ -59,7 +59,7 @@ Sample CI files can be found [here](docs/samples/ci).
 
 #### Test files (Optional)
 
-The project optionally runs an entrypoint test script at the location `tests/test.ps1`. You can add the module's main tests' steps in this file for tests to be run.
+The project optionally runs an entrypoint test script at the location `test/test.ps1`. You can add the module's main tests' steps in this file for tests to be run.
 
 ### CI settings
 

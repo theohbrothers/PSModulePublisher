@@ -16,9 +16,9 @@ try {
     Get-Module -Name $manifest.Name | Format-List -Property * | Out-String | Write-Verbose
 
     # Run tests
-    if (Test-Path -Path "$($global:PROJECT['TESTS_DIR'])\test.ps1" -PathType Leaf) {
+    if (Test-Path -Path "$($global:PROJECT['TEST_DIR'])\test.ps1" -PathType Leaf) {
         "Running tests" | Write-Host
-        & "$($global:PROJECT['TESTS_DIR'])\test.ps1"
+        & "$($global:PROJECT['TEST_DIR'])\test.ps1"
     }
 
 }catch {

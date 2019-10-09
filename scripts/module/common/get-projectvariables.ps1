@@ -11,7 +11,7 @@ try {
     $global:PROJECT['BASE_DIR'] = if ($global:PROJECT['SUPERPROJECT_BASE_DIR']) { $global:PROJECT['SUPERPROJECT_BASE_DIR'] } else { Convert-Path -Path (git rev-parse --show-toplevel) }
     $global:PROJECT['BUILD_DIR'] = Join-Path $global:PROJECT['BASE_DIR'] 'build'
     $global:PROJECT['SOURCE_DIR'] = Join-Path $global:PROJECT['BASE_DIR'] 'src'
-    $global:PROJECT['TESTS_DIR'] = Join-Path $global:PROJECT['BASE_DIR'] 'tests'
+    $global:PROJECT['TEST_DIR'] = Join-Path $global:PROJECT['BASE_DIR'] 'test'
     $global:PROJECT['MODULE_MANIFEST_DEFINITION_FILE'] = "$($global:PROJECT['BUILD_DIR'])\definitions\modulemanifest\definition.ps1"
     $global:PROJECT['NAME'] = Split-Path $global:PROJECT['BASE_DIR'] -Leaf
     $private:definition = . $global:PROJECT['MODULE_MANIFEST_DEFINITION_FILE']
