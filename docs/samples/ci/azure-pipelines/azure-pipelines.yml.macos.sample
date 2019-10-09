@@ -25,5 +25,5 @@ stages:
     steps:
     - checkout: self
       submodules: true
-    - template: azure-pipelines/macos/continuous-build.yml@PSModulePublisher
-    - template: azure-pipelines/common/run-publish.yml@PSModulePublisher
+    - template: templates/azure-pipelines/macos/continuous-build.yml@PSModulePublisher
+    - template: templates/azure-pipelines/common/run-publish.yml@PSModulePublisher

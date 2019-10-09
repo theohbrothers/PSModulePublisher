@@ -25,7 +25,7 @@ stages:
     steps:
     - checkout: self
       submodules: true
-    - template: azure-pipelines/windows/continuous-build.yml@PSModulePublisher
+    - template: templates/azure-pipelines/windows/continuous-build.yml@PSModulePublisher
   - job: Linux
     pool:
       vmImage: ubuntu-16.04
@@ -33,7 +33,7 @@ stages:
     steps:
     - checkout: self
       submodules: true
-    - template: azure-pipelines/linux/continuous-build.yml@PSModulePublisher
+    - template: templates/azure-pipelines/linux/continuous-build.yml@PSModulePublisher
 - stage: Publish
   dependsOn:
   - Build_Test
@@ -44,5 +44,5 @@ stages:
     steps:
     - checkout: self
       submodules: true
-    - template: azure-pipelines/windows/continuous-build.yml@PSModulePublisher
-    - template: azure-pipelines/common/run-publish.yml@PSModulePublisher
+    - template: templates/azure-pipelines/windows/continuous-build.yml@PSModulePublisher
+    - template: templates/azure-pipelines/common/run-publish.yml@PSModulePublisher
