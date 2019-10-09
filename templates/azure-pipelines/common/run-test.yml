@@ -1,4 +1,6 @@
 steps:
 - pwsh: |
-    .\build\PSModulePublisher\scripts\test.ps1 -ModuleManifestPath $env:MODULE_MANIFEST_PATH -Verbose
+    $ErrorActionPreference = 'Stop'
+    $VerbosePreference = 'Continue'
+    .\build\PSModulePublisher\scripts\test.ps1 -ModuleManifestPath $env:MODULE_MANIFEST_PATH
   displayName: Test module via module's manifest
