@@ -5,38 +5,49 @@
 
 A project containing the necessary tools to ease publishing of powershell modules.
 
-## Initial Steps
+## Introduction
 
-### Add the submodule
+This project works by providing a standard set of CI templates and scripts that other projects utilize for building, testing, and publishing powershell modules.
 
-First, add this project as a submodule under the directory `build` in your main project:
+### Main project structure
+
+`PSModulePublisher` requires main projects to adopt the following directory structure:
 
 ```shell
-# Add the submodule
+/build/                                             # Directory containing build files
+/build/PSModulePublisher/                           # The root directory of PSModulePublisher as a submodule
+/build/definitions/modulemanifest/definition.ps1    # The module definition file
+
+/src/MyPowershellModule/                            # The module's root directory
+/src/MyPowershellModule/MyPowershellModule.psm1     # The .psm1 module file
+
+/tests/                                             # Tests for the module [Optional]
+/tests/test.ps1                                     # The test entrypoint script [Optional]
+```
+
+## Configuration
+
+### Main project
+
+The following steps are to be performed from the **root** directory of your main project.
+
+#### Submodule
+
+First, add `PSModulePublisher` as a submodule under the directory `build` in your main project:
+
+```shell
 git submodule add 'https://github.com/theohbrothers/PSModulePublisher.git' build/PSModulePublisher
 # Commit the submodule
 git commit -m 'Add submodule PSModulePublisher'
 ```
 
-### Configuration
-
-#### Main project structure
-
-`PSModulePublisher` requires the main project to adopt the following directory structure:
-
-```shell
-/build/
-/src/MyPowershellModule/
-/tests/                     # Optional
-```
-
 #### Script Module file
 
-The project must minimally contain the module file `MyPowershellModule.psm1` within the directory `/src/MyPowershellModule/`.
+Ensure the main project contains the script module file at the location `src/MyPowershellModule/MyPowershellModule.psm1`.
 
-#### Module definition
+#### Module definition file
 
-The project sources from a definition file to generate a manifest used for publishing the module. Ensure that the file exists in your main project at the location `/build/definitions/modulemanifest/definition.ps1` and that it contains the right properties and values relevant to your powershell module. Remember to update the definition prior to publishing your module.
+The project sources from a definition file to generate a manifest used for publishing the module. Ensure that the file exists in your main project at the location `build/definitions/modulemanifest/definition.ps1` and that it contains the right properties and values relevant to your powershell module. Remember to update the definition prior to publishing your module.
 
 The definition template can be found [here](docs/samples/definitions/modulemanifest/definition.ps1.sample).
 
@@ -48,7 +59,11 @@ Sample CI files can be found [here](docs/samples/ci).
 
 #### Test files (Optional)
 
-The project optionally runs an entrypoint test script at the location `/tests/test.ps1`. You can add the module's main tests' steps in this file for tests to be run.
+The project optionally runs an entrypoint test script at the location `tests/test.ps1`. You can add the module's main tests' steps in this file for tests to be run.
+
+### CI settings
+
+Configure your project with the following CI settings.
 
 #### Secrets
 
@@ -64,7 +79,7 @@ The project contains the necessary steps in its CI files for generating and test
 
 ### Publishing modules
 
-Publishing of modules occurs on tag refs. Tags must follow [Semantic Versioning](https://semver.org/) and be prepended with a lowercase `v`:
+Publishing of modules occurs for tag refs. Tags must follow [Semantic Versioning](https://semver.org/) and be prepended with a lowercase `v`:
 
 ```shell
 # Tag the commit to publish
