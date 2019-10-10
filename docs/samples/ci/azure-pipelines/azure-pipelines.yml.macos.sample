@@ -1,19 +1,19 @@
 trigger:
   branches:
     include:
-      - '*'
+    - '*'
   tags:
     include:
-      - '*'
+    - '*'
 pr: none
 
 resources:
   repositories:
-    - repository: PSModulePublisher
-      type: github
-      name: theohbrothers/PSModulePublisher
-      endpoint: myserviceconnection                   # Check for your 'Type: Github' connection under 'Project Settings' > 'Service connections'
-      ref: refs/tags/vx.x.x
+  - repository: PSModulePublisher
+    type: github
+    name: theohbrothers/PSModulePublisher
+    endpoint: myserviceconnection                   # Check for your 'Type: Github' connection under 'Project Settings' > 'Service connections'
+    ref: refs/tags/vx.x.x
 
 stages:
 - stage: Build_Test_Publish
@@ -24,6 +24,6 @@ stages:
       vmImage: macOS-10.13
     steps:
     - checkout: self
-      submodules: true
-    - template: azure-pipelines/macos/continuous-build.yml@PSModulePublisher
-    - template: azure-pipelines/common/run-publish.yml@PSModulePublisher
+      submodules: recursive
+    - template: templates/azure-pipelines/macos/continuous-build.yml@PSModulePublisher
+    - template: templates/azure-pipelines/common/run-publish.yml@PSModulePublisher

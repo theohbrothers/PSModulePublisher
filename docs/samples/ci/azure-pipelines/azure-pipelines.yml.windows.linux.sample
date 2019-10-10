@@ -1,19 +1,19 @@
 trigger:
   branches:
     include:
-      - '*'
+    - '*'
   tags:
     include:
-      - '*'
+    - '*'
 pr: none
 
 resources:
   repositories:
-    - repository: PSModulePublisher
-      type: github
-      name: theohbrothers/PSModulePublisher
-      endpoint: myserviceconnection                   # Check for your 'Type: Github' connection under 'Project Settings' > 'Service connections'
-      ref: refs/tags/vx.x.x
+  - repository: PSModulePublisher
+    type: github
+    name: theohbrothers/PSModulePublisher
+    endpoint: myserviceconnection                   # Check for your 'Type: Github' connection under 'Project Settings' > 'Service connections'
+    ref: refs/tags/vx.x.x
 
 stages:
 - stage: Build_Test
@@ -24,16 +24,15 @@ stages:
       vmImage: windows-2019
     steps:
     - checkout: self
-      submodules: true
-    - template: azure-pipelines/windows/continuous-build.yml@PSModulePublisher
+      submodules: recursive
+    - template: templates/azure-pipelines/windows/continuous-build.yml@PSModulePublisher
   - job: Linux
     pool:
       vmImage: ubuntu-16.04
-    container: joeltimothyoh/powershell:6.1.0-ubuntu-18.04-git
     steps:
     - checkout: self
-      submodules: true
-    - template: azure-pipelines/linux/continuous-build.yml@PSModulePublisher
+      submodules: recursive
+    - template: templates/azure-pipelines/linux/continuous-build.yml@PSModulePublisher
 - stage: Publish
   dependsOn:
   - Build_Test
@@ -43,6 +42,6 @@ stages:
       vmImage: windows-2019
     steps:
     - checkout: self
-      submodules: true
-    - template: azure-pipelines/windows/continuous-build.yml@PSModulePublisher
-    - template: azure-pipelines/common/run-publish.yml@PSModulePublisher
+      submodules: recursive
+    - template: templates/azure-pipelines/windows/continuous-build.yml@PSModulePublisher
+    - template: templates/azure-pipelines/common/run-publish.yml@PSModulePublisher
