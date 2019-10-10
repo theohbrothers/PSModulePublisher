@@ -98,7 +98,7 @@ git push remotename v1.0.1
 To update the submodule:
 
 ```shell
-git submodule update --remote
+git submodule update --remote build/PSModulePublisher
 ```
 
 #### Using a specific commit / tag
