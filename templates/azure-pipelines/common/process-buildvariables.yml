@@ -11,7 +11,7 @@ steps:
     }else {
         "This is a tagged build." | Write-Host
     }
-    $matchInfo = $commitTag | Select-String -Pattern '^v((?:\d+\.)+\d+)$'
+    $matchInfo = $commitTag | Select-String -Pattern '^v(\d+\.\d+\.\d+)$'
     $moduleVersion = if ($matchInfo) { $matchInfo.Matches.Groups[1].Value } else { $null }
     "Module version: '$moduleVersion'" | Write-Host
     if (!$moduleVersion) {
