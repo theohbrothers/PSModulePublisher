@@ -7,7 +7,7 @@ A project containing the necessary tools to ease publishing of powershell module
 
 ## Introduction
 
-This project works by providing a standard set of CI templates and scripts that other projects utilize for building, testing, and publishing powershell modules.
+This project provides CI templates and scripts that other projects can utilize for building, testing, and publishing powershell modules.
 
 ### Main project structure
 
@@ -29,14 +29,16 @@ This project works by providing a standard set of CI templates and scripts that 
 
 ### Main project
 
-The following steps are to be performed from the **root** directory of your main project.
+Configure the following components on your main project.
 
 #### Submodule
 
-First, add `PSModulePublisher` as a submodule under the directory `build` in your main project:
+Add `PSModulePublisher` as a submodule under the directory `build` in your main project:
 
 ```shell
+# Add the submodule
 git submodule add 'https://github.com/theohbrothers/PSModulePublisher.git' build/PSModulePublisher
+
 # Commit the submodule
 git commit -m 'Add submodule PSModulePublisher'
 ```
@@ -63,7 +65,7 @@ The project optionally runs an entrypoint test script at the location `test/test
 
 ### CI settings
 
-Configure your project with the following CI settings.
+Configure the following CI settings for your project.
 
 #### Secrets
 
@@ -84,8 +86,9 @@ Publishing of modules occurs for tag refs. Tags must follow [Semantic Versioning
 ```shell
 # Tag the commit to publish
 git tag v1.0.12
+
 # Push the tag
-git push remotename v1.0.12
+git push remotename v1.0.1
 ```
 
 ### Managing the submodule
