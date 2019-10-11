@@ -9,7 +9,7 @@ try {
     # Install NuGet package provider
     "Checking NuGet version" | Write-Host
     $nugetRequiredVersion = [version]'2.8.5.201'
-    $nuget = Get-PackageProvider 'NuGet' -ListAvailable
+    $nuget = Get-PackageProvider 'NuGet' -ListAvailable -ErrorAction SilentlyContinue
     if (!$nuget -or !($nuget.Version -gt $nugetRequiredVersion)) {
         "Installing NuGet" | Write-Host
         Install-PackageProvider -Name NuGet -MinimumVersion $nugetRequiredVersion -Force
