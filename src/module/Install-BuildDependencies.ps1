@@ -16,16 +16,17 @@ try {
     }
 
     # Install PowerShellGet module of the specified version
-    "Installing PowerShellGet" | Write-Host
-    $powershellGetRequiredVersion = '2.1.2'
-    $powershellGetInstalledVersions = (Get-Module 'PowerShellGet' -ListAvailable).Version | % { $_.ToString() }
-    if ($powershellGetRequiredVersion -notin $powershellGetInstalledVersions) {
-        Install-Module -Name 'PowershellGet' -Repository 'PSGallery' -RequiredVersion $powershellGetRequiredVersion -Scope CurrentUser -Force
+    "Checking PowerShellGet version" | Write-Host
+    $powershellgetRequiredVersion = [version]'2.1.2'
+    $powershellget = Get-Module 'PowerShellGet' -ListAvailable
+    if (!($powershellget.Version -eq $powershellgetRequiredVersion)) {
+        "Installing PowerShellGet" | Write-Host
+        Install-Module -Name 'PowershellGet' -Repository 'PSGallery' -RequiredVersion $powershellgetRequiredVersion -Scope CurrentUser -Force
     }
 
     # Import and get info on PowerShellGet
     "Importing PowerShellGet" | Write-Host
-    Import-Module -Name 'PowerShellGet' -RequiredVersion $powershellGetRequiredVersion -Force
+    Import-Module -Name 'PowerShellGet' -RequiredVersion $powershellgetRequiredVersion -Force
     Get-Module -Name 'PowerShellGet' -ListAvailable | Out-String | Write-Verbose
 
 }catch {
