@@ -6,6 +6,15 @@ try {
     "Retrieving info on PSGallery repository" | Write-Host
     Get-PSRepository -Name 'PSGallery' | Format-List -Property * | Out-String | Write-Verbose
 
+    # Install NuGet package provider
+    "Checking NuGet version" | Write-Host
+    $nugetRequiredVersion = [version]'2.8.5.201'
+    $nuget = Get-PackageProvider 'NuGet' -ListAvailable
+    if (!$nuget -or !($nuget.Version -gt $nugetRequiredVersion)) {
+        "Installing NuGet" | Write-Host
+        Install-PackageProvider -Name NuGet -MinimumVersion $nugetRequiredVersion -Force
+    }
+
     # Install PowerShellGet module of the specified version
     "Installing PowerShellGet" | Write-Host
     $powershellGetRequiredVersion = '2.1.2'
