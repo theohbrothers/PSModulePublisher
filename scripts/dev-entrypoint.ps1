@@ -29,13 +29,13 @@ function Run-PSModulePublisher {
         Push-Location $PSScriptRoot
 
         # Run the build entrypoint script
-        $manifestPath = & "$PSScriptRoot\build.ps1"
+        $manifestPath = & "$PSScriptRoot\Invoke-Build.ps1"
 
         # Run the test entrypoint script
-        & "$PSScriptRoot\test.ps1" -ModuleManifestPath $manifestPath
+        & "$PSScriptRoot\Invoke-Test.ps1" -ModuleManifestPath $manifestPath
 
         # Run the publish entrypoint script
-        & "$PSScriptRoot\publish.ps1" -ModuleManifestPath $manifestPath -PublishRepository $PSBoundParameters['PublishRepository'] -DryRun:$PSBoundParameters['DryRun']
+        & "$PSScriptRoot\Invoke-Publish.ps1" -ModuleManifestPath $manifestPath -PublishRepository $PSBoundParameters['PublishRepository'] -DryRun:$PSBoundParameters['DryRun']
 
     }catch {
         throw

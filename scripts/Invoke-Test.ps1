@@ -12,13 +12,13 @@ $ErrorActionPreference = 'Stop'
 
 try {
     # Get project variables
-    . "$PSScriptRoot\module\common\get-projectvariables.ps1"
+    . "$PSScriptRoot\module\common\Get-ProjectVariables.ps1"
 
     "Test the module manifest" | Write-Host
-    & "$PSScriptRoot\module\test-modulemanifest.ps1" -Path $ModuleManifestPath
+    & "$PSScriptRoot\module\Test-ModuleManifest.ps1" -Path $ModuleManifestPath
 
     "Test the module via the generated module manifest" | Write-Host
-    & "$PSScriptRoot\module\test-module.ps1" -Path $ModuleManifestPath
+    & "$PSScriptRoot\module\Test-Module.ps1" -Path $ModuleManifestPath
 
 }catch {
     throw
