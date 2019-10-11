@@ -1,4 +1,4 @@
 steps:
 - powershell: |
-    .\build\PSModulePublisher\scripts\system\display-systeminfo-windows.ps1
+    .\build\PSModulePublisher\scripts\system\Get-SystemInfoWindows.ps1
   displayName: Display system info
