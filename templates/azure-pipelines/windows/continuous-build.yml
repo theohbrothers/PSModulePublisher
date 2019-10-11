@@ -1,5 +1,0 @@
-steps:
-- template: display-systeminfo.yml
-- template: ../pwsh/process-buildvariables.yml
-- template: ../pwsh/run-build.yml
-- template: ../pwsh/run-test.yml
