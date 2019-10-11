@@ -1,0 +1,2 @@
+steps:
+- template: common/run-publish.yml
