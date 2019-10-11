@@ -11,7 +11,7 @@ $VerbosePreference = 'Continue'
 
 ################################################
 
-function Run-PSModulePublisher {
+function Invoke-PSModulePublisher {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory=$false)]
@@ -44,4 +44,4 @@ function Run-PSModulePublisher {
     }
 }
 
-Run-PSModulePublisher @myArgs
+Invoke-PSModulePublisher @myArgs
