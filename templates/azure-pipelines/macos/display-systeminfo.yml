@@ -1,4 +1,4 @@
 steps:
 - bash: |
-    ./build/PSModulePublisher/scripts/system/macos/get-systeminfo.sh
+    ./build/PSModulePublisher/tools/system/macos/get-systeminfo.sh
   displayName: Display system info
