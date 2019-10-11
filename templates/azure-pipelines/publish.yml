@@ -1,2 +1,2 @@
 steps:
-- template: common/run-publish.yml
+- template: pwsh/run-publish.yml

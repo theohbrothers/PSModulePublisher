@@ -1,5 +1,5 @@
 steps:
 - template: display-systeminfo.yml
-- template: ../common/process-buildvariables.yml
-- template: ../common/run-build.yml
-- template: ../common/run-test.yml
+- template: ../pwsh/process-buildvariables.yml
+- template: ../pwsh/run-build.yml
+- template: ../pwsh/run-test.yml
