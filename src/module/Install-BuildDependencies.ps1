@@ -12,7 +12,7 @@ try {
     $nuget = Get-PackageProvider 'NuGet' -ListAvailable -ErrorAction SilentlyContinue
     if (!$nuget -or !($nuget.Version -gt $nugetRequiredVersion)) {
         "Installing NuGet" | Write-Host
-        Install-PackageProvider -Name NuGet -MinimumVersion $nugetRequiredVersion -Force
+        Install-PackageProvider -Name NuGet -MinimumVersion $nugetRequiredVersion -Force > $null    # Suppress the output as older versions of the module 'PackageManagement' to which this cmdlet belongs returns a package provider object on successful installations
     }
 
     # Install PowerShellGet module of the specified version
