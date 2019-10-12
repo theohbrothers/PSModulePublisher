@@ -26,4 +26,4 @@ stages:
     - checkout: self
       submodules: recursive
     - template: templates/azure-pipelines/macos/continuous-build.yml@PSModulePublisher
-    - template: templates/azure-pipelines/common/run-publish.yml@PSModulePublisher
+    - template: templates/azure-pipelines/macos/publish.yml@PSModulePublisher

@@ -1,0 +1,2 @@
+steps:
+- template: ../../powershell/run-publish.yml

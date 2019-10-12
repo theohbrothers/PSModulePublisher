@@ -25,5 +25,5 @@ stages:
     steps:
     - checkout: self
       submodules: recursive
-    - template: templates/azure-pipelines/windows/continuous-build.yml@PSModulePublisher
-    - template: templates/azure-pipelines/common/run-publish.yml@PSModulePublisher
+    - template: templates/azure-pipelines/windows/pwsh/continuous-build.yml@PSModulePublisher
+    - template: templates/azure-pipelines/windows/pwsh/publish.yml@PSModulePublisher
