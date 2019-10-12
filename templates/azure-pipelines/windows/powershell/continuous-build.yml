@@ -1,5 +1,6 @@
 steps:
 - template: display-systeminfo.yml
+- template: ../../powershell/get-powershell-version.yml
 - template: ../../powershell/process-buildvariables.yml
 - template: ../../powershell/run-build.yml
 - template: ../../powershell/run-test.yml

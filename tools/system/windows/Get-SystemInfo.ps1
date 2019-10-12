@@ -8,5 +8,4 @@ hostname
 whoami
 systeminfo
 Get-PSDrive
-$PSVersionTable
 Get-Location
