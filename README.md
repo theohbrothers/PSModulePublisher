@@ -61,7 +61,7 @@ Sample CI files can be found [here](docs/samples/ci).
 
 #### Test files (Optional)
 
-The project optionally runs an entrypoint test script at the location `test/test.ps1`. You can add the module's main tests' steps in this file for tests to be run.
+The project optionally runs an entrypoint script for tests at the location `test/test.ps1`. You can add the module's main tests steps in this file for tests to be run.
 
 ### CI settings
 
