@@ -81,9 +81,9 @@ The project provides a development entrypoint script [`Invoke-PSModulePublisher.
 
 ### Continuous Integration
 
-The CI process is composed of the following tasks:
-
 #### Tasks
+
+The CI process is composed of the following tasks:
 
 ##### Build
 
@@ -104,7 +104,7 @@ The CI process is composed of the following tasks:
 
 #### Publishing the module
 
-**Note:** Ensure your main project's CI file(s) and/or settings are configured to run CI jobs for tag refs.
+**Note:** Ensure your main project's CI file(s) and/or settings are configured to run CI jobs for **tag refs**.
 
 **Publish** tasks run only for tag refs. Tags must follow [Semantic Versioning](https://semver.org/) and be prepended with a lowercase `v`:
 
@@ -132,7 +132,7 @@ git submodule update --remote build/PSModulePublisher
 
 #### Using a specific tag / commit
 
-To use a specific commit or tag of the submodule:
+To use a specific tag or commit of the submodule:
 
 ```shell
 # Change to the submodule's root directory
@@ -151,7 +151,7 @@ git commit -m 'Update submodule PSModulePublisher'
 
 #### Tracking a specific branch
 
-To track a specific branch with `git submodule update`, add the `branch` key-value pair under the submodule's entry in `.gitmodules` like so:
+To track a specific branch for  `git submodule update`, add the `branch` key-value pair under the submodule's entry in `.gitmodules` like so:
 
 ```shell
 [submodule "build/PSModulePublisher"]
