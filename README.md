@@ -119,7 +119,11 @@ git tag v1.0.12
 git push remotename v1.0.1
 ```
 
-In the simplest use case, all the steps can be run within a single stage. In cases where the module has to be tested across multiple platforms or versions of powershell, **Build** and **Test** steps could be run for each job within a `build_test` stage, and **Build**, **Test**, and **Publish** steps within a `publish` stage for publishing.
+#### Use cases
+
+For a basic use case, the CI process could simply comprise a single stage containing all the steps from **Build**, **Test**, and **Publish**.
+
+In cases where the module needs to be tested across multiple operating systems and/or versions of powershell, two stages can be configured; the first containing multiple jobs that perform **Build** and **Test** steps for testing the module; the other containing a single job performing **Build**, **Test**, and **Publish** steps to finally publish the module.
 
 Refer to the [sample CI files](docs/samples/ci) for some working examples.
 
