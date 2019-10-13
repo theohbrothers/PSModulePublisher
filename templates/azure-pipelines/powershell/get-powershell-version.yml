@@ -1,4 +1,4 @@
 steps:
 - powershell: |
-    .\build\PSModulePublisher\tools\common\Get-PowerShellVersion.ps1
+    .\build\PSModulePublisher\tools\powershell\Get-PowerShellVersion.ps1
   displayName: Get powershell version
