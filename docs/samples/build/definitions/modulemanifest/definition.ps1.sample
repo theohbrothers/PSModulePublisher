@@ -36,7 +36,8 @@
     PrivateData = @{
         # PSData = @{           # Properties within PSData will be correctly added to the manifest via Update-ModuleManifest without the PSData key. Leave the key commented out.
             Tags = @(
-                'mycooltag'
+                'mycooltagone'
+                'mycooltagtwo'
             )
             LicenseUri = 'https://raw.githubusercontent.com/myusername/MyPowershellModule/master/LICENSE'
             ProjectUri = 'https://github.com/myusername/MyPowershellModule'
