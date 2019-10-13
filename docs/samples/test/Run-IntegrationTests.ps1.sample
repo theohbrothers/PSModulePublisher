@@ -1,0 +1,7 @@
+[CmdletBinding()]
+param()
+
+$ErrorActionPreference = 'Stop'
+
+My-PublicFunction1 -Verbose
+My-PublicFunction2 -Verbose
