@@ -25,6 +25,7 @@
     # NestedModules = @()
     FunctionsToExport = @(
         'My-PublicFunction1'
+        'My-PublicFunction2'
     )
     CmdletsToExport = @()
     VariablesToExport = @()
