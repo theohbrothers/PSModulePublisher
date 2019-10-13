@@ -13,3 +13,4 @@ steps:
     Get-ChildItem -Path (Split-Path -Path $nugetBinPath -Parent)
     & $nugetBinPath
   displayName: Install publish dependencies
+  condition: and(startsWith(variables['Build.SourceBranch'], 'refs/tags/'), ne(variables['MODULE_VERSION'], ''))
