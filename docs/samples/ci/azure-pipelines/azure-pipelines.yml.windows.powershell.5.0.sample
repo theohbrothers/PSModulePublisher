@@ -16,12 +16,13 @@ resources:
     ref: refs/tags/vx.x.x
 
 stages:
-- stage: Build_Test_Publish
+- stage: build_test_publish
   displayName: Build, Test, Publish
   jobs:
-  - job: Windows
+  - job: windows_powershell_5_0
+    displayName: '[Windows] PowerShell 5.0'
     pool:
-      vmImage: windows-2019
+      vmImage: vs2015-win2012r2
     steps:
     - checkout: self
       submodules: recursive

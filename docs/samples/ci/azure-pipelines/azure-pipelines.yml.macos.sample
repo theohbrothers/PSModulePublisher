@@ -16,12 +16,13 @@ resources:
     ref: refs/tags/vx.x.x
 
 stages:
-- stage: Build_Test_Publish
+- stage: build_test_publish
   displayName: Build, Test, Publish
   jobs:
-  - job: macOS
+  - job: macos
+    displayName: '[macOS]'
     pool:
-      vmImage: macOS-10.13
+      vmImage: macOS-10.14
     steps:
     - checkout: self
       submodules: recursive

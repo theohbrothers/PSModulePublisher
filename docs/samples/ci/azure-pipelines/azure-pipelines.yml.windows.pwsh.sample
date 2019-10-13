@@ -16,10 +16,11 @@ resources:
     ref: refs/tags/vx.x.x
 
 stages:
-- stage: Build_Test_Publish
+- stage: build_test_publish
   displayName: Build, Test, Publish
   jobs:
-  - job: Windows
+  - job: windows_pwsh
+    displayName: '[Windows] PowerShell Core'
     pool:
       vmImage: windows-2019
     steps:
