@@ -1,0 +1,37 @@
+trigger:
+  branches:
+    include:
+    - '*'
+  tags:
+    include:
+    - '*'
+pr: none
+
+resources:
+  repositories:
+  - repository: PSModulePublisher
+    type: github
+    name: theohbrothers/PSModulePublisher
+    endpoint: myserviceconnection                   # Check for your 'Type: Github' connection under 'Project Settings' > 'Service connections'
+    ref: refs/tags/vx.x.x
+
+stages:
+- stage: build_test_publish
+  displayName: Build, Test, Publish
+  jobs:
+  - job: linux_container
+    displayName: '[Linux] [Container] PowerShell'
+    pool:
+      vmImage: ubuntu-16.04
+    strategy:
+      matrix:
+        6.1.0:
+          containerImage: joeltimothyoh/powershell:6.1.0-ubuntu-18.04-git
+        6.2.0:
+          containerImage: joeltimothyoh/powershell:6.2.0-ubuntu-18.04-git
+    container: $[ variables['containerImage'] ]
+    steps:
+    - checkout: self
+      submodules: recursive
+    - template: templates/azure-pipelines/linux/continuous-build.yml@PSModulePublisher
+    - template: templates/azure-pipelines/linux/publish.yml@PSModulePublisher
