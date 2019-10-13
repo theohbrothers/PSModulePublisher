@@ -16,7 +16,7 @@ This project provides CI templates and scripts that other projects can utilize f
 ```shell
 /build/                                             # Directory containing build files
 /build/PSModulePublisher/                           # The root directory of PSModulePublisher as a submodule
-/build/definitions/modulemanifest/definition.ps1    # The module definition file
+/build/definitions/modulemanifest/definition.ps1    # The module manifest definition file
 
 /src/MyPowershellModule/                            # The module's root directory
 /src/MyPowershellModule/MyPowershellModule.psm1     # The .psm1 module file
@@ -47,7 +47,7 @@ git commit -m 'Add submodule PSModulePublisher'
 
 Ensure the main project contains the script module file at the location `src/MyPowershellModule/MyPowershellModule.psm1`.
 
-#### Module definition file
+#### Module manifest definition file
 
 The project sources from a definition file to generate a manifest used for publishing the module. Ensure that the file exists in your main project at the location `build/definitions/modulemanifest/definition.ps1` and that it contains the right properties and values relevant to your powershell module. Remember to update the definition prior to publishing your module.
 
@@ -77,11 +77,32 @@ Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https:
 
 ### Continuous Integration
 
-The project contains the necessary steps in its CI files for generating and testing module manifests, as well as testing of modules based on generated manifests. You can configure your main project's CI file(s) to run the steps on every push. Refer to the [sample CI files](docs/samples/ci) for some working examples.
+The CI process is composed of the following tasks:
 
-### Publishing modules
+#### Tasks
 
-Publishing of modules occurs for tag refs. Tags must follow [Semantic Versioning](https://semver.org/) and be prepended with a lowercase `v`:
+##### Build
+
+1. Install build dependencies
+1. Generate the module manifest using the module manifest definition file
+
+##### Test
+
+1. Test the generated module manifest
+1. Test the module via the generated module manifest
+
+##### Publish
+
+1. Install publish dependencies
+1. Publish the module
+
+**Build** and **Test** tasks can be run for every commit pushed. Simply ensure your main project's CI file(s) and/or settings are configured to allow so.
+
+#### Publishing the module
+
+**Note:** Ensure your main project's CI file(s) and/or settings are configured to run CI jobs for tag refs.
+
+**Publish** tasks run only for tag refs. Tags must follow [Semantic Versioning](https://semver.org/) and be prepended with a lowercase `v`:
 
 ```shell
 # Tag the commit to publish
@@ -90,6 +111,10 @@ git tag v1.0.12
 # Push the tag
 git push remotename v1.0.1
 ```
+
+In the simplest use case, all the steps can be run within a single stage. In cases where the module has to be tested across multiple platforms or versions of powershell, **Build** and **Test** tasks could be run for each job within a `build_test` stage, and **Build**, **Test**, and **Publish** tasks within a `publish` stage for publishing.
+
+Refer to the [sample CI files](docs/samples/ci) for some working examples.
 
 ### Managing the submodule
 
@@ -101,7 +126,7 @@ To update the submodule:
 git submodule update --remote build/PSModulePublisher
 ```
 
-#### Using a specific commit / tag
+#### Using a specific tag / commit
 
 To use a specific commit or tag of the submodule:
 
@@ -109,13 +134,13 @@ To use a specific commit or tag of the submodule:
 # Change to the submodule's root directory
 cd build/PSModulePublisher
 
-# To use a specific commit
-git checkout 0123456789abcdef0123456789abcdef01234567
-# Or, to use a specific tag
+# To use a specific tag
 git checkout v1.0.1
+# Or, to use a specific commit
+git checkout 0123456789abcdef0123456789abcdef01234567
 
 # Return to the main project's root directory
-cd "$(git rev-parse --show-superproject-working-tree)"
+cd -
 # Commit the submodule
 git commit -m 'Update submodule PSModulePublisher'
 ```
