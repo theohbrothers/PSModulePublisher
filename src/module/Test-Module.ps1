@@ -17,9 +17,11 @@ try {
 
     # Run tests
     if (Test-Path -Path "$($global:PROJECT['TEST_DIR'])\test.ps1" -PathType Leaf) {
+        Set-StrictMode -Off
         "Running tests" | Write-Host
         & "$($global:PROJECT['TEST_DIR'])\test.ps1"
     }
+    Set-StrictMode -Version Latest
 
 }catch {
     throw
