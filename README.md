@@ -83,32 +83,33 @@ The project provides a development entrypoint script [`Invoke-PSModulePublisher.
 
 ### Continuous Integration
 
-#### Tasks
+#### Steps
 
-The CI process is composed of the following tasks:
+The CI process is composed of the following steps:
 
 ##### Build
 
-1. Install build dependencies
-1. Generate the module manifest using the module manifest definition file
+1. Display system info
+2. Get powershell version
+3. Process build variables
+4. Generate module manifest
 
 ##### Test
 
-1. Test the generated module manifest
-1. Test the module via the generated module manifest
+1. Test module via module's manifest
 
 ##### Publish
 
-1. Install publish dependencies
-1. Publish the module
+1. Install publish dependencies *(if applicable)*
+1. Publish module
 
-**Build** and **Test** tasks can be run for every commit pushed. Simply ensure your main project's CI file(s) and/or settings are configured to allow so.
+**Build** and **Test** steps are coupled by default and can be run for every commit pushed. Simply ensure your main project's CI file(s) and/or settings are configured to allow so.
 
 #### Publishing the module
 
-**Note:** Ensure your main project's CI file(s) and/or settings are configured to run CI jobs for **tag refs**.
+**Publish** steps will run only for **tag refs**. Ensure your main project's CI file(s) and/or settings are configured to run CI jobs for tag refs.
 
-**Publish** tasks run only for tag refs. Tags must follow [Semantic Versioning](https://semver.org/) and be prepended with a lowercase `v`:
+Tags must follow [Semantic Versioning](https://semver.org/) and be prepended with a lowercase `v`:
 
 ```shell
 # Tag the commit to publish
@@ -118,7 +119,7 @@ git tag v1.0.12
 git push remotename v1.0.1
 ```
 
-In the simplest use case, all the steps can be run within a single stage. In cases where the module has to be tested across multiple platforms or versions of powershell, **Build** and **Test** tasks could be run for each job within a `build_test` stage, and **Build**, **Test**, and **Publish** tasks within a `publish` stage for publishing.
+In the simplest use case, all the steps can be run within a single stage. In cases where the module has to be tested across multiple platforms or versions of powershell, **Build** and **Test** steps could be run for each job within a `build_test` stage, and **Build**, **Test**, and **Publish** steps within a `publish` stage for publishing.
 
 Refer to the [sample CI files](docs/samples/ci) for some working examples.
 
