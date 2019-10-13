@@ -19,7 +19,7 @@ This project provides CI templates and scripts that other projects can utilize f
 /build/definitions/modulemanifest/definition.ps1    # The module manifest definition file
 
 /src/MyPowershellModule/                            # The module's root directory
-/src/MyPowershellModule/MyPowershellModule.psm1     # The .psm1 module file
+/src/MyPowershellModule/MyPowershellModule.psm1     # The script module (.psm1) file
 
 /test/                                              # Directory containing test files [Optional]
 /test/test.ps1                                      # The test entrypoint script [Optional]
