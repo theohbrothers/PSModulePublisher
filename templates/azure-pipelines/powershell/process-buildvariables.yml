@@ -1,0 +1,26 @@
+steps:
+- powershell: |
+    $ErrorActionPreference = 'Stop'
+    ### Begin CI-specific code: Get the tag ref
+    $matchInfo = $env:BUILD_SOURCEBRANCH | Select-String -Pattern '^refs\/tags\/(.*)'
+    $tagRef = if ($matchInfo) { $matchInfo.Matches.Groups[1].Value } else { $null }
+    ### End of CI-specific code
+    "Tag ref: '$tagRef'" | Write-Host
+    if (!$tagRef) {
+        "This is a non-tagged build." | Write-Host
+    }else {
+        "This is a tagged build." | Write-Host
+    }
+    $matchInfo = $tagRef | Select-String -Pattern '^v(\d+\.\d+\.\d+)$'
+    $moduleVersion = if ($matchInfo) { $matchInfo.Matches.Groups[1].Value } else { $null }
+    "Module version: '$moduleVersion'" | Write-Host
+    if (!$moduleVersion) {
+        "Module version undetermined. The module will not be published." | Write-Host
+    }else {
+        "Module version determined. The module will be published." | Write-Host
+    }
+    ### Begin CI-specific code: Set job-scoped variables
+    echo "##vso[task.setvariable variable=BUILD_TAG_REF]${tagRef}"
+    echo "##vso[task.setvariable variable=MODULE_VERSION]${moduleVersion}"
+    ### End of CI-specific code
+  displayName: Process build variables

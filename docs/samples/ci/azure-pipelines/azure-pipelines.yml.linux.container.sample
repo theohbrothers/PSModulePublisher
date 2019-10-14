@@ -19,10 +19,17 @@ stages:
 - stage: build_test_publish
   displayName: Build, Test, Publish
   jobs:
-  - job: linux
-    displayName: '[Linux]'
+  - job: linux_container
+    displayName: '[Linux] [Container] PowerShell'
     pool:
       vmImage: ubuntu-16.04
+    strategy:
+      matrix:
+        6.1.0:
+          containerImage: joeltimothyoh/powershell:6.1.0-ubuntu-18.04-git
+        6.2.0:
+          containerImage: joeltimothyoh/powershell:6.2.0-ubuntu-18.04-git
+    container: $[ variables['containerImage'] ]
     steps:
     - checkout: self
       submodules: recursive

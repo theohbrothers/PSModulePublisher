@@ -19,12 +19,12 @@ stages:
 - stage: build_test_publish
   displayName: Build, Test, Publish
   jobs:
-  - job: linux
-    displayName: '[Linux]'
+  - job: windows_pwsh
+    displayName: '[Windows] PowerShell Core'
     pool:
-      vmImage: ubuntu-16.04
+      vmImage: windows-2019
     steps:
     - checkout: self
       submodules: recursive
-    - template: templates/azure-pipelines/linux/continuous-build.yml@PSModulePublisher
-    - template: templates/azure-pipelines/linux/publish.yml@PSModulePublisher
+    - template: templates/azure-pipelines/windows/pwsh/continuous-build.yml@PSModulePublisher
+    - template: templates/azure-pipelines/windows/pwsh/publish.yml@PSModulePublisher

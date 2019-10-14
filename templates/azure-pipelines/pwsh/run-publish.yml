@@ -1,0 +1,9 @@
+steps:
+- pwsh: |
+    $ErrorActionPreference = 'Stop'
+    $VerbosePreference = 'Continue'
+    .\build\PSModulePublisher\src\Invoke-Publish.ps1 -ModuleManifestPath $env:MODULE_MANIFEST_PATH -PublishRepository 'PSGallery'
+  displayName: Publish module
+  condition: and(startsWith(variables['Build.SourceBranch'], 'refs/tags/'), ne(variables['MODULE_VERSION'], ''))
+  env:
+    NUGET_API_KEY: $(NUGET_API_KEY)

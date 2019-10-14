@@ -1,0 +1,6 @@
+steps:
+- pwsh: |
+    $ErrorActionPreference = 'Stop'
+    $VerbosePreference = 'Continue'
+    .\build\PSModulePublisher\src\Invoke-Test.ps1 -ModuleManifestPath $env:MODULE_MANIFEST_PATH
+  displayName: Test module via module's manifest
