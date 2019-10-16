@@ -2,16 +2,6 @@ steps:
 - powershell: |
     $ErrorActionPreference = 'Stop'
     $VerbosePreference = 'Continue'
-    # Issue with PowerShell 5.0 not having NuGet.exe despite installing the package provider. The binary is necessary for Publish-Module to work
-    "Checking for NuGet binary"
-    $nugetBinPath = "$env:LOCALAPPDATA\Microsoft\Windows\PowerShell\PowerShellGet\NuGet.exe"
-    Get-ChildItem -Path "$env:LOCALAPPDATA\Microsoft\Windows\PowerShell" -Recurse
-    if (!(Test-Path -Path $nugetBinPath -PathType Leaf)) {
-        "Downloading NuGet binary" | Write-Host
-        New-Item -Path (Split-Path -Path $nugetBinPath -Parent) -ItemType Directory -Force
-        Invoke-WebRequest -Uri https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -OutFile $nugetBinPath
-    }
-    Get-ChildItem -Path (Split-Path -Path $nugetBinPath -Parent)
-    & $nugetBinPath
+    .\build\PSModulePublisher\tools\module\Install-PublishDependencies.ps1
   displayName: Install publish dependencies
   condition: and(startsWith(variables['Build.SourceBranch'], 'refs/tags/'), ne(variables['MODULE_VERSION'], ''))
