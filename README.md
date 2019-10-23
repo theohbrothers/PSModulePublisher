@@ -116,7 +116,7 @@ Tags must follow [Semantic Versioning](https://semver.org/) and be prepended wit
 git tag v1.0.12
 
 # Push the tag
-git push remotename v1.0.1
+git push remotename v1.0.12
 ```
 
 #### Use cases
