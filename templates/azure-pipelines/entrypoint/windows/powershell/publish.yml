@@ -1,0 +1,3 @@
+steps:
+- template: ../../steps/powershell/install-publish-dependencies.yml
+- template: ../../steps/powershell/run-publish.yml

@@ -1,0 +1,2 @@
+steps:
+- template: ../continuous-build.yml

@@ -1,0 +1,6 @@
+steps:
+- template: ../../steps/linux/display-systeminfo.yml
+- template: ../../steps/pwsh/get-powershell-version.yml
+- template: ../../steps/pwsh/process-buildvariables.yml
+- template: ../../steps/pwsh/run-build.yml
+- template: ../../steps/pwsh/run-test.yml
