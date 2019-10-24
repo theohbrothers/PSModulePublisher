@@ -23,7 +23,7 @@ stages:
   displayName: Build, Test, Publish
   jobs:
   - job: macos
-    displayName: '[macOS]'
+    displayName: '[macOS] PowerShell Core'
     pool:
       vmImage: macOS-10.14
     steps:
