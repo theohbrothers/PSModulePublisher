@@ -116,7 +116,7 @@ Tags must follow [Semantic Versioning](https://semver.org/) and be prepended wit
 git tag v1.0.12
 
 # Push the tag
-git push remotename v1.0.1
+git push remotename v1.0.12
 ```
 
 #### Use cases
@@ -170,4 +170,4 @@ To track a specific branch for  `git submodule update`, add the `branch` key-val
 ## Best practices
 
 - Use only tag refs of `PSModulePublisher` in your main project.
-- Ensure your main project's CI file(s) is configured to use the CI templates of [`PSModulePublisher`](https://github.com/theohbrothers/PSModulePublisher) and that the commit used matches that of `PSModulePublisher` used in your main project.
+- Ensure your main project's CI file(s) is configured to use the CI templates of `PSModulePublisher` and that the ref used matches that of `PSModulePublisher` used in your main project.
