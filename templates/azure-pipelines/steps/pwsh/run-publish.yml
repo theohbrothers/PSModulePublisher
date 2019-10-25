@@ -2,6 +2,7 @@ steps:
 - pwsh: |
     $ErrorActionPreference = 'Stop'
     $VerbosePreference = 'Continue'
+    "PUBLISH_DRY_RUN: '$($env:PUBLISH_DRY_RUN)'" | Write-Verbose
     .\build\PSModulePublisher\src\Invoke-Publish.ps1 -ModuleManifestPath $env:MODULE_MANIFEST_PATH -Repository 'PSGallery' -DryRun:$([System.Convert]::ToBoolean($env:PUBLISH_DRY_RUN))
   displayName: Publish module
   condition: and(startsWith(variables['Build.SourceBranch'], 'refs/tags/'), ne(variables['MODULE_VERSION'], ''))
