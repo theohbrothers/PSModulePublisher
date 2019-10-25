@@ -8,7 +8,7 @@ param(
     ,
     [Parameter(Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
-    [string]$PublishRepository
+    [string]$Repository
     ,
     [Parameter(Mandatory=$false)]
     [switch]$DryRun
@@ -19,7 +19,7 @@ $ErrorActionPreference = 'Stop'
 
 try {
     "Publish the module" | Write-Host
-    & "$PSScriptRoot\module\Publish-Module.ps1" -Path $ModuleManifestPath -Repository $PublishRepository -DryRun:$DryRun
+    & "$PSScriptRoot\module\Publish-Module.ps1" -Path $PSBoundParameters['ModuleManifestPath'] -Repository $PSBoundParameters['Repository'] -DryRun:$PSBoundParameters['DryRun']
 
 }catch {
     throw

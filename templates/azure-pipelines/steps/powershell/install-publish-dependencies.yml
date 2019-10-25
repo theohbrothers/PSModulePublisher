@@ -4,4 +4,4 @@ steps:
     $VerbosePreference = 'Continue'
     .\build\PSModulePublisher\tools\module\Install-PublishDependencies.ps1
   displayName: Install publish dependencies
-  condition: and(startsWith(variables['Build.SourceBranch'], 'refs/tags/'), ne(variables['MODULE_VERSION'], ''))
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), ne(variables['MODULE_VERSION'], ''))
