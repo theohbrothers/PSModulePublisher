@@ -3,6 +3,7 @@
 # You can use the provided switches to test the publishing process in your development environment.                                                   #
 #######################################################################################################################################################
 
+$env:MODULE_VERSION = '0.0.0'
 $private:myArgs = @{
     # Repository = 'MyPSRepository'
     # DryRun = $true
