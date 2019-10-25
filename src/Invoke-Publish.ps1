@@ -19,7 +19,7 @@ $ErrorActionPreference = 'Stop'
 
 try {
     "Publish the module" | Write-Host
-    & "$PSScriptRoot\module\Publish-Module.ps1" -Path $ModuleManifestPath -Repository $Repository -DryRun:$DryRun
+    & "$PSScriptRoot\module\Publish-Module.ps1" -Path $PSBoundParameters['ModuleManifestPath'] -Repository $PSBoundParameters['Repository'] -DryRun:$PSBoundParameters['DryRun']
 
 }catch {
     throw
