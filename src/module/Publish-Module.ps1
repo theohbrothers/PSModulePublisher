@@ -55,6 +55,11 @@ try {
     if ($PSBoundParameters['DryRun']) {
         $publishModuleArgs['WhatIf'] = $PSBoundParameters['DryRun']
     }
+    if ($VerbosePreference -ne 'SilentlyContinue') {
+        $publishModuleArgsMasked = $publishModuleArgs.Clone()
+        if ($publishModuleArgs['NuGetApiKey']) { $publishModuleArgsMasked['NuGetApiKey'] = "token *******" }
+        $publishModuleArgsMasked | Out-String -Stream | % { $_.Trim() } | ? { $_ } | Write-Verbose
+    }
     Publish-Module @publishModuleArgs
 
 }catch {
