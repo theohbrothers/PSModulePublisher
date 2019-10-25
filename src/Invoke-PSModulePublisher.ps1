@@ -4,7 +4,7 @@
 #######################################################################################################################################################
 
 $private:myArgs = @{
-    # PublishRepository = 'PSRepository'
+    # PublishRepository = 'MyPSRepository'
     # DryRun = $true
 }
 $VerbosePreference = 'Continue'
