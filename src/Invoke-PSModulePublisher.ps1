@@ -4,7 +4,7 @@
 #######################################################################################################################################################
 
 $private:myArgs = @{
-    # PublishRepository = 'MyPSRepository'
+    # Repository = 'MyPSRepository'
     # DryRun = $true
 }
 $VerbosePreference = 'Continue'
@@ -16,7 +16,7 @@ function Invoke-PSModulePublisher {
     param(
         [Parameter(Mandatory=$false)]
         [ValidateNotNullOrEmpty()]
-        [string]$PublishRepository
+        [string]$Repository
         ,
         [Parameter(Mandatory=$false)]
         [switch]$DryRun
@@ -35,7 +35,7 @@ function Invoke-PSModulePublisher {
         & "$PSScriptRoot\Invoke-Test.ps1" -ModuleManifestPath $manifestPath
 
         # Run the publish entrypoint script
-        & "$PSScriptRoot\Invoke-Publish.ps1" -ModuleManifestPath $manifestPath -PublishRepository $PSBoundParameters['PublishRepository'] -DryRun:$PSBoundParameters['DryRun']
+        & "$PSScriptRoot\Invoke-Publish.ps1" -ModuleManifestPath $manifestPath -Repository $PSBoundParameters['Repository'] -DryRun:$PSBoundParameters['DryRun']
 
     }catch {
         throw
