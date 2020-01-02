@@ -13,23 +13,23 @@ param(
 )
 
 try {
-    "Path: $($PSBoundParameters['Path'])" | Write-Verbose
+    "Path: $($Path)" | Write-Verbose
 
     # Test the path of the specified module manifest path
-    Get-Item -Path $PSBoundParameters['Path'] -ErrorAction Stop > $null
+    Get-Item -Path $Path -ErrorAction Stop > $null
 
     # Determine the module manifest directory for Publish-Module -Path which only accepts the directory containing the .psd1 file
-    if (Test-Path -Path $PSBoundParameters['Path'] -PathType Leaf) {
-        $modulesDir = Split-Path -Path $PSBoundParameters['Path'] -Parent
+    if (Test-Path -Path $Path -PathType Leaf) {
+        $modulesDir = Split-Path -Path $Path -Parent
         "Module directory determined to be '$modulesDir'" | Write-Verbose
     }
 
     # Get the specified module manifest
-    $manifest = Test-ModuleManifest -Path $PSBoundParameters['Path']
+    $manifest = Test-ModuleManifest -Path $Path
     "Module version: $($manifest.Version.ToString())" | Write-Verbose
 
     # Verify the module version prior to publishing unless skipped
-    if (!$PSBoundParameters['DryRun']) {
+    if (!$DryRun) {
         "Checking module version" | Write-Host
         # Fail if the dummy version '0.0.0' is found (for development or regular CI build environments)
         if ($manifest.Version.ToString() -eq '0.0.0') {
@@ -47,13 +47,13 @@ try {
     "Publishing the module" | Write-Host
     $publishModuleArgs = @{
         Path = $modulesDir
-        Repository = $PSBoundParameters['Repository']
+        Repository = $Repository
     }
     if ($env:NUGET_API_KEY) {
         $publishModuleArgs['NuGetApiKey'] = $env:NUGET_API_KEY
     }
-    if ($PSBoundParameters['DryRun']) {
-        $publishModuleArgs['WhatIf'] = $PSBoundParameters['DryRun']
+    if ($DryRun) {
+        $publishModuleArgs['WhatIf'] = $DryRun
     }
     if ($VerbosePreference -ne 'SilentlyContinue') {
         $publishModuleArgsMasked = $publishModuleArgs.Clone()

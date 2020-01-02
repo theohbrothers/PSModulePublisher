@@ -8,7 +8,7 @@ param(
 try {
     # Test the module manifest
     "Testing the module manifest" | Write-Host
-    $manifest = Test-ModuleManifest -Path $PSBoundParameters['Path']
+    $manifest = Test-ModuleManifest -Path $Path
 
     # Display the manifest
     $manifest | Format-List -Property * | Out-String | Write-Verbose
