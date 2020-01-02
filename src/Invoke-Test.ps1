@@ -15,10 +15,10 @@ try {
     . "$PSScriptRoot\module\common\Get-ProjectVariables.ps1"
 
     "Test the module manifest" | Write-Host
-    & "$PSScriptRoot\module\Test-ModuleManifest.ps1" -Path $PSBoundParameters['ModuleManifestPath']
+    & "$PSScriptRoot\module\Test-ModuleManifest.ps1" -Path $ModuleManifestPath
 
     "Test the module via the generated module manifest" | Write-Host
-    & "$PSScriptRoot\module\Test-Module.ps1" -Path $PSBoundParameters['ModuleManifestPath']
+    & "$PSScriptRoot\module\Test-Module.ps1" -Path $ModuleManifestPath
 
 }catch {
     throw

@@ -11,10 +11,10 @@ param(
 
 try {
     # Get the module manifest's definition object
-    $moduleManifestArgs = . $PSBoundParameters['DefinitionFile']
+    $moduleManifestArgs = . $DefinitionFile
 
     # Set the module manifest path
-    $moduleManifestArgs['Path'] = $PSBoundParameters['Path']
+    $moduleManifestArgs['Path'] = $Path
 
     # Set the module version based on the value of the following environment variable which will be set in a CI release environment. Else assume the run to be occurring within a development environment or as a regular CI build, assigning it the dummy value of '0.0.0'
     $moduleManifestArgs['ModuleVersion'] = if ($env:MODULE_VERSION) {

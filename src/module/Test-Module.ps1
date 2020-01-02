@@ -8,8 +8,8 @@ param(
 try {
     # Import the module via the module manifest file
     "Importing the module via the module manifest file" | Write-Host
-    $manifest = Test-ModuleManifest -Path $PSBoundParameters['Path']
-    Import-Module -Name $PSBoundParameters['Path'] -Force
+    $manifest = Test-ModuleManifest -Path $Path
+    Import-Module -Name $Path -Force
 
     # Display the imported module's properties
     "Displaying the imported module's properties" | Write-Host
