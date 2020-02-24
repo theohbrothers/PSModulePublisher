@@ -3,11 +3,11 @@
 [badge-version-github-tag-img]: https://img.shields.io/github/v/tag/theohbrothers/PSModulePublisher?style=flat-square
 [badge-version-github-tag-src]: https://github.com/theohbrothers/PSModulePublisher/releases
 
-A project containing the necessary tools to ease publishing of powershell modules.
+A project containing the necessary tools to ease publishing of PowerShell modules.
 
 ## Introduction
 
-This project provides CI templates and scripts that other projects can utilize for building, testing, and publishing powershell modules.
+This project provides CI templates and scripts that other projects can utilize for building, testing, and publishing PowerShell modules.
 
 ### Main project structure
 
@@ -49,7 +49,7 @@ Ensure the main project contains the script module file at the location `src/MyP
 
 #### Module manifest definition file
 
-The project sources from a definition file to generate a manifest used for publishing the module. Ensure that the file exists in your main project at the location `build/definitions/modulemanifest/definition.ps1` and that it contains the right properties and values relevant to your powershell module. Remember to update the definition prior to publishing your module.
+The project sources from a definition file to generate a manifest used for publishing the module. Ensure that the file exists in your main project at the location `build/definitions/modulemanifest/definition.ps1` and that it contains the right properties and values relevant to your PowerShell module. Remember to update the definition prior to publishing your module.
 
 The definition template can be found [here](docs/samples/build/definitions/modulemanifest/definition.ps1.sample).
 
@@ -123,7 +123,7 @@ git push remotename v1.0.12
 
 For a basic use case, the CI process could simply comprise a single stage containing all the steps from **Build**, **Test**, and **Publish**.
 
-In cases where the module needs to be tested across multiple operating systems and/or versions of powershell, two stages can be configured; the first containing multiple jobs that perform **Build** and **Test** steps for testing the module; the other containing a single job performing **Build**, **Test**, and **Publish** steps to finally publish the module.
+In cases where the module needs to be tested across multiple operating systems and/or versions of PowerShell, two stages can be configured; the first containing multiple jobs that perform **Build** and **Test** steps for testing the module; the other containing a single job performing **Build**, **Test**, and **Publish** steps to finally publish the module.
 
 Refer to the [sample CI files](docs/samples/ci) for some working examples.
 
