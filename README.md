@@ -90,7 +90,7 @@ The CI process is composed of the following steps:
 ##### Build
 
 1. Display system info
-2. Get powershell version
+2. Get PowerShell version
 3. Process build variables
 4. Generate module manifest
 
