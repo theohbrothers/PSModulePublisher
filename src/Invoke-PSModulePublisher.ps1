@@ -36,7 +36,7 @@ function Invoke-PSModulePublisher {
         & "$PSScriptRoot\Invoke-Test.ps1" -ModuleManifestPath $manifestPath
 
         # Run the publish entrypoint script
-        & "$PSScriptRoot\Invoke-Publish.ps1" -ModuleManifestPath $manifestPath -Repository $PSBoundParameters['Repository'] -DryRun:$PSBoundParameters['DryRun']
+        & "$PSScriptRoot\Invoke-Publish.ps1" -ModuleManifestPath $manifestPath -Repository $Repository -DryRun:$DryRun
 
     }catch {
         throw
