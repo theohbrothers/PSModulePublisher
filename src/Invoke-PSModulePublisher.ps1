@@ -36,7 +36,11 @@ function Invoke-PSModulePublisher {
         & "$PSScriptRoot\Invoke-Test.ps1" -ModuleManifestPath $manifestPath
 
         # Run the publish entrypoint script
-        & "$PSScriptRoot\Invoke-Publish.ps1" -ModuleManifestPath $manifestPath -Repository $Repository -DryRun:$DryRun
+        if ($Repository) {
+            & "$PSScriptRoot\Invoke-Publish.ps1" -ModuleManifestPath $manifestPath -Repository $Repository -DryRun:$DryRun
+        }else {
+            "Unspecified PS Repository. The module will not be published." | Write-Warning
+        }
 
     }catch {
         throw
