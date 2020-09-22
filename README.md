@@ -134,7 +134,7 @@ Refer to the [sample CI files](docs/samples/ci) for some working examples.
 To update the submodule:
 
 ```shell
-git submodule update --remote build/PSModulePublisher
+git submodule update build/PSModulePublisher
 ```
 
 #### Using a specific tag / commit
