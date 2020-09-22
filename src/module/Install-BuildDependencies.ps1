@@ -8,11 +8,11 @@ try {
 
     # Install NuGet package provider
     "Checking NuGet version" | Write-Host
-    $nugetRequiredVersion = [version]'2.8.5.201'
+    $nugetMinimumVersion = [version]'2.8.5.201'
     $nuget = Get-PackageProvider 'NuGet' -ListAvailable -ErrorAction SilentlyContinue
-    if (!$nuget -or !($nuget.Version -gt $nugetRequiredVersion)) {
+    if (!$nuget -or !($nuget.Version -gt $nugetMinimumVersion)) {
         "Installing NuGet" | Write-Host
-        Install-PackageProvider -Name NuGet -MinimumVersion $nugetRequiredVersion -Force > $null    # Suppress the output as older versions of the module 'PackageManagement' to which this cmdlet belongs returns a package provider object on successful installations
+        Install-PackageProvider -Name NuGet -MinimumVersion $nugetMinimumVersion -Force > $null    # Suppress the output as older versions of the module 'PackageManagement' to which this cmdlet belongs returns a package provider object on successful installations
     }
 
     # Install PowerShellGet module of the specified version
