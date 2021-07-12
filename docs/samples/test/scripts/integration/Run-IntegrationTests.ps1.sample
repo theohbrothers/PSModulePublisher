@@ -2,6 +2,7 @@
 param()
 
 $ErrorActionPreference = 'Continue'
+$ErrorView = 'NormalView'
 $VerbosePreference = 'Continue'
 
 $failedCount = 0

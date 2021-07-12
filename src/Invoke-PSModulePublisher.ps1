@@ -8,6 +8,7 @@ $private:myArgs = @{
     # Repository = 'MyPSRepository'
     # DryRun = $true
 }
+$ErrorView = 'NormalView'
 $VerbosePreference = 'Continue'
 
 ################################################

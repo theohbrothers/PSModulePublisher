@@ -1,6 +1,7 @@
 steps:
 - powershell: |
     $ErrorActionPreference = 'Stop'
+    $ErrorView = 'NormalView'
     $VerbosePreference = 'Continue'
     .\build\PSModulePublisher\tools\module\Install-PublishDependencies.ps1
   displayName: Install publish dependencies
