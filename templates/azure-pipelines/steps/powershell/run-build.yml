@@ -1,6 +1,7 @@
 steps:
 - powershell: |
     $ErrorActionPreference = 'Stop'
+    $ErrorView = 'NormalView'
     $VerbosePreference = 'Continue'
     $MODULE_MANIFEST_PATH = .\build\PSModulePublisher\src\Invoke-Build.ps1
     ### Begin CI-specific code: Set job-scoped variables
