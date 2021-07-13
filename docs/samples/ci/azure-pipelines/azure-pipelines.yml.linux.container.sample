@@ -28,10 +28,12 @@ stages:
       vmImage: ubuntu-18.04
     strategy:
       matrix:
-        6.1.0:
-          containerImage: joeltimothyoh/powershell:6.1.0-ubuntu-18.04-git
+        7.0.0:
+          containerImage: joeltimothyoh/powershell:7.0.0-ubuntu-18.04-git
         6.2.0:
           containerImage: joeltimothyoh/powershell:6.2.0-ubuntu-18.04-git
+        6.1.0:
+          containerImage: joeltimothyoh/powershell:6.1.0-ubuntu-18.04-git
     container: $[ variables['containerImage'] ]
     steps:
     - checkout: self
