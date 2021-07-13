@@ -19,8 +19,8 @@ resources:
     ref: refs/tags/vx.x.x
 
 stages:
-- stage: build_test_publish
-  displayName: Build, Test, Publish
+- stage: build_test
+  displayName: Build, Test
   jobs:
   - job: linux_container
     displayName: '[Linux] [Container] PowerShell'
@@ -33,6 +33,17 @@ stages:
         6.2.0:
           containerImage: joeltimothyoh/powershell:6.2.0-ubuntu-18.04-git
     container: $[ variables['containerImage'] ]
+    steps:
+    - checkout: self
+      submodules: recursive
+    - template: templates/azure-pipelines/entrypoint/linux/continuous-build.yml@PSModulePublisher
+- stage: publish
+  displayName: Publish
+  jobs:
+  - job: linux
+    displayName: '[Linux] PowerShell Core'
+    pool:
+      vmImage: ubuntu-18.04
     steps:
     - checkout: self
       submodules: recursive
