@@ -29,5 +29,5 @@ stages:
     steps:
     - checkout: self
       submodules: recursive
-    - template: templates/azure-pipelines/entrypoint/linux/continuous-build.yml@PSModulePublisher
+    - template: templates/azure-pipelines/entrypoint/linux/build-test.yml@PSModulePublisher
     - template: templates/azure-pipelines/entrypoint/linux/publish.yml@PSModulePublisher
