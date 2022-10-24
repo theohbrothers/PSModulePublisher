@@ -1,0 +1,5 @@
+steps:
+- template: ../../../steps/windows/powershell/display-systeminfo.yml
+- template: ../../../steps/powershell/get-powershell-version.yml
+- template: ../../../steps/powershell/process-buildvariables.yml
+- template: ../../../steps/powershell/run-build.yml
