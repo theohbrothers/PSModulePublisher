@@ -39,8 +39,8 @@ stages:
     - checkout: self
       submodules: recursive
     - template: templates/azure-pipelines/entrypoint/linux/build-test.yml@PSModulePublisher
-- stage: publish
-  displayName: Publish
+- stage: build_publish
+  displayName: Build, Publish
   jobs:
   - job: linux
     displayName: '[Linux] PowerShell Core'
@@ -49,5 +49,4 @@ stages:
     steps:
     - checkout: self
       submodules: recursive
-    - template: templates/azure-pipelines/entrypoint/linux/build.yml@PSModulePublisher
-    - template: templates/azure-pipelines/entrypoint/linux/publish.yml@PSModulePublisher
+    - template: templates/azure-pipelines/entrypoint/linux/build-publish.yml@PSModulePublisher
