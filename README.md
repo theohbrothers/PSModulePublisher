@@ -103,7 +103,7 @@ The CI process is composed of the following steps:
 1. Install publish dependencies *(if applicable)*
 1. Publish module
 
-**Build** and **Test** steps are coupled by default and can be run for every commit pushed. Simply ensure your main project's CI file(s) and/or settings are configured to allow so.
+**Build** and **Test** steps are executed by default for every commit pushed. Simply ensure your main project's CI file(s) and/or settings are configured to allow so.
 
 #### Publishing the module
 
@@ -123,7 +123,7 @@ git push remotename v1.0.12
 
 For a basic use case, the CI process could simply comprise a single stage containing all the steps from **Build**, **Test**, and **Publish**.
 
-In cases where the module needs to be tested across multiple operating systems and/or versions of PowerShell, two stages can be configured; the first containing multiple jobs that perform **Build** and **Test** steps for testing the module; the other containing a single job performing **Build**, **Test**, and **Publish** steps to finally publish the module.
+In cases where the module needs to be tested across multiple operating systems and/or versions of PowerShell, two stages can be configured; the first containing multiple jobs that perform **Build** and **Test** steps for testing the module; the other containing a single job performing **Build** and **Publish** steps to finally publish the module.
 
 Refer to the [sample CI files](docs/samples/ci) for some working examples.
 
