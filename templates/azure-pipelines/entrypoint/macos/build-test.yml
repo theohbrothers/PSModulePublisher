@@ -1,0 +1,3 @@
+steps:
+- template: build.yml
+- template: test.yml
