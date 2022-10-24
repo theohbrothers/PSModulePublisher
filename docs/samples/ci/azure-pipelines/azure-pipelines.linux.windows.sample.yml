@@ -29,7 +29,7 @@ stages:
     steps:
     - checkout: self
       submodules: recursive
-    - template: templates/azure-pipelines/entrypoint/linux/continuous-build.yml@PSModulePublisher
+    - template: templates/azure-pipelines/entrypoint/linux/build-test.yml@PSModulePublisher
   - job: windows_pwsh
     displayName: '[Windows] PowerShell Core'
     pool:
@@ -37,7 +37,7 @@ stages:
     steps:
     - checkout: self
       submodules: recursive
-    - template: templates/azure-pipelines/entrypoint/windows/continuous-build.yml@PSModulePublisher
+    - template: templates/azure-pipelines/entrypoint/windows/build-test.yml@PSModulePublisher
 - stage: publish
   displayName: Publish
   dependsOn: build_test
