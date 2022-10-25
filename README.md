@@ -145,18 +145,17 @@ To use a specific tag or commit of the submodule:
 # Change to the submodule's root directory
 cd build/PSModulePublisher
 
-# To use a specific tag
-git checkout v1.0.1
-# Or, to use a specific commit
-git checkout 0123456789abcdef0123456789abcdef01234567
+# Checkout ref to use
+git checkout v1.0.1                                     # Specific tag
+git checkout 0123456789abcdef0123456789abcdef01234567   # Specific commit
 
-# Change to the previous directory
+# Return
 cd -
 
-# Bump PSModulePublisher to the same tag or commit in the main project's CI file
+# Bump PSModulePublisher to the same ref in CI file
 vi azure-pipelines.yml
 
-# Commit the submodule with the main project's CI file
+# Commit the submodule and CI file
 git commit -am 'Bump PSModulePublisher to v1.0.1'
 ```
 
