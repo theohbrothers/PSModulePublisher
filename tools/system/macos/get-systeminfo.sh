@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -eu
-
 hostname
 whoami
 system_profiler -detailLevel mini
