@@ -41,6 +41,7 @@ stages:
     - template: templates/azure-pipelines/entrypoint/linux/build-test.yml@PSModulePublisher
 - stage: build_publish
   displayName: Build, Publish
+  dependsOn: build_test
   jobs:
   - job: linux
     displayName: '[Linux] PowerShell Core'
