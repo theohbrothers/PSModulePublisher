@@ -140,26 +140,19 @@ To update the submodule:
 git submodule update --remote build/PSModulePublisher
 ```
 
-#### Using a specific tag or commit
+#### Using a specific tag
 
-To use a specific tag or commit of the submodule:
+To use a specific tag of the submodule:
 
 ```shell
-# Change to the submodule's root directory
-cd build/PSModulePublisher
-
 # Checkout ref to use
-git checkout v1.0.1                                     # Specific tag
-git checkout 0123456789abcdef0123456789abcdef01234567   # Specific commit
-
-# Return
-cd -
+git --git-dir build/PSModulePublisher/.git checkout vx.x.x
 
 # Bump PSModulePublisher to the same ref in CI file
 vi azure-pipelines.yml
 
 # Commit the submodule and CI file
-git commit -am 'Bump PSModulePublisher to v1.0.1'
+git commit -am 'Bump PSModulePublisher to vx.x.x'
 ```
 
 ## Best practices
