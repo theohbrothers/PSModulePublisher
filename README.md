@@ -39,8 +39,11 @@ Add `PSModulePublisher` as a submodule under the directory `build` in your main 
 # Add the submodule
 git submodule add https://github.com/theohbrothers/PSModulePublisher.git build/PSModulePublisher
 
+# Checkout ref to use
+git --git-dir build/PSModulePublisher/.git checkout vx.x.x
+
 # Commit the submodule
-git commit -m 'Add submodule PSModulePublisher'
+git commit -am 'Add submodule PSModulePublisher vx.x.x'
 ```
 
 #### Script Module file
