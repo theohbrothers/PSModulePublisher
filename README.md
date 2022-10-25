@@ -156,8 +156,8 @@ cd -
 # Bump PSModulePublisher to the same tag or commit in the main project's CI file
 vi azure-pipelines.yml
 
-# Commit the main project's CI file with the submodule
-git commit -am 'Bump build/PSModulePublisher to v1.0.1'
+# Commit the submodule with the main project's CI file
+git commit -am 'Bump PSModulePublisher to v1.0.1'
 ```
 
 ## Best practices
