@@ -37,7 +37,7 @@ Add `PSModulePublisher` as a submodule under the directory `build` in your main 
 
 ```shell
 # Add the submodule
-git submodule add 'https://github.com/theohbrothers/PSModulePublisher.git' build/PSModulePublisher
+git submodule add https://github.com/theohbrothers/PSModulePublisher.git build/PSModulePublisher
 
 # Commit the submodule
 git commit -m 'Add submodule PSModulePublisher'
@@ -137,7 +137,7 @@ To update the submodule:
 git submodule update --remote build/PSModulePublisher
 ```
 
-#### Using a specific tag / commit
+#### Using a specific tag or commit
 
 To use a specific tag or commit of the submodule:
 
@@ -150,10 +150,14 @@ git checkout v1.0.1
 # Or, to use a specific commit
 git checkout 0123456789abcdef0123456789abcdef01234567
 
-# Return to the main project's root directory
+# Change to the previous directory
 cd -
-# Commit the submodule
-git commit -m 'Update submodule PSModulePublisher'
+
+# Bump PSModulePublisher to the same tag or commit in the main project's CI file
+vi azure-pipelines.yml
+
+# Commit the main project's CI file with the submodule
+git commit -am 'Bump build/PSModulePublisher to v1.0.1'
 ```
 
 ## Best practices
