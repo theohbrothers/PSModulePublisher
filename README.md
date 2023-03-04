@@ -52,9 +52,9 @@ Ensure the main project contains the script module file at the location `src/MyP
 
 #### Module manifest definition file
 
-The project sources from a definition file to generate a manifest used for publishing the module. Ensure that the file exists in your main project at the location `build/definitions/modulemanifest/definition.ps1` and that it contains the right properties and values relevant to your PowerShell module. Remember to update the definition prior to publishing your module.
+The project sources from a definition file to generate a manifest used for publishing the module. Ensure that the file exists in your main project at the location `build/definitions/modulemanifest.ps1` and that it contains the right properties and values relevant to your PowerShell module. Remember to update the definition prior to publishing your module.
 
-The definition template can be found [here](docs/samples/build/definitions/modulemanifest/definition.ps1).
+The definition template can be found [here](docs/samples/build/definitions/modulemanifest.ps1).
 
 #### CI files
 
