@@ -16,7 +16,7 @@ This project provides CI templates and scripts that other projects can utilize f
 ```shell
 /build/                                             # Directory containing build files
 /build/PSModulePublisher/                           # The root directory of PSModulePublisher as a submodule
-/build/definitions/modulemanifest/definition.ps1    # The module manifest definition file
+/build/definitions/modulemanifest.ps1               # The module manifest definition file
 
 /src/MyPowershellModule/                            # The module's root directory
 /src/MyPowershellModule/MyPowershellModule.psm1     # The script module (.psm1) file
