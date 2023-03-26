@@ -31,14 +31,14 @@ function Invoke-PSModulePublisher {
         Push-Location $PSScriptRoot
 
         # Run the build entrypoint script
-        $manifestPath = & "$PSScriptRoot\Invoke-Build.ps1"
+        $manifestPath = & "$PSScriptRoot\Public\Invoke-Build.ps1"
 
         # Run the test entrypoint script
-        & "$PSScriptRoot\Invoke-Test.ps1" -ModuleManifestPath $manifestPath
+        & "$PSScriptRoot\Public\Invoke-Test.ps1" -ModuleManifestPath $manifestPath
 
         # Run the publish entrypoint script
         if ($Repository) {
-            & "$PSScriptRoot\Invoke-Publish.ps1" -ModuleManifestPath $manifestPath -Repository $Repository -DryRun:$DryRun
+            & "$PSScriptRoot\Public\Invoke-Publish.ps1" -ModuleManifestPath $manifestPath -Repository $Repository -DryRun:$DryRun
         }else {
             "Unspecified PS Repository. The module will not be published." | Write-Warning
         }
