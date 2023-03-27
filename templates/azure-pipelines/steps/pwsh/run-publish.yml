@@ -4,7 +4,7 @@ steps:
     $ErrorView = 'NormalView'
     $VerbosePreference = 'Continue'
     "PUBLISH_DRY_RUN: '$($env:PUBLISH_DRY_RUN)'" | Write-Verbose
-    .\build\PSModulePublisher\src\Public\Invoke-Publish.ps1 -ModuleManifestPath $env:MODULE_MANIFEST_PATH -Repository 'PSGallery' -DryRun:$([System.Convert]::ToBoolean($env:PUBLISH_DRY_RUN))
+    .\build\PSModulePublisher\src\PSModulePublisher\Public\Invoke-Publish.ps1 -ModuleManifestPath $env:MODULE_MANIFEST_PATH -Repository 'PSGallery' -DryRun:$([System.Convert]::ToBoolean($env:PUBLISH_DRY_RUN))
   displayName: Publish module
   condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), ne(variables['MODULE_VERSION'], ''))
   env:
