@@ -82,7 +82,7 @@ Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https:
 
 ### Development
 
-The project provides a development entrypoint script [`Invoke-PSModulePublisher.ps1`](src/Invoke-PSModulePublisher.ps1) which can be used for executing the same build, test, and publish steps that will run in CI environments.
+The project provides a development entrypoint script [`Invoke-PSModulePublisher.ps1`](src/PSModulePublisher/Invoke-PSModulePublisher.ps1) which can be used for executing the same build, test, and publish steps that will run in CI environments.
 
 ### Continuous Integration
 
