@@ -7,8 +7,7 @@ $ErrorActionPreference = 'Stop'
 try {
     # Global constants
     $global:PROJECT = @{}
-    $global:PROJECT['SUPERPROJECT_BASE_DIR'] = if (git rev-parse --show-superproject-working-tree) { Convert-Path -Path (git rev-parse --show-superproject-working-tree) }
-    $global:PROJECT['BASE_DIR'] = if ($global:PROJECT['SUPERPROJECT_BASE_DIR']) { $global:PROJECT['SUPERPROJECT_BASE_DIR'] } else { Convert-Path -Path (git rev-parse --show-toplevel) }
+    $global:PROJECT['BASE_DIR'] = $PWD
     $global:PROJECT['BUILD_DIR'] = Join-Path $global:PROJECT['BASE_DIR'] 'build'
     $global:PROJECT['SOURCE_DIR'] = Join-Path $global:PROJECT['BASE_DIR'] 'src'
     $global:PROJECT['TEST_DIR'] = Join-Path $global:PROJECT['BASE_DIR'] 'test'
