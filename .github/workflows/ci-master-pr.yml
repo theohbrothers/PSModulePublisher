@@ -15,6 +15,9 @@ jobs:
     runs-on: windows-2019
     steps:
     - uses: actions/checkout@v3
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
     - name: Powershell version
       run: |
         powershell -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
@@ -32,6 +35,12 @@ jobs:
       image: mcr.microsoft.com/powershell:6.0.2-ubuntu-16.04
     steps:
     - uses: actions/checkout@v3
+    - name: Install wget
+      run: |
+        apt-get update && apt-get install -y wget
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
     - name: Powershell version
       run: |
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
@@ -45,6 +54,12 @@ jobs:
       image: mcr.microsoft.com/powershell:6.1.3-ubuntu-18.04
     steps:
     - uses: actions/checkout@v3
+    - name: Install wget
+      run: |
+        apt-get update && apt-get install -y wget
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
     - name: Powershell version
       run: |
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
@@ -58,6 +73,12 @@ jobs:
       image: mcr.microsoft.com/powershell:6.2.4-ubuntu-18.04
     steps:
     - uses: actions/checkout@v3
+    - name: Install wget
+      run: |
+        apt-get update && apt-get install -y wget
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
     - name: Powershell version
       run: |
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
@@ -71,6 +92,12 @@ jobs:
       image: mcr.microsoft.com/powershell:7.0.3-ubuntu-18.04
     steps:
     - uses: actions/checkout@v3
+    - name: Install wget
+      run: |
+        apt-get update && apt-get install -y wget
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
     - name: Powershell version
       run: |
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
@@ -84,6 +111,12 @@ jobs:
       image: mcr.microsoft.com/powershell:7.1.3-ubuntu-18.04
     steps:
     - uses: actions/checkout@v3
+    - name: Install wget
+      run: |
+        apt-get update && apt-get install -y wget
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
     - name: Powershell version
       run: |
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
@@ -97,6 +130,12 @@ jobs:
       image: mcr.microsoft.com/powershell:7.2.2-ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
+    - name: Install wget
+      run: |
+        apt-get update && apt-get install -y wget
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
     - name: Powershell version
       run: |
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
@@ -110,6 +149,12 @@ jobs:
       image: mcr.microsoft.com/powershell:7.3-ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
+    - name: Install wget
+      run: |
+        apt-get update && apt-get install -y wget
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
     - name: Powershell version
       run: |
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
