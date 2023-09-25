@@ -78,6 +78,12 @@ Configure the following CI settings for your project.
 
 Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https://docs.microsoft.com/en-us/powershell/scripting/gallery/how-to/publishing-packages/publishing-a-package?view=powershell-6#powershell-gallery-account-and-api-key) to your main project's CI settings for publishing your module on [PowerShell Gallery](https://www.powershellgallery.com/).
 
+#### Environment variables
+
+##### Project base directory
+
+By default, `PSModulePublisher` defaults to using the main project's root directory as the path for execution. To override the default location, simply set the *environment* variable `PROJECT_BASE_DIR` to contain a custom directory value in your CI environment before executing `PSModulePublisher`.
+
 ## Usage
 
 ### Development
