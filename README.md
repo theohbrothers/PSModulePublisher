@@ -82,7 +82,7 @@ Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https:
 
 ##### Project base directory
 
-By default, `PSModulePublisher` defaults to using the main project's root directory as the path for execution. To override the default location, simply set the *environment* variable `PROJECT_BASE_DIR` to contain a custom directory value in your CI environment before executing `PSModulePublisher`.
+By default, `PSModulePublisher` uses the main project's root directory as the path for execution. To override the default location, set the *environment* variable `PROJECT_BASE_DIR` to contain a custom directory value in your CI environment before executing `PSModulePublisher`.
 
 ## Usage
 
