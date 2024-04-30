@@ -11,6 +11,34 @@ on:
     - master
 
 jobs:
+  test-powershell-core-windows-2022:
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
+    - name: Powershell version
+      run: |
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
+    - name: Test
+      run: |
+        powershell -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+
+  test-powershell-5-1-windows-2022:
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
+    - name: Powershell version
+      run: |
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
+    - name: Test
+      run: |
+        powershell -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+
   test-powershell-5-1-windows-2019:
     runs-on: windows-2019
     steps:
@@ -162,8 +190,29 @@ jobs:
       run: |
         pwsh -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
 
+  test-powershell-7-4:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/powershell:7.4-ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install wget
+      run: |
+        apt-get update && apt-get install -y wget
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
+    - name: Powershell version
+      run: |
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
+    - name: Test
+      run: |
+        pwsh -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+
   update-draft-release:
     needs:
+      - test-powershell-core-windows-2022
+      - test-powershell-5-1-windows-2022
       - test-powershell-5-1-windows-2019
       - test-powershell-6-0
       - test-powershell-6-1
@@ -172,6 +221,7 @@ jobs:
       - test-powershell-7-1
       - test-powershell-7-2
       - test-powershell-7-3
+      - test-powershell-7-4
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
@@ -185,6 +235,8 @@ jobs:
 
   publish-draft-release:
     needs:
+      - test-powershell-core-windows-2022
+      - test-powershell-5-1-windows-2022
       - test-powershell-5-1-windows-2019
       - test-powershell-6-0
       - test-powershell-6-1
@@ -193,6 +245,7 @@ jobs:
       - test-powershell-7-1
       - test-powershell-7-2
       - test-powershell-7-3
+      - test-powershell-7-4
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
