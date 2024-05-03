@@ -25,12 +25,12 @@ stages:
   - job: linux
     displayName: '[Linux] PowerShell Core'
     pool:
-      vmImage: ubuntu-20.04
+      vmImage: ubuntu-22.04
     steps:
     - checkout: self
       submodules: recursive
     - template: templates/azure-pipelines/entrypoint/linux/build-test.yml@PSModulePublisher
-  - job: windows_pwsh
+  - job: windows_powershell_core
     displayName: '[Windows] PowerShell Core'
     pool:
       vmImage: windows-2022
@@ -45,7 +45,7 @@ stages:
   - job: linux
     displayName: '[Linux] PowerShell Core'
     pool:
-      vmImage: ubuntu-20.04
+      vmImage: ubuntu-22.04
     steps:
     - checkout: self
       submodules: recursive
