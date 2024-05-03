@@ -25,15 +25,23 @@ stages:
   - job: linux_container
     displayName: '[Linux] [Container] PowerShell'
     pool:
-      vmImage: ubuntu-20.04
+      vmImage: ubuntu-22.04
     strategy:
       matrix:
-        7.0.0:
-          containerImage: joeltimothyoh/powershell:7.0.0-ubuntu-18.04-git-sudo
-        6.2.0:
-          containerImage: joeltimothyoh/powershell:6.2.0-ubuntu-18.04-git-sudo
-        6.1.0:
-          containerImage: joeltimothyoh/powershell:6.1.0-ubuntu-18.04-git-sudo
+        7.4.2:
+          containerImage: joeltimothyoh/powershell:7.4.2-ubuntu-22.04-git-sudo
+        7.3.9:
+          containerImage: joeltimothyoh/powershell:7.3.9-ubuntu-22.04-git-sudo
+        7.2.2:
+          containerImage: joeltimothyoh/powershell:7.2.2-ubuntu-20.04-git-sudo
+        7.1.5:
+          containerImage: joeltimothyoh/powershell:7.1.5-ubuntu-20.04-git-sudo
+        7.0.3:
+          containerImage: joeltimothyoh/powershell:7.0.3-ubuntu-18.04-git-sudo
+        6.2.4:
+          containerImage: joeltimothyoh/powershell:6.2.4-ubuntu-18.04-git-sudo
+        6.1.3:
+          containerImage: joeltimothyoh/powershell:6.1.3-ubuntu-18.04-git-sudo
     container: $[ variables['containerImage'] ]
     steps:
     - checkout: self
@@ -46,7 +54,7 @@ stages:
   - job: linux
     displayName: '[Linux] PowerShell Core'
     pool:
-      vmImage: ubuntu-20.04
+      vmImage: ubuntu-22.04
     steps:
     - checkout: self
       submodules: recursive

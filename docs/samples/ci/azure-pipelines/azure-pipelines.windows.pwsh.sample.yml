@@ -22,7 +22,7 @@ stages:
 - stage: build_test_publish
   displayName: Build, Test, Publish
   jobs:
-  - job: windows_pwsh
+  - job: windows_powershell_core
     displayName: '[Windows] PowerShell Core'
     pool:
       vmImage: windows-2022
