@@ -4,7 +4,7 @@ param()
 Set-StrictMode -Version Latest
 $ErrorView = 'NormalView'
 $VerbosePreference = 'Continue'
-$global:PesterDebugPreference_ShowFullErrors = $true
+$script:PesterDebugPreference_ShowFullErrors = $true
 
 try {
     Push-Location $PSScriptRoot

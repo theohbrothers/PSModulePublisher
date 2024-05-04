@@ -7,7 +7,7 @@ A project containing the necessary tools to ease publishing of PowerShell module
 
 ## Introduction
 
-This project provides CI templates and scripts that other projects can utilize for building, testing, and publishing PowerShell modules.
+This project provides CI templates and cmdlets that other projects can utilize for building, testing, and publishing PowerShell modules.
 
 ### Main project structure
 
@@ -19,10 +19,11 @@ This project provides CI templates and scripts that other projects can utilize f
 /build/definitions/modulemanifest.ps1               # The module manifest definition file
 
 /src/MyPowershellModule/                            # The module's root directory
-/src/MyPowershellModule/MyPowershellModule.psm1     # The script module (.psm1) file
+/src/MyPowershellModule/MyPowershellModule.psm1     # The module .psm1 file
+/src/MyPowershellModule/MyPowershellModule.psd1     # The module .psd1 file (optional)
 
-/test/                                              # Directory containing test files [Optional]
-/test/test.ps1                                      # The test entrypoint script [Optional]
+/test/                                              # Directory containing test files (optional)
+/test/test.ps1                                      # The test entrypoint script (optional)
 ```
 
 ## Configuration
@@ -46,9 +47,9 @@ git --git-dir build/PSModulePublisher/.git checkout vx.x.x
 git commit -am 'Add submodule PSModulePublisher vx.x.x'
 ```
 
-#### Script Module file
+#### Module file
 
-Ensure the main project contains the script module file at the location `src/MyPowershellModule/MyPowershellModule.psm1`.
+Ensure the main project contains the module file at the location `src/MyPowershellModule/MyPowershellModule.psm1`.
 
 #### Module manifest definition file
 
@@ -88,7 +89,7 @@ By default, `PSModulePublisher` uses the main project's root directory as the pa
 
 ### Development
 
-The project provides a development entrypoint script [`Invoke-PSModulePublisher.ps1`](src/PSModulePublisher/Invoke-PSModulePublisher.ps1) which can be used for executing the same build, test, and publish steps that will run in CI environments.
+The project provides a all-in-one cmdlet [`Invoke-PSModulePublisher`](src/PSModulePublisher/Public/Invoke-PSModulePublisher.ps1) which can be used for executing the same build, test, and publish steps that will run in CI environments.
 
 ### Continuous Integration
 
