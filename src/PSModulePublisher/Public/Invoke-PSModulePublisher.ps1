@@ -18,9 +18,10 @@ function Invoke-PSModulePublisher {
     $ErrorActionPreference = 'Stop'
     $ErrorView = 'NormalView'
     $VerbosePreference = 'Continue'
-    $env:MODULE_VERSION = if ($env:MODULE_VERSION) { $env:MODULE_VERSION } else { '0.0.0' }
 
     try {
+        $env:MODULE_VERSION = if ($env:MODULE_VERSION) { $env:MODULE_VERSION } else { '0.0.0' }
+
         # Run the build entrypoint script
         $manifestPath = Invoke-Build
 
