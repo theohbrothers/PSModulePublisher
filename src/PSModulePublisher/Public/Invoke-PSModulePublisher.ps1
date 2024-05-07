@@ -16,8 +16,8 @@ function Invoke-PSModulePublisher {
 
     Set-StrictMode -Version Latest
     $ErrorActionPreference = 'Stop'
-    $VerbosePreference = 'Continue'
     $ErrorView = 'NormalView'
+    $VerbosePreference = 'Continue'
     $env:MODULE_VERSION = if ($env:MODULE_VERSION) { $env:MODULE_VERSION } else { '0.0.0' }
 
     try {
