@@ -1,11 +1,16 @@
+#########################################################################################################################################################
+# This function is designed for use in development environments for executing the same build, test, and publish steps that will run in CI environments. #
+# You can use the provided switches to test the publishing process in your development environment.                                                     #
+#########################################################################################################################################################
+
 function Invoke-PSModulePublisher {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory=$false,HelpMessage="Path to the repository")]
+        [Parameter(Mandatory=$false,HelpMessage="Name of the PowerShell repository")]
         [ValidateNotNullOrEmpty()]
         [string]$Repository
         ,
-        [Parameter(Mandatory=$false,HelpMessage="Whether to do a dry run")]
+        [Parameter(Mandatory=$false,HelpMessage="Perform a dry run when publishing the module")]
         [switch]$DryRun
     )
 
