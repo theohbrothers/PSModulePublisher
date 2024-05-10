@@ -23,7 +23,7 @@ jobs:
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
     - name: Test
       run: |
-        pwsh -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
   test-powershell-5-1-windows-2022:
     runs-on: windows-2022
@@ -37,7 +37,7 @@ jobs:
         powershell -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
     - name: Test
       run: |
-        powershell -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
   test-powershell-5-1-windows-2019:
     runs-on: windows-2019
@@ -51,7 +51,7 @@ jobs:
         powershell -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
     - name: Test
       run: |
-        powershell -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
   ##########
   # Docker #
@@ -74,7 +74,7 @@ jobs:
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
     - name: Test
       run: |
-        pwsh -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
   test-powershell-6-1-container:
     runs-on: ubuntu-latest
@@ -93,7 +93,7 @@ jobs:
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
     - name: Test
       run: |
-        pwsh -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
   test-powershell-6-2-container:
     runs-on: ubuntu-latest
@@ -112,7 +112,7 @@ jobs:
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
     - name: Test
       run: |
-        pwsh -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
   test-powershell-7-0-container:
     runs-on: ubuntu-latest
@@ -131,7 +131,7 @@ jobs:
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
     - name: Test
       run: |
-        pwsh -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
   test-powershell-7-1-container:
     runs-on: ubuntu-latest
@@ -150,7 +150,7 @@ jobs:
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
     - name: Test
       run: |
-        pwsh -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
   test-powershell-7-2-container:
     runs-on: ubuntu-latest
@@ -169,7 +169,7 @@ jobs:
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
     - name: Test
       run: |
-        pwsh -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
   test-powershell-7-3-container:
     runs-on: ubuntu-latest
@@ -188,7 +188,7 @@ jobs:
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
     - name: Test
       run: |
-        pwsh -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
   test-powershell-7-4-container:
     runs-on: ubuntu-latest
@@ -207,7 +207,7 @@ jobs:
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
     - name: Test
       run: |
-        pwsh -NoLogo -NonInteractive -NoProfile -Command './test/test.ps1'
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
   update-draft-release:
     needs:
