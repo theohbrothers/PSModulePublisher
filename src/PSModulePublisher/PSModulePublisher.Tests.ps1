@@ -1,7 +1,7 @@
 Describe "Invoke-PSModulePublisher" -Tag 'Integration' {
     BeforeAll {
-        $moduleDir = $PSScriptRoot
-        Import-Module $moduleDir/PSModulePublisher.psm1 -Force
+        $ErrorActionPreference = 'Stop'
+        $ErrorView = 'NormalView'
         $mockModuleRepoDir = (Resolve-Path "$PSScriptRoot/../../test/Mock-Module").Path
         $mockModuleManifest = (Resolve-Path "$mockModuleRepoDir/src/Mock-Module/Mock-Module.psd1").Path
         $env:PROJECT_BASE_DIR = $mockModuleRepoDir  # Override the project base
