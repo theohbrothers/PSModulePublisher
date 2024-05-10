@@ -18,39 +18,39 @@
     ],
     "tasks": [
         {
-            "label": "Test (pwsh)",
+            "label": "Test PSModulePublisher with separate module (pwsh)",
             "type": "shell",
             "command": "pwsh -Command test/test.ps1",
             "group": "build"
         },
         {
-            "label": "Test (powershell)",
+            "label": "Test PSModulePublisher with separate module (powershell)",
             "type": "shell",
             "command": "powershell -Command test/test.ps1",
             "group": "build"
         },
         {
-            "label": "Build: Generate module manifest",
+            "label": "Build PSModulePublisher",
             "type": "shell",
-            "command": "MODULE_VERSION=${input:MODULE_VERSION} pwsh src/PSModulePublisher/Public/Invoke-Build.ps1",
+            "command": "MODULE_VERSION=${input:MODULE_VERSION} pwsh -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; Invoke-Build'",
             "group": "build"
         },
         {
-            "label": "Publish module (dry run)",
+            "label": "Publish PSModulePublisher (dry run)",
             "dependsOn":[
-                "Build: Generate module manifest"
+                "Build PSModulePublisher"
             ],
             "type": "shell",
-            "command": "MODULE_NAME=$(basename $(pwd)); NUGET_API_KEY=${input:NUGET_API_KEY} MODULE_VERSION=${input:MODULE_VERSION} pwsh src/PSModulePublisher/Public/Invoke-Publish.ps1 -ModuleManifestPath src/$MODULE_NAME/$MODULE_NAME.psd1 -Repository PSGallery -DryRun",
+            "command": "NUGET_API_KEY=${input:NUGET_API_KEY} MODULE_VERSION=${input:MODULE_VERSION} pwsh -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; $moduleManifest = Invoke-Build; Invoke-Publish -ModuleManifestPath $moduleManifest -Repository PSGallery -DryRun'",
             "group": "build"
         },
         {
-            "label": "Publish module",
+            "label": "Publish PSModulePublisher",
             "dependsOn":[
-                "Build: Generate module manifest"
+                "Build PSModulePublisher"
             ],
             "type": "shell",
-            "command": "MODULE_NAME=$(basename $(pwd)); NUGET_API_KEY=${input:NUGET_API_KEY} MODULE_VERSION=${input:MODULE_VERSION} pwsh src/PSModulePublisher/Public/Invoke-Publish.ps1 -ModuleManifestPath src/$MODULE_NAME/$MODULE_NAME.psd1 -Repository PSGallery",
+            "command": "NUGET_API_KEY=${input:NUGET_API_KEY} MODULE_VERSION=${input:MODULE_VERSION} pwsh -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; $moduleManifest = Invoke-Build; Invoke-Publish -ModuleManifestPath $moduleManifest -Repository PSGallery'",
             "group": "build"
         },
     ]
