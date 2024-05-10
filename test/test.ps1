@@ -1,57 +1,66 @@
+[CmdletBinding()]
 param (
     [string]$Tag = ''
 )
-$MODULE_NAME = (Get-Item $PSScriptRoot/../).Name
-$MODULE_DIR = "$PSScriptRoot/../src/$MODULE_NAME"
-$MODULE_MANIFEST = "$MODULE_DIR/$MODULE_NAME.psd1"
+$moduleItem = Get-Item "$PSScriptRoot/../src/*/*.psm1"
+$MODULE_PATH = $moduleItem.FullName
+$MODULE_DIR = $moduleItem.Directory
+$MODULE_NAME = $moduleItem.BaseName
 
 Set-StrictMode -Version Latest
-$global:PesterDebugPreference_ShowFullErrors = $true
+$VerbosePreference = 'Continue'
+$script:PesterDebugPreference_ShowFullErrors = $true
 
-# Install Pester if needed
-$pester = Get-Module Pester -ListAvailable -ErrorAction SilentlyContinue
-$pesterMinVersion = [version]'4.0.0'
-$pesterMaxVersion = [version]'4.10.1'
-if ( ! $pester -or ! ($pester.Version | ? { $_ -ge $pesterMinVersion -and $_ -le $pesterMaxVersion }) ) {
-    if ($PSVersionTable.PSVersion.Major -ge 6) {
-        Install-Module Pester -Force -Scope CurrentUser -MinimumVersion $pesterMinVersion -MaximumVersion $pesterMaxVersion -ErrorAction Stop
+try {
+    Push-Location $PSScriptRoot
+
+    # Install Pester if needed
+    "Checking Pester version" | Write-Host
+    $pesterMinimumVersion = [version]'4.0.0'
+    $pesterMaximumVersion = [version]'4.10.1'
+    $pester = Get-Module 'Pester' -ListAvailable -ErrorAction SilentlyContinue
+    if (!$pester -or !($pester | ? { $_.Version -ge $pesterMinimumVersion -and $_.Version -le $pesterMaximumVersion })) {
+        "Installing Pester" | Write-Host
+        Install-Module -Name 'Pester' -Repository 'PSGallery' -MinimumVersion $pesterMinimumVersion -MaximumVersion $pesterMaximumVersion -Scope CurrentUser -Force
+    }
+    $pester = Get-Module Pester -ListAvailable
+    $pester | Out-String | Write-Verbose
+    $pester | ? { $_.Version -ge $pesterMinimumVersion -and $_.Version -le $pesterMaximumVersion } | Select-Object -First 1 | Import-Module # Force import the latest version within the defined range to ensure environment uses the correct version of Pester
+
+    # Import the project module
+    Import-Module $MODULE_PATH -Force
+
+    if ($Tag) {
+        # Run Unit Tests
+        $res = Invoke-Pester -Script $MODULE_DIR -Tag $Tag -PassThru -ErrorAction Stop
+        if (!($res.PassedCount -eq $res.TotalCount)) {
+            "$($res.TotalCount - $res.PassedCount) unit tests did not pass." | Write-Host
+        }
+        if (!($res.PassedCount -eq $res.TotalCount)) {
+            throw
+        }
     }else {
-        Install-Module Pester -Force -Scope CurrentUser -MinimumVersion $pesterMinVersion -MaximumVersion $pesterMaxVersion -SkipPublisherCheck -ErrorAction Stop
-    }
-}
-Get-Module Pester -ListAvailable
-Import-Module Pester -MinimumVersion $pesterMinVersion -MaximumVersion $pesterMaxVersion -Force -ErrorAction Stop
+        # Run Unit Tests
+        $res = Invoke-Pester -Script $MODULE_DIR -Tag 'Unit' -PassThru -ErrorAction Stop
+        if (!($res.PassedCount -eq $res.TotalCount)) {
+            "$($res.TotalCount - $res.PassedCount) integration tests did not pass." | Write-Host
+        }
 
-# Test the module manifest
-# Test-ModuleManifest "$MODULE_MANIFEST" -ErrorAction Stop
+        # Run Integration Tests
+        $res2 = Invoke-Pester -Script $MODULE_DIR -Tag 'Integration' -PassThru -ErrorAction Stop
+        if (!($res2.PassedCount -eq $res2.TotalCount)) {
+            "$($res2.TotalCount - $res2.PassedCount) integration tests did not pass." | Write-Host
+        }
 
-# Import our module
-# Get-Module "$MODULE_NAME" | Remove-Module -Force
-# Import-Module $MODULE_MANIFEST -Force -ErrorAction Stop
-
-if ($Tag) {
-    # Run Unit Tests
-    $res = Invoke-Pester -Script $MODULE_DIR -Tag $Tag -PassThru -ErrorAction Stop
-    if ($res.FailedCount -gt 0) {
-        "$( $res.FailedCount ) $Tag tests failed." | Write-Host
-    }
-    if ($res -and $res.FailedCount -gt 0) {
-        throw
-    }
-}else {
-    # Run Unit Tests
-    $res = Invoke-Pester -Script $MODULE_DIR -Tag 'Unit' -PassThru -ErrorAction Stop
-    if ($res.FailedCount -gt 0) {
-        "$( $res.FailedCount ) unit tests failed." | Write-Host
+        if (!($res.PassedCount -eq $res.TotalCount) -or !($res2.PassedCount -eq $res2.TotalCount)) {
+            throw
+        }
     }
 
-    # Run Integration Tests
-    $res2 = Invoke-Pester -Script $MODULE_DIR -Tag 'Integration' -PassThru -ErrorAction Stop
-    if ($res2.FailedCount -gt 0) {
-        "$( $res2.FailedCount ) integration tests failed." | Write-Host
-    }
-
-    if (($res -and $res.FailedCount -gt 0) -or ($res2 -and $res2.FailedCount)) {
-        throw
-    }
+}catch {
+    throw
+}finally {
+    "Listing test artifacts" | Write-Host
+    git ls-files --others --exclude-standard
+    Pop-Location
 }
