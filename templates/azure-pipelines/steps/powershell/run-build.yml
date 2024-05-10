@@ -3,7 +3,8 @@ steps:
     $ErrorActionPreference = 'Stop'
     $ErrorView = 'NormalView'
     $VerbosePreference = 'Continue'
-    $MODULE_MANIFEST_PATH = .\build\PSModulePublisher\src\PSModulePublisher\Public\Invoke-Build.ps1
+    Import-Module .\src\PSModulePublisher\PSModulePublisher.psm1 -Force -Verbose
+    $MODULE_MANIFEST_PATH = Invoke-Build
     ### Begin CI-specific code: Set job-scoped variables
     echo "##vso[task.setvariable variable=MODULE_MANIFEST_PATH]${MODULE_MANIFEST_PATH}"
     ### End of CI-specific code
