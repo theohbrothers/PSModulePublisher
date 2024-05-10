@@ -3,6 +3,6 @@ steps:
     $ErrorActionPreference = 'Stop'
     $ErrorView = 'NormalView'
     $VerbosePreference = 'Continue'
-    Import-Module .\src\PSModulePublisher\PSModulePublisher.psm1 -Force -Verbose
+    Import-Module .\build\PSModulePublisher\src\PSModulePublisher\PSModulePublisher.psm1 -Force -Verbose
     Invoke-Test -ModuleManifestPath $env:MODULE_MANIFEST_PATH
   displayName: Test module via module's manifest
