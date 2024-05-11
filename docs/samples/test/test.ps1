@@ -2,16 +2,18 @@
 param (
     [string]$Tag = ''
 )
-$moduleItem = Get-Item "$PSScriptRoot/../src/*/*.psm1"
-$MODULE_PATH = $moduleItem.FullName
-$MODULE_DIR = $moduleItem.Directory
-$MODULE_NAME = $moduleItem.BaseName
 
 Set-StrictMode -Version Latest
 $VerbosePreference = 'Continue'
 $script:PesterDebugPreference_ShowFullErrors = $true
 
 try {
+    # Initialize variables
+    $moduleItem = Get-Item "$PSScriptRoot/../src/*/*.psm1"
+    $MODULE_PATH = $moduleItem.FullName
+    $MODULE_DIR = $moduleItem.Directory
+    $MODULE_NAME = $moduleItem.BaseName
+
     Push-Location $PSScriptRoot
 
     # Install Pester if needed
