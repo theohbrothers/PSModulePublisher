@@ -1,5 +1,7 @@
 [CmdletBinding()]
 param (
+    [Parameter(Mandatory=$false)]
+    [ValidateNotNullOrEmpty()]
     [string]$Tag = ''
 )
 
