@@ -1,13 +1,13 @@
-$script:MODULE_BASE_DIR = Split-Path $MyInvocation.MyCommand.Path -Parent
-$script:MODULE_PRIVATE_DIR = Join-Path $MODULE_BASE_DIR 'Private'
-$script:MODULE_PUBLIC_DIR = Join-Path $MODULE_BASE_DIR 'Public'
+Set-StrictMode -Version Latest
 
-Get-ChildItem "$script:MODULE_PRIVATE_DIR/*.ps1" -exclude *.Tests.ps1 | % {
-    . $_.FullName
-}
+# Initialize variables
+$MODULE_BASE_DIR = $PSScriptRoot
+$MODULE_PRIVATE_DIR = Join-Path $MODULE_BASE_DIR 'Private'
+$MODULE_PUBLIC_DIR = Join-Path $MODULE_BASE_DIR 'Public'
 
-Get-ChildItem "$script:MODULE_PUBLIC_DIR/*.ps1" -exclude *.Tests.ps1 | % {
-    . $_.FullName
-}
+# Load functions
+Get-ChildItem "$MODULE_PRIVATE_DIR\*.ps1" -exclude *.Tests.ps1 | % { . $_.FullName }
+Get-ChildItem "$MODULE_PUBLIC_DIR\*.ps1" -exclude *.Tests.ps1 | % { . $_.FullName }
 
-Export-ModuleMember -Function (Get-ChildItem "$script:MODULE_PUBLIC_DIR\*.ps1" | Select-Object -ExpandProperty BaseName)
+# Export functions
+Export-ModuleMember -Function (Get-ChildItem "$MODULE_PUBLIC_DIR\*.ps1" | Select-Object -ExpandProperty BaseName)
