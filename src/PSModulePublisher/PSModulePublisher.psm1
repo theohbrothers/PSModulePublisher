@@ -9,3 +9,5 @@ Get-ChildItem "$script:MODULE_PRIVATE_DIR/*.ps1" -exclude *.Tests.ps1 | % {
 Get-ChildItem "$script:MODULE_PUBLIC_DIR/*.ps1" -exclude *.Tests.ps1 | % {
     . $_.FullName
 }
+
+Export-ModuleMember -Function (Get-ChildItem "$script:MODULE_PUBLIC_DIR\*.ps1" | Select-Object -ExpandProperty BaseName)
