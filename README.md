@@ -89,13 +89,26 @@ By default, `PSModulePublisher` uses the main project's root directory as the pa
 
 ### Development
 
-The project provides a all-in-one cmdlet [`Invoke-PSModulePublisher`](src/PSModulePublisher/Public/Invoke-PSModulePublisher.ps1) which can be used for executing the same build, test, and publish steps that will run in CI environments.
+The project includes the cmdlet [`Invoke-PSModulePublisher`](src/PSModulePublisher/Public/Invoke-PSModulePublisher.ps1) which can be used for executing the project's build, test, and publish steps for PowerShell modules:
 
-### Continuous Integration
+```powershell
+# Build and Test steps (Generates module manifest, tests module via module manifest)
+Invoke-PSModulePublisher
 
-#### Steps
+# Publish steps (Publishes module as a dry run)
+Invoke-PSModulePublisher -Repository MyPSRepository -DryRun
 
-The CI process is composed of the following steps:
+# Publish steps (Publishes module)
+Invoke-PSModulePublisher -Repository MyPSRepository
+```
+
+### Continuous Integration (CI)
+
+The project includes provided CI templates and cmdlets for executing the project's build, test, and publish steps for PowerShell modules.
+
+#### via Templates
+
+The CI process with the included [CI templates](docs/samples/ci) is composed of the following steps:
 
 ##### Build
 
@@ -115,8 +128,6 @@ The CI process is composed of the following steps:
 
 **Build** and **Test** steps can be executed for every commit pushed. Simply [configure](docs/samples/ci/azure-pipelines/azure-pipelines.linux.sample.yml#L8-L11) your main project's CI file(s) and/or settings to allow so.
 
-#### Publishing the module
-
 **Publish** steps will run only for [*tag* refs](templates/azure-pipelines/steps/pwsh/run-publish.yml#L10). Ensure your main project's CI file(s) and/or settings are [configured](docs/samples/ci/azure-pipelines/azure-pipelines.linux.sample.yml#L5-L7) to run CI jobs for *tag* refs.
 
 Tags must follow [Semantic Versioning](https://semver.org/) and be prepended with a lowercase `v`:
@@ -129,13 +140,38 @@ git tag v1.0.12
 git push remotename v1.0.12
 ```
 
-#### Use cases
+##### Use cases
 
 For a basic use case, the CI process could simply comprise a single stage containing all the steps from **Build**, **Test**, and **Publish**.
 
 In cases where the module needs to be tested across multiple operating systems and/or versions of PowerShell, two stages can be configured: The 1st stage containing *multiple jobs* executing [**Build** and **Test** steps](docs/samples/ci/azure-pipelines/azure-pipelines.linux.windows.sample.yml#L24-L40) for building and testing the module; the 2nd stage containing a *single* job executing [**Build** and **Publish** steps](docs/samples/ci/azure-pipelines/azure-pipelines.linux.windows.sample.yml#L52) for publishing the module.
 
 Refer to the [sample CI files](docs/samples/ci) for some working examples.
+
+#### via Cmdlets
+
+##### Parameters
+
+```powershell
+Invoke-Build [<CommonParameters>]
+Invoke-Test [-ModuleManifestPath] <string> [<CommonParameters>]
+Invoke-Publish [-ModuleManifestPath] <string> [-Repository] <string> [-DryRun] [<CommonParameters>]
+```
+
+##### Commands
+
+Simply execute the individual cmdlets within your CI environment to perform their respective functions:
+
+```powershell
+# Build (Generates module manifest)
+$moduleManifestPath = Invoke-Build
+
+# Test (Tests module via module manifest)
+Invoke-Test -ModuleManifestPath $moduleManifestPath
+
+# Publish (Publishes module)
+Invoke-Publish -ModuleManifestPath $moduleManifestPath -Repository PSGallery
+```
 
 ### Managing the submodule
 
