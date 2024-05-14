@@ -1,4 +1,4 @@
-Describe "Invoke-PSModulePublisher" -Tag 'Integration' {
+Describe "PSModulePublisher" -Tag 'Integration' {
     BeforeAll {
         $ErrorActionPreference = 'Stop'
         $ErrorView = 'NormalView'
