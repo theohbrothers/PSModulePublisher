@@ -15,17 +15,17 @@ Describe "PSModulePublisher" -Tag 'Integration' {
         $moduleManifest = Invoke-Build
         $moduleManifest | Should -Be $mockModuleManifest
     }
-    It "Runs Invoke-PSModulePublisher" {
-        $env:MODULE_VERSION = '0.0.0'
-        $env:NUGET_API_KEY = 'xxx'
-        Invoke-PSModulePublisher -Repository PSGallery -DryRun
+    It "Runs Invoke-Test" {
+        Invoke-Test -ModuleManifestPath $mockModuleManifest
     }
     It "Runs Invoke-Publish" {
         $env:MODULE_VERSION = '0.0.0'
         $env:NUGET_API_KEY = 'xxx'
         Invoke-Publish -ModuleManifestPath $mockModuleManifest -Repository PSGallery -DryRun
     }
-    It "Runs Invoke-Test" {
-        Invoke-Test -ModuleManifestPath $mockModuleManifest
+    It "Runs Invoke-PSModulePublisher" {
+        $env:MODULE_VERSION = '0.0.0'
+        $env:NUGET_API_KEY = 'xxx'
+        Invoke-PSModulePublisher -Repository PSGallery -DryRun
     }
 }
