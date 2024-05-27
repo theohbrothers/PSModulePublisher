@@ -89,10 +89,23 @@ By default, `PSModulePublisher` uses the main project's root directory as the pa
 
 ### Development
 
-The project includes the cmdlet [`Invoke-PSModulePublisher`](src/PSModulePublisher/Public/Invoke-PSModulePublisher.ps1) which can be used for executing the project's build, test, and publish steps for PowerShell modules:
+The PowerShell cmdlet [`Invoke-PSModulePublisher`](src/PSModulePublisher/Public/Invoke-PSModulePublisher.ps1) is used for executing the project's build, test, and publish steps for PowerShell modules.
+
+#### Parameters
 
 ```powershell
-# Build and Test steps (Generates module manifest, tests module via module manifest)
+Invoke-PSModulePublisher [[-Repository] <string>] [-DryRun] [<CommonParameters>]
+```
+
+#### Commands
+
+To perform the project's build, test, and publish steps for a given module, simply define applicable [environment variables](#environment-variables-1) for a given PowerShell module project before executing the cmdlet.
+
+```powershell
+# Process applicable environment variables
+$env:PROJECT_BASE_DIR="$(git rev-parse --show-toplevel)"
+
+# Build and Test steps (Generates module manifest, Tests module via module manifest)
 Invoke-PSModulePublisher
 
 # Publish steps (Publishes module as a dry run)
@@ -101,6 +114,10 @@ Invoke-PSModulePublisher -Repository MyPSRepository -DryRun
 # Publish steps (Publishes module)
 Invoke-PSModulePublisher -Repository MyPSRepository
 ```
+
+**Note:** Ensure the environment variable [`NUGET_API_KEY`](#psgallery-api-key) is defined prior to publishing PowerShell modules.
+
+The [individual cmdlets](#via-cmdlets) may also be used for executing the project's build, test, and publish steps independently.
 
 ### Continuous Integration (CI)
 
