@@ -150,6 +150,8 @@ Refer to the [sample CI files](docs/samples/ci) for some working examples.
 
 #### via Cmdlets
 
+The following are the [parameters](#parameters) and [environment variables](#environment-variables-1) supported by the provided PowerShell cmdlets for building, testing, and publishing PowerShell modules.
+
 ##### Parameters
 
 ```powershell
@@ -158,11 +160,28 @@ Invoke-Test [-ModuleManifestPath] <string> [<CommonParameters>]
 Invoke-Publish [-ModuleManifestPath] <string> [-Repository] <string> [-DryRun] [<CommonParameters>]
 ```
 
+##### Environment variables
+
+###### Build, Test, Publish
+
+| Name | Example value | Mandatory | Type |
+|:-:|:-:|:-:|:-:|
+| [`PROJECT_BASE_DIR`](#project-base-directory) | `/path/to/my-project` | false | string |
+
+###### Publish
+
+| Name | Example value | Mandatory | Type |
+|:-:|:-:|:-:|:-:|
+| [`NUGET_API_KEY`](#psgallery-api-key) | `xxx` | true | string |
+
 ##### Commands
 
-Simply execute the individual cmdlets within your CI environment to perform their respective functions:
+To execute build, test, and publish steps for a project, simply define applicable [environment variables](#environment-variables-1) before executing the individual cmdlets within the CI environment to perform their respective functions.
 
 ```powershell
+# Process applicable environment variables
+$env:PROJECT_BASE_DIR="$(git rev-parse --show-toplevel)"
+
 # Build (Generates module manifest)
 $moduleManifestPath = Invoke-Build
 
@@ -172,6 +191,8 @@ Invoke-Test -ModuleManifestPath $moduleManifestPath
 # Publish (Publishes module)
 Invoke-Publish -ModuleManifestPath $moduleManifestPath -Repository PSGallery
 ```
+
+**Note:** Ensure the environment variable [`NUGET_API_KEY`](#psgallery-api-key) is defined prior to publishing PowerShell modules.
 
 ### Managing the submodule
 
