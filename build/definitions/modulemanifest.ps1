@@ -23,7 +23,10 @@
     # FormatsToProcess = @()
     # NestedModules = @()
     FunctionsToExport = @(
-        Get-ChildItem $PSScriptRoot/../../src/PSModulePublisher/public -Exclude *.Tests.ps1 | % { $_.BaseName }
+        'Invoke-Build'
+        'Invoke-PSModulePublisher'
+        'Invoke-Publish'
+        'Invoke-Test'
     )
     CmdletsToExport = @()
     VariablesToExport = @()
@@ -40,9 +43,23 @@
     PrivateData = @{
         # PSData = @{           # Properties within PSData will be correctly added to the manifest via Update-ModuleManifest without the PSData key. Leave the key commented out.
             Tags = @(
-                'PSModulePublisher'
-                'continuous-deployment'
+                'pwsh'
+                'powershell'
+                'modules'
+                'powershell-modules'
+                'script-module'
+                'module-manifest'
+                'module-testing'
+                'module-testing-framework'
+                'module-publishing'
+                'module-publishing-framework'
+                'ci'
                 'continuous-integration'
+                'build-test-publish'
+                'new-modulemanifest'
+                'update-modulemanifest'
+                'test-modulemanifest'
+                'publish-module'
             )
             LicenseUri = 'https://raw.githubusercontent.com/theohbrothers/PSModulePublisher/master/LICENSE'
             ProjectUri = 'https://github.com/theohbrothers/PSModulePublisher'
