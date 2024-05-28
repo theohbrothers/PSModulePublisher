@@ -20,7 +20,7 @@
         {
             "label": "Build PSModulePublisher",
             "type": "shell",
-            "command": "MODULE_VERSION=\"${input:MODULE_VERSION}\" pwsh -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; Invoke-Build'",
+            "command": "MODULE_VERSION='${input:MODULE_VERSION}' pwsh -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; Invoke-Build'",
             "group": "build"
         },
         {
@@ -41,7 +41,7 @@
                 "Build PSModulePublisher"
             ],
             "type": "shell",
-            "command": "NUGET_API_KEY=\"${input:NUGET_API_KEY}\" MODULE_VERSION=\"${input:MODULE_VERSION}\" pwsh -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; $moduleManifest = Invoke-Build; Invoke-Publish -ModuleManifestPath $moduleManifest -Repository PSGallery -DryRun'",
+            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' pwsh -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; $moduleManifest = Invoke-Build; Invoke-Publish -ModuleManifestPath $moduleManifest -Repository PSGallery -DryRun'",
             "group": "build"
         },
         {
@@ -50,7 +50,7 @@
                 "Build PSModulePublisher"
             ],
             "type": "shell",
-            "command": "NUGET_API_KEY=\"${input:NUGET_API_KEY}\" MODULE_VERSION=\"${input:MODULE_VERSION}\" pwsh -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; $moduleManifest = Invoke-Build; Invoke-Publish -ModuleManifestPath $moduleManifest -Repository PSGallery'",
+            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' pwsh -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; $moduleManifest = Invoke-Build; Invoke-Publish -ModuleManifestPath $moduleManifest -Repository PSGallery'",
             "group": "build"
         },
     ]
