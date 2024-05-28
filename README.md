@@ -7,9 +7,15 @@ A project containing the necessary tools to ease publishing of PowerShell module
 
 ## Introduction
 
-This project provides CI templates and cmdlets that other projects can utilize for building, testing, and publishing PowerShell modules.
+This project provides PowerShell cmdlets and CI templates that other projects can utilize for building, testing, and publishing PowerShell modules.
 
-### Main project structure
+## Setup
+
+`PSModulePublisher` can be used as a [submodule](#submodule) for building, testing, and publishing PowerShell modules.
+
+### Submodule
+
+#### Main project structure
 
 `PSModulePublisher` requires main projects to adopt the following directory structure:
 
@@ -26,13 +32,7 @@ This project provides CI templates and cmdlets that other projects can utilize f
 /test/test.ps1                                      # The test entrypoint script (optional)
 ```
 
-## Configuration
-
-### Main project
-
-Configure the following components on your main project.
-
-#### Submodule
+#### Adding the submodule
 
 Add `PSModulePublisher` as a submodule under the directory `build` in your main project:
 
@@ -57,9 +57,9 @@ The project sources from a definition file to generate a manifest used for publi
 
 The definition template can be found [here](docs/samples/build/definitions/modulemanifest.ps1).
 
-#### CI files
+#### CI remote templates
 
-Decide on which CI provider to use in your main project based on those supported by this project. Setup the CI file(s) for your main project. Then simply reference the relevant CI files of this project from your main project's CI file(s).
+Decide on which CI provider to use in your main project based on those supported by this project. Then setup the CI file(s) for your main project, referencing relevant CI remote template(s) of this project from your main project's CI file(s).
 
 Sample CI files can be found [here](docs/samples/ci).
 
@@ -121,7 +121,7 @@ The [individual cmdlets](#via-cmdlets) may also be used for executing the projec
 
 ### Continuous Integration (CI)
 
-The project includes provided CI templates and cmdlets for executing the project's build, test, and publish steps for PowerShell modules.
+The project includes PowerShell cmdlets and CI remote templates for executing the project's build, test, and publish steps for PowerShell modules.
 
 #### via Templates
 
