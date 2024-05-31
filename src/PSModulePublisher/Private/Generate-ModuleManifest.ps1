@@ -21,6 +21,7 @@ function Generate-ModuleManifest {
         $moduleManifestArgs['ModuleVersion'] = if ($env:MODULE_VERSION) {
                                                 $env:MODULE_VERSION
                                             }else {
+                                                "`$env:MODULE_VERSION is null or undefined. Using the dummy value '0.0.0'" | Write-Warning
                                                 '0.0.0'
                                             }
 
