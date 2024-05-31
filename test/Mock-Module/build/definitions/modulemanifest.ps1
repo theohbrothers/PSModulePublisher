@@ -23,6 +23,8 @@
     # FormatsToProcess = @()
     # NestedModules = @()
     FunctionsToExport = @(
+        'Mock-Function1'
+        'Mock-Function2'
     )
     CmdletsToExport = @()
     VariablesToExport = @()
@@ -35,6 +37,8 @@
             Tags = @(
                 'mock'
                 'module'
+                'template'
+                'psgallery'
             )
             LicenseUri = 'https://raw.githubusercontent.com/theohbrothers/Mock-Module/master/LICENSE'
             ProjectUri = 'https://github.com/theohbrothers/Mock-Module'
