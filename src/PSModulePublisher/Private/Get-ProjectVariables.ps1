@@ -9,7 +9,7 @@ function Get-ProjectVariables {
         # Global constants
         $script:PROJECT = @{}
         if ($env:PROJECT_BASE_DIR) {
-            $script:PROJECT['BASE_DIR'] = $env:PROJECT_BASE_DIR
+            $script:PROJECT['BASE_DIR'] = Convert-Path -Path $env:PROJECT_BASE_DIR
         }else {
             $script:PROJECT['SUPERPROJECT_BASE_DIR'] = if (git rev-parse --show-superproject-working-tree) { Convert-Path -Path (git rev-parse --show-superproject-working-tree) }
             $script:PROJECT['BASE_DIR'] = if ($script:PROJECT['SUPERPROJECT_BASE_DIR']) { $script:PROJECT['SUPERPROJECT_BASE_DIR'] } else { Convert-Path -Path (git rev-parse --show-toplevel) }
