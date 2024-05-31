@@ -16,32 +16,20 @@
     # DotNetFrameworkVersion = ''
     # CLRVersion = ''
     # ProcessorArchitecture = ''
-    # RequiredModules = @(
-    #     @{
-    #         ModuleName = "PSMockModule"
-    #         RequiredVersion = '0.0.2'
-    #     }
-    # )
+    # RequiredModules = @()
     # RequiredAssemblies = @()
     # ScriptsToProcess = @()
     # TypesToProcess = @()
     # FormatsToProcess = @()
     # NestedModules = @()
     FunctionsToExport = @(
-        Get-ChildItem $PSScriptRoot/../../src/Mock-Module/Public -Exclude *.Tests.ps1 | % { $_.BaseName }
     )
     CmdletsToExport = @()
     VariablesToExport = @()
     AliasesToExport = @()
     # DscResourcesToExport = @()
     # ModuleList = @()
-    # FileList = @(
-    #     & {
-    #         Set-Location $PSScriptRoot/../../../src/Generate-DockerImageVariants/
-    #         Get-ChildItem  -File -Recurse -Force | Resolve-Path -Relative
-    #         Set-Location -
-    #     }
-    # )
+    # FileList = @()
     PrivateData = @{
         # PSData = @{           # Properties within PSData will be correctly added to the manifest via Update-ModuleManifest without the PSData key. Leave the key commented out.
             Tags = @(
@@ -54,7 +42,7 @@
             # ReleaseNotes = ''
             # Prerelease = ''
             # RequireLicenseAcceptance = $false
-            ExternalModuleDependencies = @()
+            # ExternalModuleDependencies = @()
         # }
         # HelpInfoURI = ''
         # DefaultCommandPrefix = ''
