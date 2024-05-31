@@ -31,10 +31,6 @@ function Invoke-PSModulePublisher {
             "Unspecified PS Repository. The module will not be published." | Write-Warning
         }
     }catch {
-        if ($ErrorActionPreference -eq 'Stop') {
-            throw
-        }else {
-            $_ | Write-Error
-        }
+        throw
     }
 }
