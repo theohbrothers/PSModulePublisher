@@ -35,9 +35,15 @@
     ],
     "tasks": [
         {
-            "label": "Build PSModulePublisher",
+            "label": "Build PSModulePublisher (pwsh)",
             "type": "shell",
             "command": "MODULE_VERSION='${input:MODULE_VERSION}' pwsh -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; Invoke-Build'",
+            "group": "build"
+        },
+        {
+            "label": "Build PSModulePublisher (powershell)",
+            "type": "shell",
+            "command": "MODULE_VERSION='${input:MODULE_VERSION}' powershell -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; Invoke-Build'",
             "group": "build"
         },
         {
@@ -53,12 +59,21 @@
             "group": "build"
         },
         {
-            "label": "Publish PSModulePublisher",
+            "label": "Publish PSModulePublisher (pwsh)",
             "dependsOn": [
-                "Build PSModulePublisher"
+                "Build PSModulePublisher (pwsh)"
             ],
             "type": "shell",
             "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' pwsh -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; $moduleManifest = Invoke-Build; Invoke-Publish -ModuleManifestPath $moduleManifest -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
+            "group": "build"
+        },
+        {
+            "label": "Publish PSModulePublisher (powershell)",
+            "dependsOn": [
+                "Build PSModulePublisher (powershell)"
+            ],
+            "type": "shell",
+            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' powershell -c 'Import-Module ./src/PSModulePublisher/PSModulePublisher.psm1 -Force; $moduleManifest = Invoke-Build; Invoke-Publish -ModuleManifestPath $moduleManifest -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
             "group": "build"
         },
     ]
