@@ -233,7 +233,7 @@ jobs:
       run: |
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
-  update-draft-release:
+  build-publish:
     needs:
       - test-powershell-core-windows-2022
       - test-powershell-5-1-windows-2022
@@ -246,6 +246,40 @@ jobs:
       - test-powershell-7-2-container
       - test-powershell-7-3-container
       - test-powershell-7-4-container
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
+    - name: Powershell version
+      run: |
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
+    - name: Build
+      shell: bash
+      run: |
+        # Process applicable environment variables
+        export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
+        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Build (Generates module manifest)
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Import-Module "./src/$env:MODULE_NAME/$env:MODULE_NAME.psm1" -Force; Invoke-Build'
+    - name: Publish
+      if: startsWith(github.ref, 'refs/tags/')
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      shell: bash
+      run: |
+        # Process applicable environment variables
+        export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
+        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Publish (Publishes module)
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Import-Module "./src/$env:MODULE_NAME/$env:MODULE_NAME.psm1" -Force; Invoke-Publish -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1" -Repository PSGallery'
+
+  update-draft-release:
+    needs:
+      - build-publish
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
@@ -259,17 +293,7 @@ jobs:
 
   publish-draft-release:
     needs:
-      - test-powershell-core-windows-2022
-      - test-powershell-5-1-windows-2022
-      - test-powershell-5-1-windows-2019
-      - test-powershell-6-0-container
-      - test-powershell-6-1-container
-      - test-powershell-6-2-container
-      - test-powershell-7-0-container
-      - test-powershell-7-1-container
-      - test-powershell-7-2-container
-      - test-powershell-7-3-container
-      - test-powershell-7-4-container
+      - build-publish
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
