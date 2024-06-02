@@ -19,6 +19,7 @@ function Generate-ModuleManifest {
 
         # Set the module version based on the value of the following environment variable which will be set in a CI release environment. Else assume the run to be occurring within a development environment or as a regular CI build, assigning it the dummy value of '0.0.0'
         $moduleManifestArgs['ModuleVersion'] = if ($env:MODULE_VERSION) {
+                                                "Using specified module version '$env:MODULE_VERSION'" | Write-Host
                                                 $env:MODULE_VERSION
                                             }else {
                                                 "`$env:MODULE_VERSION is null or undefined. Using the dummy value '0.0.0'" | Write-Warning
