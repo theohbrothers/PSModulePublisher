@@ -143,9 +143,9 @@ The CI process with the included [CI templates](docs/samples/ci) is composed of 
 1. Install publish dependencies *(if applicable)*
 1. Publish module
 
-**Build** and **Test** steps can be executed for every commit pushed. Simply [configure](docs/samples/ci/azure-pipelines/azure-pipelines.linux.sample.yml#L8-L11) your main project's CI file(s) and/or settings to allow so.
+**Build** and **Test** steps can be executed for every commit pushed. Simply [configure](docs/samples/ci/azure-pipelines/azure-pipelines.linux.yml#L8-L11) your main project's CI file(s) and/or settings to allow so.
 
-**Publish** steps will run only for [*tag* refs](templates/azure-pipelines/steps/pwsh/run-publish.yml#L10). Ensure your main project's CI file(s) and/or settings are [configured](docs/samples/ci/azure-pipelines/azure-pipelines.linux.sample.yml#L5-L7) to run CI jobs for *tag* refs.
+**Publish** steps will run only for [*tag* refs](templates/azure-pipelines/steps/pwsh/run-publish.yml#L10). Ensure your main project's CI file(s) and/or settings are [configured](docs/samples/ci/azure-pipelines/azure-pipelines.linux.yml#L5-L7) to run CI jobs for *tag* refs.
 
 Tags must follow [Semantic Versioning](https://semver.org/) and be prepended with a lowercase `v`:
 
@@ -161,7 +161,7 @@ git push remotename v1.0.12
 
 For a basic use case, the CI process could simply comprise a single stage containing all the steps from **Build**, **Test**, and **Publish**.
 
-In cases where the module needs to be tested across multiple operating systems and/or versions of PowerShell, two stages can be configured: The 1st stage containing *multiple jobs* executing [**Build** and **Test** steps](docs/samples/ci/azure-pipelines/azure-pipelines.linux.windows.sample.yml#L24-L40) for building and testing the module; the 2nd stage containing a *single* job executing [**Build** and **Publish** steps](docs/samples/ci/azure-pipelines/azure-pipelines.linux.windows.sample.yml#L52) for publishing the module.
+In cases where the module needs to be tested across multiple operating systems and/or versions of PowerShell, two stages can be configured: The 1st stage containing *multiple jobs* executing [**Build** and **Test** steps](docs/samples/ci/azure-pipelines/azure-pipelines.linux-windows.yml#L24-L40) for building and testing the module; the 2nd stage containing a *single* job executing [**Build** and **Publish** steps](docs/samples/ci/azure-pipelines/azure-pipelines.linux-windows.yml#L52) for publishing the module.
 
 Refer to the [sample CI files](docs/samples/ci) for some working examples.
 
