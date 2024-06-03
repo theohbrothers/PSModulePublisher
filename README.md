@@ -7,17 +7,33 @@ A project containing the necessary tools to ease publishing of PowerShell module
 
 ## Introduction
 
-This project provides PowerShell cmdlets and CI templates that other projects can utilize for building, testing, and publishing PowerShell modules.
+This project provides PowerShell cmdlets and CI remote templates that other projects can utilize for building, testing, and publishing PowerShell modules.
 
 ## Setup
 
-`PSModulePublisher` can be used as a [submodule](#submodule) for building, testing, and publishing PowerShell modules.
+`PSModulePublisher` can either be installed as a [PowerShell module](#powershell-module), or used as a [submodule](#submodule) for building, testing, and publishing PowerShell modules.
+
+### PowerShell module
+
+To use `PSModulePublisher` as a PowerShell module, simply perform an installation of the module in development or CI environment(s) prior to executing provided [cmdlets](#usage) to perform their respective functions.
+
+```powershell
+# Latest version
+Install-Module -Name PSModulePublisher -Repository PSGallery -Scope CurrentUser -Verbose
+
+# Or, for specific version
+Install-Module -Name PSModulePublisher -Repository PSGallery -RequiredVersion x.x.x -Scope CurrentUser -Verbose
+```
+
+If prompted to trust the repository, type `Y` and `enter`.
 
 ### Submodule
 
+`PSModulePublisher` can be used as submodule together with provided [CI remote template(s)](#ci-remote-templates).
+
 #### Main project structure
 
-`PSModulePublisher` requires main projects to adopt the following directory structure:
+To use `PSModulePublisher` as a submodule, main projects are to adopt the following directory structure:
 
 ```shell
 /build/                                             # Directory containing build files
@@ -71,19 +87,19 @@ Sample test files can be found [here](docs/samples/test).
 
 ### CI settings
 
-Configure the following CI settings for your project.
+Configure the following CI settings for your main project if `PSModulePublisher` is to be used in a CI environment, whether it be as an PowerShell module or a submodule.
 
 #### Secrets
 
 ##### PSGallery API Key
 
-Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https://docs.microsoft.com/en-us/powershell/scripting/gallery/how-to/publishing-packages/publishing-a-package?view=powershell-6#powershell-gallery-account-and-api-key) to your main project's CI settings for publishing your module on [PowerShell Gallery](https://www.powershellgallery.com/).
+Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https://learn.microsoft.com/en-us/powershell/gallery/how-to/publishing-packages/publishing-a-package#powershell-gallery-account-and-api-key) to your main project's CI settings for publishing your module on [PowerShell Gallery](https://www.powershellgallery.com/).
 
 #### Environment variables
 
 ##### Project base directory
 
-By default, `PSModulePublisher` uses the main project's root directory as the path for execution. To override the default location, set the *environment* variable `PROJECT_BASE_DIR` to contain a custom directory value in your CI environment before executing `PSModulePublisher`.
+By default, `PSModulePublisher` uses the main project's root directory as the path for execution. To override the default location, set the *environment* variable `PROJECT_BASE_DIR` to contain a custom directory value before executing `PSModulePublisher`.
 
 ## Usage
 
@@ -123,7 +139,59 @@ The [individual cmdlets](#via-cmdlets) may also be used for executing the projec
 
 The project includes PowerShell cmdlets and CI remote templates for executing the project's build, test, and publish steps for PowerShell modules.
 
-#### via Templates
+#### via Cmdlets
+
+The following are the [parameters](#parameters) and [environment variables](#environment-variables-1) supported by the provided PowerShell cmdlets for building, testing, and publishing PowerShell modules.
+
+##### Parameters
+
+```powershell
+Invoke-Build [<CommonParameters>]
+Invoke-Test [-ModuleManifestPath] <string> [<CommonParameters>]
+Invoke-Publish [-ModuleManifestPath] <string> [-Repository] <string> [-DryRun] [<CommonParameters>]
+```
+
+##### Environment variables
+
+###### Build, Test, Publish
+
+| Name | Example value | Mandatory | Type |
+|:-:|:-:|:-:|:-:|
+| [`PROJECT_BASE_DIR`](#project-base-directory) | `/path/to/my-project` | false | string |
+| `MODULE_VERSION` | `vx.x.x` | false, true (Build + Publish) | string |
+
+###### Publish
+
+| Name | Example value | Mandatory | Type |
+|:-:|:-:|:-:|:-:|
+| [`NUGET_API_KEY`](#psgallery-api-key) | `xxx` | true | string |
+
+##### Commands
+
+To execute build, test, and publish steps for a project, simply define applicable [environment variables](#environment-variables-1) before executing the individual cmdlets within the CI environment to perform their respective functions.
+
+```shell
+# Process applicable environment variables
+export PROJECT_BASE_DIR=$( git rev-parse --show-toplevel )
+export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
+export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+# Install PSModulePublisher
+pwsh -NoLogo -NonInteractive -NoProfile -Command 'Install-Module -Name PSModulePublisher -Repository PSGallery -Scope CurrentUser -Force -Verbose'
+
+# Build (Generates module manifest)
+pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Build'
+
+# Test (Tests module via module manifest)
+pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1"'
+
+# Publish (Publishes module)
+pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Publish -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1" -Repository PSGallery'
+```
+
+**Note:** Ensure the environment variable [`NUGET_API_KEY`](#psgallery-api-key) is defined prior to publishing PowerShell modules.
+
+#### via Submodule and CI templates
 
 The CI process with the included [CI templates](docs/samples/ci) is composed of the following steps:
 
@@ -163,53 +231,7 @@ For a basic use case, the CI process could simply comprise a single stage contai
 
 In cases where the module needs to be tested across multiple operating systems and/or versions of PowerShell, two stages can be configured: The 1st stage containing *multiple jobs* executing [**Build** and **Test** steps](docs/samples/ci/azure-pipelines/azure-pipelines.linux-windows.yml#L24-L40) for building and testing the module; the 2nd stage containing a *single* job executing [**Build** and **Publish** steps](docs/samples/ci/azure-pipelines/azure-pipelines.linux-windows.yml#L52) for publishing the module.
 
-Refer to the [sample CI files](docs/samples/ci) for some working examples.
-
-#### via Cmdlets
-
-The following are the [parameters](#parameters) and [environment variables](#environment-variables-1) supported by the provided PowerShell cmdlets for building, testing, and publishing PowerShell modules.
-
-##### Parameters
-
-```powershell
-Invoke-Build [<CommonParameters>]
-Invoke-Test [-ModuleManifestPath] <string> [<CommonParameters>]
-Invoke-Publish [-ModuleManifestPath] <string> [-Repository] <string> [-DryRun] [<CommonParameters>]
-```
-
-##### Environment variables
-
-###### Build, Test, Publish
-
-| Name | Example value | Mandatory | Type |
-|:-:|:-:|:-:|:-:|
-| [`PROJECT_BASE_DIR`](#project-base-directory) | `/path/to/my-project` | false | string |
-
-###### Publish
-
-| Name | Example value | Mandatory | Type |
-|:-:|:-:|:-:|:-:|
-| [`NUGET_API_KEY`](#psgallery-api-key) | `xxx` | true | string |
-
-##### Commands
-
-To execute build, test, and publish steps for a project, simply define applicable [environment variables](#environment-variables-1) before executing the individual cmdlets within the CI environment to perform their respective functions.
-
-```powershell
-# Process applicable environment variables
-$env:PROJECT_BASE_DIR="$(git rev-parse --show-toplevel)"
-
-# Build (Generates module manifest)
-$moduleManifestPath = Invoke-Build
-
-# Test (Tests module via module manifest)
-Invoke-Test -ModuleManifestPath $moduleManifestPath
-
-# Publish (Publishes module)
-Invoke-Publish -ModuleManifestPath $moduleManifestPath -Repository PSGallery
-```
-
-**Note:** Ensure the environment variable [`NUGET_API_KEY`](#psgallery-api-key) is defined prior to publishing PowerShell modules.
+Sample CI files demonstrating use of this approach can be found [here](docs/samples/ci/azure-pipelines).
 
 ### Managing the submodule
 
@@ -239,4 +261,4 @@ git commit -am 'Bump PSModulePublisher to vx.x.x'
 ## Best practices
 
 - Use only tag refs of `PSModulePublisher` in your main project.
-- Ensure your main project's CI file(s) is configured to use the CI templates of `PSModulePublisher` and that the ref used matches that of the `PSModulePublisher` submodule used in your main project.
+- If using the project [via Submodule and CI templates](#via-submodule-and-ci-templates), ensure your main project's CI file(s) is configured to use a [tag ref](docs/samples/ci/azure-pipelines/azure-pipelines.linux-container.yml#L19) of `PSModulePublisher` for its CI remote templates, and that the ref matches that of the `PSModulePublisher` submodule used in your main project.
