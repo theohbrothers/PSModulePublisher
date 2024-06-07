@@ -97,9 +97,9 @@ Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https:
 
 #### Environment variables
 
-##### Project base directory
+##### Project directory
 
-By default, `PSModulePublisher` uses the main project's root directory as the path for execution. To override the default location, set the *environment* variable `PROJECT_BASE_DIR` to contain a custom directory value before executing `PSModulePublisher`.
+By default, `PSModulePublisher` uses the main project's root directory as the path for execution. To override the default location, set the *environment* variable `PROJECT_DIRECTORY` to contain a custom directory value before executing `PSModulePublisher`.
 
 ## Usage
 
@@ -119,7 +119,7 @@ To perform the project's build, test, and publish steps for a given module, simp
 
 ```powershell
 # Process applicable environment variables
-$env:PROJECT_BASE_DIR="$(git rev-parse --show-toplevel)"
+$env:PROJECT_DIRECTORY="$(git rev-parse --show-toplevel)"
 
 # Build and Test steps (Generates module manifest, Tests module via module manifest)
 Invoke-PSModulePublisher
@@ -157,7 +157,7 @@ Invoke-Publish [-ModuleManifestPath] <string> [-Repository] <string> [-DryRun] [
 
 | Name | Example value | Mandatory | Type |
 |:-:|:-:|:-:|:-:|
-| [`PROJECT_BASE_DIR`](#project-base-directory) | `/path/to/my-project` | false | string |
+| [`PROJECT_DIRECTORY`](#project-base-directory) | `/path/to/my-project` | false | string |
 | `MODULE_VERSION` | `vx.x.x` | false, true (Build + Publish) | string |
 
 ###### Publish
@@ -172,7 +172,7 @@ To execute build, test, and publish steps for a project, simply define applicabl
 
 ```shell
 # Process applicable environment variables
-export PROJECT_BASE_DIR=$( git rev-parse --show-toplevel )
+export PROJECT_DIRECTORY=$( git rev-parse --show-toplevel )
 export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
 export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
