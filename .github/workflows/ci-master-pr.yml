@@ -255,7 +255,7 @@ jobs:
     - name: Powershell version
       run: |
         powershell -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
-    - name: Build
+    - name: Generate module manifest
       shell: bash
       run: |
         # Process applicable environment variables
@@ -264,7 +264,7 @@ jobs:
 
         # Build (Generates module manifest)
         powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Import-Module "./src/$env:MODULE_NAME/$env:MODULE_NAME.psm1" -Force; Invoke-Build'
-    - name: Publish
+    - name: Publish module
       if: startsWith(github.ref, 'refs/tags/')
       env:
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
