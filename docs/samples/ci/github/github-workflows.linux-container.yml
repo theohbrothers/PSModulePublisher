@@ -1,0 +1,126 @@
+name: ci-master-pr
+
+on:
+  push:
+    branches:
+    - master
+    tags:
+    - '**'
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  test-powershell-6_2-container:
+    runs-on: ubuntu-latest
+    container:
+      image: theohbrothers/docker-powershell:6.2.4-ubuntu-18.04-git
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install wget
+      run: |
+        apt-get update && apt-get install -y wget
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
+    - name: Powershell version
+      run: |
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
+    - name: Ignore git permissions
+      run: |
+        git config --global --add safe.directory "$( pwd )"
+    - name: Install PSModulePublisher
+      run: |
+        pwsh -NoLogo -NonInteractive -NoProfile -Command 'Install-Module -Name PSModulePublisher -Repository PSGallery -Scope CurrentUser -Force -Verbose'
+    - name: Generate module manifest
+      run: |
+        # Process applicable environment variables
+        export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
+        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Build (Generates module manifest)
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Build'
+    - name: Test module via module manifest
+      run: |
+        # Process applicable environment variables
+        export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
+        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Test (Tests module via module manifest)
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1"'
+
+  test-powershell-7_3-container:
+    runs-on: ubuntu-latest
+    container:
+      image: theohbrothers/docker-powershell:7.3-ubuntu-22.04-git
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install wget
+      run: |
+        apt-get update && apt-get install -y wget
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
+    - name: Powershell version
+      run: |
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
+    - name: Ignore git permissions
+      run: |
+        git config --global --add safe.directory "$( pwd )"
+    - name: Install PSModulePublisher
+      run: |
+        pwsh -NoLogo -NonInteractive -NoProfile -Command 'Install-Module -Name PSModulePublisher -Repository PSGallery -Scope CurrentUser -Force -Verbose'
+    - name: Generate module manifest
+      run: |
+        # Process applicable environment variables
+        export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
+        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Build (Generates module manifest)
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Build'
+    - name: Test module via module manifest
+      run: |
+        # Process applicable environment variables
+        export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
+        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Test (Tests module via module manifest)
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1"'
+
+  build-publish:
+    needs:
+      - test-powershell-6_2-container
+      - test-powershell-7_3-container
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
+    - name: Powershell version
+      run: |
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
+    - name: Install PSModulePublisher
+      run: |
+        powershell -NoLogo -NonInteractive -NoProfile -Command 'Install-Module -Name PSModulePublisher -Repository PSGallery -Scope CurrentUser -Force -Verbose'
+    - name: Generate module manifest
+      shell: bash
+      run: |
+        # Process applicable environment variables
+        export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
+        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Build (Generates module manifest)
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Build'
+    - name: Publish module
+      if: startsWith(github.ref, 'refs/tags/')
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      shell: bash
+      run: |
+        # Process applicable environment variables
+        export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
+        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Publish (Publishes module)
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Import-Module "./src/$env:MODULE_NAME/$env:MODULE_NAME.psm1" -Force; Invoke-Publish -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1" -Repository PSGallery'

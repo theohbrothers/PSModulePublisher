@@ -191,6 +191,8 @@ pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue
 
 **Note:** Ensure the environment variable [`NUGET_API_KEY`](#psgallery-api-key) is defined prior to publishing PowerShell modules.
 
+Sample CI files demonstrating use of this approach can be found [here](docs/samples/ci/github).
+
 #### via Submodule and CI remote templates
 
 The CI process with the included [CI remote templates](templates) is composed of the following steps:
