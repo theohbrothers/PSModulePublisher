@@ -75,7 +75,7 @@ The definition template can be found [here](docs/samples/build/definitions/modul
 
 #### CI remote templates
 
-Decide on which CI provider to use in your main project based on those supported by this project. Then setup the CI file(s) for your main project, referencing relevant CI remote template(s) of this project from your main project's CI file(s).
+Decide on which CI provider to use in your main project based on those supported by this project. Then setup the CI file(s) for your main project, referencing relevant [CI remote template(s)](templates) of this project from your main project's CI file(s).
 
 Sample CI files can be found [here](docs/samples/ci).
 
@@ -191,9 +191,9 @@ pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue
 
 **Note:** Ensure the environment variable [`NUGET_API_KEY`](#psgallery-api-key) is defined prior to publishing PowerShell modules.
 
-#### via Submodule and CI templates
+#### via Submodule and CI remote templates
 
-The CI process with the included [CI templates](docs/samples/ci) is composed of the following steps:
+The CI process with the included [CI remote templates](templates) is composed of the following steps:
 
 ##### Build
 
@@ -261,4 +261,4 @@ git commit -am 'Bump PSModulePublisher to vx.x.x'
 ## Best practices
 
 - Use only tag refs of `PSModulePublisher` in your main project.
-- If using the project [via Submodule and CI templates](#via-submodule-and-ci-templates), ensure your main project's CI file(s) is configured to use a [tag ref](docs/samples/ci/azure-pipelines/azure-pipelines.linux-container.yml#L19) of `PSModulePublisher` for its CI remote templates, and that the ref matches that of the `PSModulePublisher` submodule used in your main project.
+- If using the project [via Submodule and CI remote templates](#via-submodule-and-ci-remote-templates), ensure your main project's CI file(s) is configured to use a [tag ref](docs/samples/ci/azure-pipelines/azure-pipelines.linux-container.yml#L19) of `PSModulePublisher` for its CI remote templates, and that the ref matches that of the `PSModulePublisher` submodule used in your main project.
