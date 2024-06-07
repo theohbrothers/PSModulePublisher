@@ -3,7 +3,7 @@ Describe "PSModulePublisher" -Tag 'Integration' {
         $ErrorView = 'NormalView'
         $mockModuleRepoDir = (Resolve-Path "$PSScriptRoot/../../test/Mock-Module").Path
         $mockModuleManifest = (Resolve-Path "$mockModuleRepoDir/src/Mock-Module/Mock-Module.psd1").Path
-        $env:PROJECT_BASE_DIR = $mockModuleRepoDir  # Override the project base
+        $env:PROJECT_DIRECTORY = $mockModuleRepoDir  # Override the project base
     }
     BeforeEach {
         Push-Location $mockModuleRepoDir
