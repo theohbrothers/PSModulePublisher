@@ -25,7 +25,7 @@ stages:
   - job: windows_powershell_5_1
     displayName: '[Windows] PowerShell 5.1'
     pool:
-      vmImage: windows-2019
+      vmImage: windows-2022
     steps:
     - checkout: self
       submodules: recursive

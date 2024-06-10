@@ -25,7 +25,7 @@ stages:
   - job: linux
     displayName: '[Linux] PowerShell Core'
     pool:
-      vmImage: ubuntu-22.04
+      vmImage: ubuntu-latest
     steps:
     - checkout: self
       submodules: recursive
