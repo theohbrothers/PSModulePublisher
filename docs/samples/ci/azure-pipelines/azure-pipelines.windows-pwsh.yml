@@ -25,7 +25,7 @@ stages:
   - job: windows_powershell_core
     displayName: '[Windows] PowerShell Core'
     pool:
-      vmImage: windows-2022
+      vmImage: windows-latest
     steps:
     - checkout: self
       submodules: recursive
