@@ -12,7 +12,7 @@ on:
 
 jobs:
   test-powershell-5_1-windows-2022:
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-dotnet@v3
@@ -41,7 +41,7 @@ jobs:
         # Test (Tests module via module manifest)
         powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1"'
 
-  test-powershell-core-windows-2022:
+  test-powershell-core-windows:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
@@ -71,10 +71,10 @@ jobs:
         # Test (Tests module via module manifest)
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1"'
 
-  build-publish:
+  build_publish-powershell-5_1-windows-2022:
     needs:
       - test-powershell-5_1-windows-2022
-      - test-powershell-core-windows-2022
+      - test-powershell-core-windows
     runs-on: windows-2022
     steps:
     - uses: actions/checkout@v1
