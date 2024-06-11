@@ -2,6 +2,7 @@
 # - Ensure all relevant details are updated prior to publishing each version of the module.
 # - To simulate generation of the manifest based on this definition, run the included development entrypoint script Invoke-PSModulePublisher.ps1.
 # - To publish the module, tag the associated commit and push the tag.
+
 @{
     RootModule = 'PSModulePublisher.psm1'
     # ModuleVersion = ''                            # Value will be set for each publication based on the tag ref. Defaults to '0.0.0' in development environments and regular CI builds
@@ -33,13 +34,7 @@
     AliasesToExport = @()
     # DscResourcesToExport = @()
     # ModuleList = @()
-    # FileList = @(
-    #     & {
-    #         Set-Location $PSScriptRoot/../../../src/PSModulePublisher/
-    #         Get-ChildItem -File -Recurse -Force | Resolve-Path -Relative
-    #         Set-Location -
-    #     }
-    # )
+    # FileList = @()
     PrivateData = @{
         # PSData = @{           # Properties within PSData will be correctly added to the manifest via Update-ModuleManifest without the PSData key. Leave the key commented out.
             Tags = @(
