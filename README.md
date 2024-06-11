@@ -9,7 +9,7 @@ A project containing the necessary tools to ease publishing of PowerShell module
 
 This project provides PowerShell cmdlets and CI remote templates that other projects can utilize for building, testing, and publishing PowerShell modules.
 
-## Setup
+## Installation
 
 `PSModulePublisher` can either be installed as a [PowerShell module](#powershell-module), or used as a [submodule](#submodule) for building, testing, and publishing PowerShell modules.
 
@@ -21,7 +21,7 @@ To use `PSModulePublisher` as a PowerShell module, simply perform an installatio
 # Latest version
 Install-Module -Name PSModulePublisher -Repository PSGallery -Scope CurrentUser -Verbose
 
-# Or, for specific version
+# Specific version
 Install-Module -Name PSModulePublisher -Repository PSGallery -RequiredVersion x.x.x -Scope CurrentUser -Verbose
 ```
 
@@ -63,31 +63,33 @@ git --git-dir build/PSModulePublisher/.git checkout vx.x.x
 git commit -am 'Add submodule PSModulePublisher vx.x.x'
 ```
 
-#### Module file
+## Configuration
 
-Ensure the main project contains the module file at the location `src/MyPowershellModule/MyPowershellModule.psm1`.
+### Script module file
 
-#### Module manifest definition file
+Ensure the main project contains the script module file at the location `src/MyPowershellModule/MyPowershellModule.psm1`.
 
-The project sources from a definition file to generate a manifest used for publishing the module. Ensure that the file exists in your main project at the location `build/definitions/modulemanifest.ps1` and that it contains the right properties and values relevant to your PowerShell module. Remember to update the definition prior to publishing your module.
+### Module manifest definition file
+
+The project sources from a definition file to generate the module manifest file (`.psd1`) used for publishing the module. Ensure that the file exists in your main project at the location `build/definitions/modulemanifest.ps1` and that it contains the right properties and values relevant to your PowerShell module. Remember to update the definition file prior to publishing your module.
 
 The definition template can be found [here](docs/samples/build/definitions/modulemanifest.ps1).
 
-#### CI remote templates
+### CI remote templates
+
+**Note:** This section only applies if using the project as a [submodule](#submodule).
 
 Decide on which CI provider to use in your main project based on those supported by this project. Then setup the CI file(s) for your main project, referencing relevant [CI remote template(s)](templates) of this project from your main project's CI file(s).
 
 Sample CI files can be found [here](docs/samples/ci).
 
-#### Test files (Optional)
+### Test files (Optional)
 
 The project optionally runs an entrypoint script for tests at the location `test/test.ps1`. You can add the module's main tests steps in this file for tests to be run.
 
 Sample test files can be found [here](docs/samples/test).
 
 ### CI settings
-
-Configure the following CI settings for your main project if `PSModulePublisher` is to be used in a CI environment, whether it be as an PowerShell module or a submodule.
 
 #### Secrets
 
@@ -100,6 +102,20 @@ Add a secret variable `NUGET_API_KEY` containing your [PSGallery API key](https:
 ##### Project directory
 
 By default, `PSModulePublisher` uses the main project's root directory as the path for execution. To override the default location, set the *environment* variable `PROJECT_DIRECTORY` to contain a custom directory value before executing `PSModulePublisher`.
+
+##### Module version
+
+The default module version is `0.0.0` which prevents a module from being published. To publish a module, simply create a tag for a desired commit and push the tag. Tags must follow [Semantic Versioning](https://semver.org/) and be prepended with a lowercase `v`:
+
+```shell
+# Tag the commit to publish
+git tag v1.0.12
+
+# Push the tag
+git push remotename v1.0.12     # MODULE_VERSION will be 1.0.12
+```
+
+The environment variable `MODULE_VERSION` will automatically be populated with the equivalent PowerShell module version based on the semver tag pushed.
 
 ## Usage
 
@@ -115,7 +131,7 @@ Invoke-PSModulePublisher [[-Repository] <string>] [-DryRun] [<CommonParameters>]
 
 #### Commands
 
-To perform the project's build, test, and publish steps for a given module, simply define applicable [environment variables](#environment-variables-1) for a given PowerShell module project before executing the cmdlet.
+To perform the project's build, test, and publish steps for a given Powershell module, simply define applicable [environment variables](#environment-variables-1) for the project before executing the cmdlet.
 
 ```powershell
 # Process applicable environment variables
@@ -137,7 +153,7 @@ The [individual cmdlets](#via-cmdlets) may also be used for executing the projec
 
 ### Continuous Integration (CI)
 
-The project includes PowerShell cmdlets and CI remote templates for executing the project's build, test, and publish steps for PowerShell modules.
+The project provides PowerShell [cmdlets](#via-cmdlets), as well as [CI remote templates](#via-submodule-and-ci-remote-templates) for executing the project's build, test, and publish steps for PowerShell modules.
 
 #### via Cmdlets
 
@@ -157,8 +173,8 @@ Invoke-Publish [-ModuleManifestPath] <string> [-Repository] <string> [-DryRun] [
 
 | Name | Example value | Mandatory | Type |
 |:-:|:-:|:-:|:-:|
-| [`PROJECT_DIRECTORY`](#project-base-directory) | `/path/to/my-project` | false | string |
-| `MODULE_VERSION` | `vx.x.x` | false, true (Build + Publish) | string |
+| [`PROJECT_DIRECTORY`](#project-directory) | `/path/to/my-project` | false | string |
+| [`MODULE_VERSION`](#module-version) | `x.x.x` | false, true (Build + Publish) | string |
 
 ###### Publish
 
@@ -195,7 +211,7 @@ Sample CI files demonstrating use of this approach can be found [here](docs/samp
 
 #### via Submodule and CI remote templates
 
-The CI process with the included [CI remote templates](templates) is composed of the following steps:
+The provided [CI remote templates](templates) is composed of the following CI process:
 
 ##### Build
 
@@ -216,16 +232,6 @@ The CI process with the included [CI remote templates](templates) is composed of
 **Build** and **Test** steps can be executed for every commit pushed. Simply [configure](docs/samples/ci/azure-pipelines/azure-pipelines.linux.yml#L8-L11) your main project's CI file(s) and/or settings to allow so.
 
 **Publish** steps will run only for [*tag* refs](templates/azure-pipelines/steps/pwsh/run-publish.yml#L10). Ensure your main project's CI file(s) and/or settings are [configured](docs/samples/ci/azure-pipelines/azure-pipelines.linux.yml#L5-L7) to run CI jobs for *tag* refs.
-
-Tags must follow [Semantic Versioning](https://semver.org/) and be prepended with a lowercase `v`:
-
-```shell
-# Tag the commit to publish
-git tag v1.0.12
-
-# Push the tag
-git push remotename v1.0.12
-```
 
 ##### Use cases
 
@@ -263,4 +269,4 @@ git commit -am 'Bump PSModulePublisher to vx.x.x'
 ## Best practices
 
 - Use only tag refs of `PSModulePublisher` in your main project.
-- If using the project [via Submodule and CI remote templates](#via-submodule-and-ci-remote-templates), ensure your main project's CI file(s) is configured to use a [tag ref](docs/samples/ci/azure-pipelines/azure-pipelines.linux-container.yml#L19) of `PSModulePublisher` for its CI remote templates, and that the ref matches that of the `PSModulePublisher` submodule used in your main project.
+- If using the project as a [Submodule with CI remote templates](#submodule), ensure your main project's CI file(s) is configured to use a [tag ref](docs/samples/ci/azure-pipelines/azure-pipelines.linux-container.yml#L19) of `PSModulePublisher` for its CI remote templates, and that the ref matches that of the `PSModulePublisher` submodule used in your main project.
