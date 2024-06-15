@@ -26,7 +26,7 @@ Install-Module -Name PSModulePublisher -Repository PSGallery -RequiredVersion x.
 ```
 
 If prompted to trust the repository, type `Y` and `enter`.
-
+v
 ### Submodule
 
 `PSModulePublisher` can be used as submodule together with provided [CI remote template(s)](#ci-remote-templates).
