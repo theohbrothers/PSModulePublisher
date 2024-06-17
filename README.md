@@ -1,7 +1,8 @@
 # PSModulePublisher
 
-[![github-actions](https://github.com/theohbrothers/PSModulePublisher/workflows/ci-master-pr/badge.svg)](https://github.com/theohbrothers/PSModulePublisher/actions)
-[![github-release](https://img.shields.io/github/v/release/theohbrothers/PSModulePublisher?style=flat-square)](https://github.com/theohbrothers/PSModulePublisher/releases/)
+[![github-workflows](https://img.shields.io/github/actions/workflow/status/theohbrothers/PSModulePublisher/ci-master-pr.yml?label=ci-master-pr&logo=github&style=flat-square)](https://github.com/theohbrothers/PSModulePublisher/actions/workflows/ci-master-pr.yml)
+[![github-release](https://img.shields.io/github/v/release/theohbrothers/PSModulePublisher?style=flat-square)](https://github.com/theohbrothers/PSModulePublisher/releases)
+[![powershellgallery-version](https://img.shields.io/powershellgallery/v/PSModulePublisher?logo=powershell&logoColor=white&label=PSGallery&style=flat-square)](https://www.powershellgallery.com/packages/PSModulePublisher)
 
 A project containing the necessary tools to ease publishing of PowerShell modules.
 
