@@ -277,32 +277,47 @@ jobs:
         # Publish (Publishes module)
         powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Import-Module "./src/$env:MODULE_NAME/$env:MODULE_NAME.psm1" -Force; Invoke-Publish -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1" -Repository PSGallery'
 
-  update-draft-release:
+  release:
     needs:
       - build_publish-powershell-5_1-windows-2022
-    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
+    container:
+      image: theohbrothers/docker-powershell:7.2-ubuntu-22.04-git
     steps:
-      # Drafts your next Release notes as Pull Requests are merged into "master"
-      - uses: release-drafter/release-drafter@v5
-        with:
-          config-name: release-drafter.yml
-          publish: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v1
+    - name: Powershell version
+      run: |
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
+    - name: Ignore git permissions
+      run: |
+        git config --global --add safe.directory "$( pwd )"
+    - name: Generate release notes
+      run: |
+        # Clone PSRepositoryReleaseManager
+        git clone https://github.com/theohbrothers/PSRepositoryReleaseManager.git --recurse-submodules --depth 1 --shallow-submodules --branch 'v0.11.0' # Specify tag ref to checkout to
 
-  publish-draft-release:
-    needs:
-      - build_publish-powershell-5_1-windows-2022
-    if: startsWith(github.ref, 'refs/tags/')
-    runs-on: ubuntu-latest
-    steps:
-      # Drafts your next Release notes as Pull Requests are merged into "master"
-      - uses: release-drafter/release-drafter@v5
-        with:
-          config-name: release-drafter.yml
-          publish: true
-          name: ${{ github.ref_name }} # E.g. 'master' or 'v1.2.3'
-          tag: ${{ github.ref_name }} # E.g. 'master' or 'v1.2.3'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Process applicable environment variables
+        export PROJECT_DIRECTORY=$( git rev-parse --show-toplevel )
+        export RELEASE_TAG_REF=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/(.*)/\1/p' )
+
+        # Generate (Generates release notes)
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./PSRepositoryReleaseManager/src/scripts/ci/Invoke-Generate.ps1'
+        cat PSRepositoryReleaseManager/.release-notes.md
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-notes
+        path: PSRepositoryReleaseManager/.release-notes.md
+    - name: Create release
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        # Process applicable environment variables
+        export PROJECT_DIRECTORY=$( git rev-parse --show-toplevel )
+        export RELEASE_TAG_REF=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/(.*)/\1/p' )
+        export RELEASE_NAMESPACE="$GITHUB_REPOSITORY_OWNER"
+        export RELEASE_REPOSITORY=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Release (Creates GitHub release)
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./PSRepositoryReleaseManager/src/scripts/ci/Invoke-Release.ps1'
+      env:
+        GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
