@@ -12,7 +12,7 @@ This project provides PowerShell cmdlets and CI remote templates that other proj
 
 ## Installation
 
-`PSModulePublisher` can either be installed as a [PowerShell module](#powershell-module), or used as a [submodule](#submodule) for building, testing, and publishing PowerShell modules.
+`PSModulePublisher` can either be installed as a [PowerShell module](#powershell-module), or used as a [submodule](#submodule) with provided CI remote templates.
 
 ### PowerShell module
 
@@ -27,7 +27,7 @@ Install-Module -Name PSModulePublisher -Repository PSGallery -RequiredVersion x.
 ```
 
 If prompted to trust the repository, type `Y` and `enter`.
-v
+
 ### Submodule
 
 `PSModulePublisher` can be used as submodule together with provided [CI remote template(s)](#ci-remote-templates).
