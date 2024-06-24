@@ -270,4 +270,4 @@ git commit -am 'Bump PSModulePublisher to vx.x.x'
 ## Best practices
 
 - Use only tag refs of `PSModulePublisher` in your main project.
-- If using the project as a [Submodule with CI remote templates](#submodule), ensure your main project's CI file(s) is configured to use a [tag ref](docs/samples/ci/azure-pipelines/azure-pipelines.linux-container.yml#L19) of `PSModulePublisher` for its CI remote templates, and that the ref matches that of the `PSModulePublisher` submodule used in your main project.
+- If using the project as a [Submodule with CI remote templates](#submodule), ensure your main project's CI file(s) is configured to use a [tag ref](docs/samples/ci/azure-pipelines/azure-pipelines.linux-container.yml#L15-#L19) of `PSModulePublisher` for its CI remote templates, and that the ref matches that of the `PSModulePublisher` submodule used in your main project.
