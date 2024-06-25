@@ -294,7 +294,7 @@ jobs:
     - name: Generate release notes
       run: |
         # Clone PSRepositoryReleaseManager
-        git clone https://github.com/theohbrothers/PSRepositoryReleaseManager.git --recurse-submodules --depth 1 --shallow-submodules --branch 'v0.11.0' # Specify tag ref to checkout to
+        git clone https://github.com/theohbrothers/PSRepositoryReleaseManager.git --recurse-submodules --depth 1 --shallow-submodules --branch 'v0.12.0' # Specify tag ref to checkout to
 
         # Process applicable environment variables
         export PROJECT_DIRECTORY=$( git rev-parse --show-toplevel )
