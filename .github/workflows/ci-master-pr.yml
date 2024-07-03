@@ -310,6 +310,8 @@ jobs:
         path: PSRepositoryReleaseManager/.release-notes.md
     - name: Create release
       if: startsWith(github.ref, 'refs/tags/')
+      env:
+        GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         # Process applicable environment variables
         export PROJECT_DIRECTORY=$( git rev-parse --show-toplevel )
@@ -319,5 +321,3 @@ jobs:
 
         # Release (Creates GitHub release)
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./PSRepositoryReleaseManager/src/scripts/ci/Invoke-Release.ps1'
-      env:
-        GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
