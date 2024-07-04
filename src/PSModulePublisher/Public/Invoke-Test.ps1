@@ -17,6 +17,9 @@ function Invoke-Test {
         "Test the module manifest" | Write-Host
         if (!$ModuleManifestPath) {
             $ModuleManifestPath = $script:PROJECT['MODULE_MANIFEST_PATH']
+            "Using default module manifest path '$ModuleManifestPath'" | Write-Host
+        }else {
+            "Using specified module manifest path '$ModuleManifestPath'" | Write-Host
         }
         Test-ModuleManifest -Path $ModuleManifestPath
 
