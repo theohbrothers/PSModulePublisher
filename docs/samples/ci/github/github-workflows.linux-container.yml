@@ -87,10 +87,43 @@ jobs:
         # Test (Tests module via module manifest)
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test'
 
+  test-build_publish-powershell-core-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
+    - name: Powershell version
+      run: |
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
+    - name: Install PSModulePublisher
+      run: |
+        pwsh -NoLogo -NonInteractive -NoProfile -Command 'Install-Module -Name PSModulePublisher -Repository PSGallery -Scope CurrentUser -Force -Verbose'
+    - name: Generate module manifest
+      run: |
+        # Process applicable environment variables
+        export MODULE_VERSION='999.0.0'
+        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Build (Generates module manifest)
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Build'
+    - name: Publish module (Dry run)
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: |
+        # Process applicable environment variables
+        export MODULE_VERSION='999.0.0'
+        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Publish (Publishes module with -WhatIf)
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Publish -Repository PSGallery -DryRun'
+
   build_publish-powershell-core-linux:
     needs:
       - test-powershell-6_2-container
       - test-powershell-7_3-container
+      - test-build_publish-powershell-core-linux
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
