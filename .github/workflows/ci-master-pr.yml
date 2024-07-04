@@ -233,6 +233,37 @@ jobs:
       run: |
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
+  test-build_publish-powershell-5_1-windows-2022:
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
+    - name: Powershell version
+      run: |
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
+    - name: Generate module manifest
+      shell: bash
+      run: |
+        # Process applicable environment variables
+        export MODULE_VERSION='999.0.0'
+        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Build (Generates module manifest)
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Import-Module "./src/$env:MODULE_NAME/$env:MODULE_NAME.psm1" -Force; Invoke-Build'
+    - name: Publish module (Dry run)
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      shell: bash
+      run: |
+        # Process applicable environment variables
+        export MODULE_VERSION='999.0.0'
+        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
+
+        # Publish (Publishes module with -WhatIf)
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Import-Module "./src/$env:MODULE_NAME/$env:MODULE_NAME.psm1" -Force; Invoke-Publish -Repository PSGallery -DryRun'
+
   build_publish-powershell-5_1-windows-2022:
     needs:
       - test-powershell-core-windows-2022
@@ -246,6 +277,7 @@ jobs:
       - test-powershell-7_2-container
       - test-powershell-7_3-container
       - test-powershell-7_4-container
+      - test-build_publish-powershell-5_1-windows-2022
     runs-on: windows-2022
     steps:
     - uses: actions/checkout@v1
