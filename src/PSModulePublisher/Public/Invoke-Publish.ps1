@@ -34,6 +34,9 @@ Windows: https://aka.ms/dotnet-install-script. See script usage: https://github.
         "Publish the module" | Write-Host
         if (!$ModuleManifestPath) {
             $ModuleManifestPath = $script:PROJECT['MODULE_MANIFEST_PATH']
+            "Using default module manifest path '$ModuleManifestPath'" | Write-Host
+        }else {
+            "Using specified module manifest path '$ModuleManifestPath'" | Write-Host
         }
         Publish-MyModule -Path $ModuleManifestPath -Repository $Repository -DryRun:$DryRun
     }catch {
