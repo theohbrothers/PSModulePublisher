@@ -275,7 +275,7 @@ jobs:
         export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
         # Publish (Publishes module)
-        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Import-Module "./src/$env:MODULE_NAME/$env:MODULE_NAME.psm1" -Force; Invoke-Publish -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1" -Repository PSGallery'
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Import-Module "./src/$env:MODULE_NAME/$env:MODULE_NAME.psm1" -Force; Invoke-Publish -Repository PSGallery'
 
   release:
     needs:
