@@ -2,7 +2,7 @@
 function Invoke-Publish {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$false)]
         [ValidateNotNullOrEmpty()]
         [string]$ModuleManifestPath
         ,
@@ -18,6 +18,9 @@ function Invoke-Publish {
     $ErrorActionPreference = 'Stop'
 
     try {
+        # Get project variables
+        . Get-ProjectVariables
+
         "Check publish dependencies" | Write-Host
         if (!(Get-Command -Name dotnet -CommandType Application -ErrorAction SilentlyContinue)) {
             @"
@@ -29,6 +32,9 @@ Windows: https://aka.ms/dotnet-install-script. See script usage: https://github.
         }
 
         "Publish the module" | Write-Host
+        if (!$ModuleManifestPath) {
+            $ModuleManifestPath = $script:PROJECT['MODULE_MANIFEST_PATH']
+        }
         Publish-MyModule -Path $ModuleManifestPath -Repository $Repository -DryRun:$DryRun
     }catch {
         throw

@@ -19,14 +19,14 @@ function Invoke-PSModulePublisher {
 
     try {
         # Run the build entrypoint script
-        $manifestPath = Invoke-Build
+        Invoke-Build
 
         # Run the test entrypoint script
-        Invoke-Test -ModuleManifestPath $manifestPath
+        Invoke-Test
 
         # Run the publish entrypoint script
         if ($Repository) {
-            Invoke-Publish -ModuleManifestPath $manifestPath -Repository $Repository -DryRun:$DryRun
+            Invoke-Publish -Repository $Repository -DryRun:$DryRun
         }else {
             "Unspecified PS Repository. The module will not be published." | Write-Warning
         }

@@ -164,8 +164,8 @@ The following are the [parameters](#parameters) and [environment variables](#env
 
 ```powershell
 Invoke-Build [<CommonParameters>]
-Invoke-Test [-ModuleManifestPath] <string> [<CommonParameters>]
-Invoke-Publish [-ModuleManifestPath] <string> [-Repository] <string> [-DryRun] [<CommonParameters>]
+Invoke-Test [[-ModuleManifestPath] <string>] [<CommonParameters>]
+Invoke-Publish [[-ModuleManifestPath] <string>] [-Repository] <string> [-DryRun] [<CommonParameters>]
 ```
 
 ##### Environment variables
@@ -200,10 +200,10 @@ pwsh -NoLogo -NonInteractive -NoProfile -Command 'Install-Module -Name PSModuleP
 pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Build'
 
 # Test (Tests module via module manifest)
-pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1"'
+pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test'
 
 # Publish (Publishes module)
-pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Publish -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1" -Repository PSGallery'
+pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Publish -Repository PSGallery'
 ```
 
 **Note:** Ensure the environment variable [`NUGET_API_KEY`](#psgallery-api-key) is defined prior to publishing PowerShell modules.
