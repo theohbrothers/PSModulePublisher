@@ -4,8 +4,5 @@ steps:
     $ErrorView = 'NormalView'
     $VerbosePreference = 'Continue'
     Import-Module .\build\PSModulePublisher\src\PSModulePublisher\PSModulePublisher.psm1 -Force -Verbose
-    $MODULE_MANIFEST_PATH = Invoke-Build
-    ### Begin CI-specific code: Set job-scoped variables
-    echo "##vso[task.setvariable variable=MODULE_MANIFEST_PATH]${MODULE_MANIFEST_PATH}"
-    ### End of CI-specific code
+    Invoke-Build
   displayName: Generate module manifest

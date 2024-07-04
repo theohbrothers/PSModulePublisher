@@ -39,7 +39,7 @@ jobs:
         export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
         # Test (Tests module via module manifest)
-        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1"'
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test'
 
   test-powershell-core-windows:
     runs-on: windows-latest
@@ -69,7 +69,7 @@ jobs:
         export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
         # Test (Tests module via module manifest)
-        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1"'
+        pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test'
 
   build_publish-powershell-5_1-windows-2022:
     needs:
@@ -107,4 +107,4 @@ jobs:
         export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
         # Publish (Publishes module)
-        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Publish -ModuleManifestPath "./src/$env:MODULE_NAME/$env:MODULE_NAME.psd1" -Repository PSGallery'
+        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Publish -Repository PSGallery'

@@ -2,7 +2,7 @@
 function Invoke-Test {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$false)]
         [ValidateNotNullOrEmpty()]
         [string]$ModuleManifestPath
     )
@@ -15,6 +15,9 @@ function Invoke-Test {
         . Get-ProjectVariables
 
         "Test the module manifest" | Write-Host
+        if (!$ModuleManifestPath) {
+            $ModuleManifestPath = $script:PROJECT['MODULE_MANIFEST_PATH']
+        }
         Test-ModuleManifest -Path $ModuleManifestPath
 
         "Test the module via the generated module manifest" | Write-Host

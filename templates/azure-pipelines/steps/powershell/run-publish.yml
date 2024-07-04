@@ -5,7 +5,7 @@ steps:
     $VerbosePreference = 'Continue'
     "PUBLISH_DRY_RUN: '$($env:PUBLISH_DRY_RUN)'" | Write-Verbose
     Import-Module .\build\PSModulePublisher\src\PSModulePublisher\PSModulePublisher.psm1 -Force -Verbose
-    Invoke-Publish -ModuleManifestPath $env:MODULE_MANIFEST_PATH -Repository 'PSGallery' -DryRun:$([System.Convert]::ToBoolean($env:PUBLISH_DRY_RUN))
+    Invoke-Publish -Repository 'PSGallery' -DryRun:$([System.Convert]::ToBoolean($env:PUBLISH_DRY_RUN))
   displayName: Publish module
   condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), ne(variables['MODULE_VERSION'], ''))
   env:
