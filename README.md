@@ -152,6 +152,10 @@ Invoke-PSModulePublisher -Repository MyPSRepository
 
 The [individual cmdlets](#via-cmdlets) may also be used for executing the project's build, test, and publish steps independently.
 
+#### VSCode
+
+The project includes samples of [`.vscode/tasks.json`](docs/samples/.vscode) for executing build, test, and publish steps with the included cmdlets via [*Build Tasks*](https://code.visualstudio.com/docs/editor/tasks) in [VSCode](https://code.visualstudio.com/). Simply execute relevant build task(s) while entering custom or default values per variable prompt.
+
 ### Continuous Integration (CI)
 
 The project provides PowerShell [cmdlets](#via-cmdlets), as well as [CI remote templates](#via-submodule-and-ci-remote-templates) for executing the project's build, test, and publish steps for PowerShell modules.
