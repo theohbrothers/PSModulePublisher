@@ -3,10 +3,9 @@ steps:
     $ErrorActionPreference = 'Stop'
     $ErrorView = 'NormalView'
     $VerbosePreference = 'Continue'
-    "PUBLISH_DRY_RUN: '$($env:PUBLISH_DRY_RUN)'" | Write-Verbose
+    "PUBLISH_DRYRUN: '$($env:PUBLISH_DRYRUN)'" | Write-Verbose
     Import-Module .\build\PSModulePublisher\src\PSModulePublisher\PSModulePublisher.psm1 -Force -Verbose
-    Invoke-Publish -Repository 'PSGallery' -DryRun:$([System.Convert]::ToBoolean($env:PUBLISH_DRY_RUN))
+    Invoke-Publish -Repository 'PSGallery' -DryRun:$([System.Convert]::ToBoolean($env:PUBLISH_DRYRUN))
   displayName: Publish module
-  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), ne(variables['MODULE_VERSION'], ''))
   env:
     NUGET_API_KEY: $(NUGET_API_KEY)
