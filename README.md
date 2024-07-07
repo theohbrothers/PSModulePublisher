@@ -234,9 +234,9 @@ The provided [CI remote templates](templates) is composed of the following CI pr
 1. Install publish dependencies *(if applicable)*
 1. Publish module
 
-**Build** and **Test** steps can be executed for every commit pushed. Simply [configure](docs/samples/ci/azure-pipelines/azure-pipelines.linux.yml#L8-L11) your main project's CI file(s) and/or settings to allow so.
+**Build**, **Test**, and **Publish** steps can be executed for all refs. Simply [configure](docs/samples/ci/azure-pipelines/azure-pipelines.linux.yml#L8-L11) your main project's CI file(s) and/or settings to allow so.
 
-**Publish** steps will run only for [*tag* refs](templates/azure-pipelines/steps/pwsh/run-publish.yml#L10). Ensure your main project's CI file(s) and/or settings are [configured](docs/samples/ci/azure-pipelines/azure-pipelines.linux.yml#L5-L7) to run CI jobs for *tag* refs.
+**Publish** steps default to simulating publishing of the module. The module is published only for *tag* refs. Simply [configure](docs/samples/ci/azure-pipelines/azure-pipelines.linux.yml#L5-L11) your main project's CI file(s) and/or settings to allow so.
 
 ##### Use cases
 
