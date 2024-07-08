@@ -195,7 +195,6 @@ To execute build, test, and publish steps for a project, simply define applicabl
 # Process applicable environment variables
 export PROJECT_DIRECTORY=$( git rev-parse --show-toplevel )
 export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
-export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
 # Install PSModulePublisher
 pwsh -NoLogo -NonInteractive -NoProfile -Command 'Install-Module -Name PSModulePublisher -Repository PSGallery -Scope CurrentUser -Force -Verbose'
