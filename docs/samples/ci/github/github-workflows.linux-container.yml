@@ -38,7 +38,6 @@ jobs:
       run: |
         # Process applicable environment variables
         export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
-        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
         # Build (Generates module manifest)
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Build'
@@ -46,7 +45,6 @@ jobs:
       run: |
         # Process applicable environment variables
         export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
-        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
         # Test (Tests module via module manifest)
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test'
@@ -76,7 +74,6 @@ jobs:
       run: |
         # Process applicable environment variables
         export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
-        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
         # Build (Generates module manifest)
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Build'
@@ -84,7 +81,6 @@ jobs:
       run: |
         # Process applicable environment variables
         export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
-        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
         # Test (Tests module via module manifest)
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Test'
@@ -106,7 +102,6 @@ jobs:
       run: |
         # Process applicable environment variables
         export MODULE_VERSION='999.0.0'
-        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
         # Build (Generates module manifest)
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Build'
@@ -116,7 +111,6 @@ jobs:
       run: |
         # Process applicable environment variables
         export MODULE_VERSION='999.0.0'
-        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
         # Publish (Publishes module with -WhatIf)
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Publish -Repository PSGallery -DryRun'
@@ -143,7 +137,6 @@ jobs:
       run: |
         # Process applicable environment variables
         export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
-        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
         # Build (Generates module manifest)
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Build'
@@ -155,7 +148,6 @@ jobs:
       run: |
         # Process applicable environment variables
         export MODULE_VERSION=$( echo "$GITHUB_REF" | sed -rn 's/^refs\/tags\/v(.*)/\1/p' )
-        export MODULE_NAME=$( basename "$( git rev-parse --show-toplevel )" )
 
         # Publish (Publishes module)
         pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; Invoke-Publish -Repository PSGallery'
