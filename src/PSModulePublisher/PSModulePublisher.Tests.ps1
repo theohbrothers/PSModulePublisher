@@ -3,10 +3,12 @@ Describe "PSModulePublisher" -Tag 'Integration' {
         $ErrorView = 'NormalView'
         $mockModuleRepoDir = (Resolve-Path "$PSScriptRoot/../../test/Mock-Module").Path
         $mockModuleManifest = (Resolve-Path "$mockModuleRepoDir/src/Mock-Module/Mock-Module.psd1").Path
-        $env:PROJECT_DIRECTORY = $mockModuleRepoDir  # Override the project base
     }
     BeforeEach {
         Push-Location $mockModuleRepoDir
+        $env:PROJECT_DIRECTORY = $mockModuleRepoDir  # Override the project base
+        $env:MODULE_VERSION = $null
+        $env:NUGET_API_KEY = $null
     }
     AfterEach {
         Pop-Location
@@ -17,9 +19,16 @@ Describe "PSModulePublisher" -Tag 'Integration' {
         $moduleManifest | Should -Be $mockModuleManifest
     }
     It "Runs Invoke-Test" {
-        Invoke-Test -ModuleManifestPath $mockModuleManifest
+        Invoke-Test
     }
     It "Runs Invoke-Publish -DryRun `$env:NUGET_API_KEY" {
+        $env:NUGET_API_KEY = 'xxx'
+        Invoke-Publish -Repository PSGallery -DryRun
+    }
+    It "Runs Invoke-Test -ModuleManifestPath" {
+        Invoke-Test -ModuleManifestPath $mockModuleManifest
+    }
+    It "Runs Invoke-Publish -ModuleManifestPath -DryRun `$env:NUGET_API_KEY" {
         $env:NUGET_API_KEY = 'xxx'
         Invoke-Publish -ModuleManifestPath $mockModuleManifest -Repository PSGallery -DryRun
     }
@@ -29,6 +38,11 @@ Describe "PSModulePublisher" -Tag 'Integration' {
         $moduleManifest | Should -Be $mockModuleManifest
     }
     It "Runs Invoke-Publish -Repository `$env:MODULE_VERSION='0.1.0'" {
+        $env:MODULE_VERSION = '0.1.0'
+        $env:NUGET_API_KEY = $null
+        { Invoke-Publish -Repository PSGallery } | Should -Throw
+    }
+    It "Runs Invoke-Publish -ModuleManifestPath -Repository `$env:MODULE_VERSION='0.1.0'" {
         $env:MODULE_VERSION = '0.1.0'
         $env:NUGET_API_KEY = $null
         { Invoke-Publish -ModuleManifestPath $mockModuleManifest -Repository PSGallery } | Should -Throw
