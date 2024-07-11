@@ -57,15 +57,30 @@ Describe "PSModulePublisher" -Tag 'Integration' {
         $env:MODULE_VERSION = '0.1.0'
         Invoke-Publish -Repository PSGallery -DryRun
     }
+    It "Runs Invoke-Publish -Repository `$env:NUGET_API_KEY `$env:MODULE_VERSION='0.1.0'" {
+        $env:NUGET_API_KEY = 'xxx'
+        $env:MODULE_VERSION = '0.1.0'
+        { Invoke-Publish -Repository PSGallery } | Should -Throw
+    }
     It "Runs Invoke-Publish -ModuleManifestPath -Repository -DryRun `$env:NUGET_API_KEY `$env:MODULE_VERSION='0.1.0'" {
         $env:NUGET_API_KEY = 'xxx'
         $env:MODULE_VERSION = '0.1.0'
         Invoke-Publish -ModuleManifestPath $mockModuleManifest -Repository PSGallery -DryRun
     }
+    It "Runs Invoke-Publish -ModuleManifestPath -Repository `$env:NUGET_API_KEY `$env:MODULE_VERSION='0.1.0'" {
+        $env:NUGET_API_KEY = 'xxx'
+        $env:MODULE_VERSION = '0.1.0'
+        { Invoke-Publish -ModuleManifestPath $mockModuleManifest -Repository PSGallery } | Should -Throw
+    }
     It "Runs Invoke-PSModulePublisher -Repository -DryRun `$env:NUGET_API_KEY `$env:MODULE_VERSION='0.1.0'" {
         $env:NUGET_API_KEY = 'xxx'
         $env:MODULE_VERSION = '0.1.0'
         Invoke-PSModulePublisher -Repository PSGallery -DryRun
+    }
+    It "Runs Invoke-PSModulePublisher -Repository `$env:NUGET_API_KEY `$env:MODULE_VERSION='0.1.0'" {
+        $env:NUGET_API_KEY = 'xxx'
+        $env:MODULE_VERSION = '0.1.0'
+        { Invoke-PSModulePublisher -Repository PSGallery } | Should -Throw
     }
     It "Runs Invoke-Publish -Repository `$env:MODULE_VERSION='0.1.0'" {
         $env:MODULE_VERSION = '0.1.0'
