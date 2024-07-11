@@ -62,7 +62,7 @@ function Publish-MyModule {
             $publishModuleArgsMasked | Out-String -Stream | % { $_.Trim() } | ? { $_ } | Write-Verbose
         }
         $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'  # See: https://github.com/dotnet/docs/blob/main/docs/core/tools/telemetry.md
-        Publish-Module @publishModuleArgs
+        Publish-Module @publishModuleArgs -ErrorAction Stop
     }catch {
         throw
     }
