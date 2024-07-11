@@ -37,49 +37,49 @@
         {
             "label": "Build, Test, Publish module (pwsh)",
             "type": "shell",
-            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' pwsh -NoLogo -NonInteractive -NoProfile -Command 'Invoke-PSModulePublisher -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
+            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = \"Continue\"; Invoke-PSModulePublisher -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
             "group": "build"
         },
         {
             "label": "Build, Test, Publish module (powershell)",
             "type": "shell",
-            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' powershell -NoLogo -NonInteractive -NoProfile -Command 'Invoke-PSModulePublisher -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
+            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = \"Continue\"; Invoke-PSModulePublisher -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
             "group": "build"
         },
         {
             "label": "Build module (pwsh)",
             "type": "shell",
-            "command": "MODULE_VERSION='${input:MODULE_VERSION}' pwsh -NoLogo -NonInteractive -NoProfile -Command 'Invoke-Build'",
+            "command": "MODULE_VERSION='${input:MODULE_VERSION}' pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = \"Continue\"; Invoke-Build'",
             "group": "build"
         },
         {
             "label": "Build module (powershell)",
             "type": "shell",
-            "command": "MODULE_VERSION='${input:MODULE_VERSION}' powershell -NoLogo -NonInteractive -NoProfile -Command 'Invoke-Build'",
+            "command": "MODULE_VERSION='${input:MODULE_VERSION}' powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = \"Continue\"; Invoke-Build'",
             "group": "build"
         },
         {
             "label": "Test module (pwsh)",
             "type": "shell",
-            "command": "MODULE_VERSION='${input:MODULE_VERSION}' pwsh -NoLogo -NonInteractive -NoProfile -Command 'Invoke-Test'",
+            "command": "MODULE_VERSION='${input:MODULE_VERSION}' pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = \"Continue\"; Invoke-Test'",
             "group": "build"
         },
         {
             "label": "Test module (powershell)",
             "type": "shell",
-            "command": "MODULE_VERSION='${input:MODULE_VERSION}' powershell -NoLogo -NonInteractive -NoProfile -Command 'Invoke-Test'",
+            "command": "MODULE_VERSION='${input:MODULE_VERSION}' powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = \"Continue\"; Invoke-Test'",
             "group": "build"
         },
         {
             "label": "Publish module (pwsh)",
             "type": "shell",
-            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' pwsh -NoLogo -NonInteractive -NoProfile -Command 'Invoke-Publish -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
+            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = \"Continue\"; Invoke-Publish -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
             "group": "build"
         },
         {
             "label": "Publish module (powershell)",
             "type": "shell",
-            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' powershell -NoLogo -NonInteractive -NoProfile -Command 'Invoke-Publish -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
+            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = \"Continue\"; Invoke-Publish -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
             "group": "build"
         }
     ]
