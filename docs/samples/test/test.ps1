@@ -10,11 +10,13 @@ $script:PesterDebugPreference_ShowFullErrors = $true
 
 try {
     # Initialize variables
-    $moduleItem = if (Test-Path "$PSScriptRoot/../src/*/*.psd1" -PathType Leaf) { Get-Item "$PSScriptRoot/../src/*/*.psd1" }
-                  elseif (Test-Path "$PSScriptRoot/../src/*/*.psm1" -PathType Leaf) { Get-Item "$PSScriptRoot/../src/*/*.psm1" }
-    $MODULE_PATH = $moduleItem.FullName
-    $MODULE_DIR = $moduleItem.Directory
-    $MODULE_NAME = $moduleItem.BaseName
+    $MODULE_NAME = (Get-Item $PSScriptRoot/../).Name
+    $MODULE_DIR = "$PSScriptRoot/../src/$MODULE_NAME" | Resolve-Path
+    $MODULE_MANIFEST = Get-Item "$MODULE_DIR/$MODULE_NAME.psd1" -ErrorAction SilentlyContinue
+    $SCRIPT_MODULE = Get-Item "$MODULE_DIR/$MODULE_NAME.psm1" -ErrorAction SilentlyContinue
+    $MODULE_PATH = if ($MODULE_MANIFEST) { $MODULE_MANIFEST.FullName }
+                   elseif ($SCRIPT_MODULE) { $SCRIPT_MODULE.FullName }
+                   else { throw "Unable to locate module manifest file '$MODULE_DIR/$MODULE_NAME.psd1' nor script module file '$MODULE_DIR/$MODULE_NAME.psm1'." }
 
     Push-Location $PSScriptRoot
 
@@ -22,14 +24,14 @@ try {
     "Checking Pester version" | Write-Host
     $pesterMinimumVersion = [version]'4.0.0'
     $pesterMaximumVersion = [version]'4.10.1'
-    $pester = Get-Module 'Pester' -ListAvailable -ErrorAction SilentlyContinue
+    $pester = Get-Module Pester -ListAvailable -ErrorAction SilentlyContinue
     if (!$pester -or !($pester | ? { $_.Version -ge $pesterMinimumVersion -and $_.Version -le $pesterMaximumVersion })) {
         "Installing Pester" | Write-Host
-        Install-Module -Name 'Pester' -Repository 'PSGallery' -MinimumVersion $pesterMinimumVersion -MaximumVersion $pesterMaximumVersion -Scope CurrentUser -Force -SkipPublisherCheck
+        Install-Module -Name Pester -Repository PSGallery -MinimumVersion $pesterMinimumVersion -MaximumVersion $pesterMaximumVersion -Scope CurrentUser -Force -SkipPublisherCheck
     }
     $pester = Get-Module Pester -ListAvailable
     $pester | Out-String | Write-Verbose
-    $pester | ? { $_.Version -ge $pesterMinimumVersion -and $_.Version -le $pesterMaximumVersion } | Select-Object -First 1 | Import-Module # Force import the latest version within the defined range to ensure environment uses the correct version of Pester
+    $pester | ? { $_.Version -ge $pesterMinimumVersion -and $_.Version -le $pesterMaximumVersion } | Select-Object -First 1 | Import-Module -Force # Force import the latest version within the defined range to ensure environment uses the correct version of Pester
 
     # Import the project module
     Import-Module $MODULE_PATH -Force
