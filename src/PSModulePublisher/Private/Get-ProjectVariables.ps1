@@ -25,7 +25,7 @@ function Get-ProjectVariables {
         $script:PROJECT['NAME'] = $script:PROJECT['BASE_DIR'] | Split-Path -Leaf
         $private:definition = . $script:PROJECT['MODULE_MANIFEST_DEFINITION_FILE']
         $script:PROJECT['MODULE_NAME'] = [System.IO.Path]::GetFileNameWithoutExtension($private:definition['RootModule'])
-        $script:PROJECT['MODULE_MANIFEST_PATH'] = "$($script:PROJECT['SOURCE_DIR'])\$($script:PROJECT['MODULE_NAME'])\$($script:PROJECT['MODULE_NAME']).psd1" | Convert-Path
+        $script:PROJECT['MODULE_MANIFEST_PATH'] = "$($script:PROJECT['SOURCE_DIR'])\$($script:PROJECT['MODULE_NAME'])\$($script:PROJECT['MODULE_NAME']).psd1"
     }catch {
         throw
     }
