@@ -9,9 +9,9 @@ Set-StrictMode -Version Latest
 $script:PesterDebugPreference_ShowFullErrors = $true
 
 try {
-    # Initialize variables
+    # Process variables
     $MODULE_NAME = (Get-Item $PSScriptRoot/../).Name
-    $MODULE_DIR = "$PSScriptRoot/../src/$MODULE_NAME" | Resolve-Path
+    $MODULE_DIR = "$PSScriptRoot/../src/$MODULE_NAME" | Convert-Path -ErrorAction Stop
     $MODULE_MANIFEST = Get-Item "$MODULE_DIR/$MODULE_NAME.psd1" -ErrorAction SilentlyContinue
     $SCRIPT_MODULE = Get-Item "$MODULE_DIR/$MODULE_NAME.psm1" -ErrorAction SilentlyContinue
     $MODULE_PATH = if ($MODULE_MANIFEST) { $MODULE_MANIFEST.FullName }
