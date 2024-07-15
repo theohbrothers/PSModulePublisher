@@ -10,6 +10,23 @@ A project containing the necessary tools to ease publishing of PowerShell module
 
 This project provides PowerShell cmdlets and CI remote templates that other projects can utilize for building, testing, and publishing PowerShell modules.
 
+## Directory structure
+
+`PSModulePublisher` sets the following convention of directory structure for PowerShell projects to adopt for building, testing, and publishing PowerShell modules.
+
+```shell
+/build/                                             # Build directory
+/build/PSModulePublisher/                           # PSModulePublisher as a submodule [optional]
+/build/definitions/modulemanifest.ps1               # The module manifest definition file
+
+/src/MyPowershellModule/                            # The module's root directory
+/src/MyPowershellModule/MyPowershellModule.psm1     # The script module file (.psm1)
+/src/MyPowershellModule/MyPowershellModule.psd1     # The module manifest file (.psd1) [optional]
+
+/test/                                              # Test directory [optional]
+/test/test.ps1                                      # The test entrypoint script [optional]
+```
+
 ## Installation
 
 `PSModulePublisher` can either be installed as a [PowerShell module](#powershell-module), or used as a [submodule](#submodule) with provided CI remote templates.
@@ -31,23 +48,6 @@ If prompted to trust the repository, type `Y` and `enter`.
 ### Submodule
 
 `PSModulePublisher` can be used as submodule together with provided [CI remote template(s)](#ci-remote-templates).
-
-#### Main project structure
-
-To use `PSModulePublisher` as a submodule, main projects are to adopt the following directory structure:
-
-```shell
-/build/                                             # Directory containing build files
-/build/PSModulePublisher/                           # The root directory of PSModulePublisher as a submodule
-/build/definitions/modulemanifest.ps1               # The module manifest definition file
-
-/src/MyPowershellModule/                            # The module's root directory
-/src/MyPowershellModule/MyPowershellModule.psm1     # The module .psm1 file
-/src/MyPowershellModule/MyPowershellModule.psd1     # The module .psd1 file (optional)
-
-/test/                                              # Directory containing test files (optional)
-/test/test.ps1                                      # The test entrypoint script (optional)
-```
 
 #### Adding the submodule
 
