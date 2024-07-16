@@ -48,6 +48,8 @@
                 'module-testing-framework'
                 'module-publishing'
                 'module-publishing-framework'
+                'powershell-project-convention'
+                'powershell-modules-convention'
                 'ci'
                 'continuous-integration'
                 'build-test-publish'
