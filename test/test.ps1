@@ -9,16 +9,16 @@ Set-StrictMode -Version Latest
 $script:PesterDebugPreference_ShowFullErrors = $true
 
 try {
-    # Process variables
-    $MODULE_NAME = (Get-Item $PSScriptRoot/../).Name
-    $MODULE_DIR = "$PSScriptRoot/../src/$MODULE_NAME" | Convert-Path -ErrorAction Stop
-    $MODULE_MANIFEST = Get-Item "$MODULE_DIR/$MODULE_NAME.psd1" -ErrorAction SilentlyContinue
-    $SCRIPT_MODULE = Get-Item "$MODULE_DIR/$MODULE_NAME.psm1" -ErrorAction SilentlyContinue
-    $MODULE_PATH = if ($MODULE_MANIFEST) { $MODULE_MANIFEST.FullName }
-                   elseif ($SCRIPT_MODULE) { $SCRIPT_MODULE.FullName }
-                   else { throw "Unable to locate module manifest file '$MODULE_DIR/$MODULE_NAME.psd1' nor script module file '$MODULE_DIR/$MODULE_NAME.psm1'." }
-
     Push-Location $PSScriptRoot
+
+    # Process variables
+    $moduleManifest = Get-Item ../src/*/*.psd1 -ErrorAction SilentlyContinue
+    $scriptModule = Get-Item ../src/*/*.psm1 -ErrorAction SilentlyContinue
+    $moduleItem = if ($moduleManifest) { $moduleManifest }
+                   elseif ($scriptModule) { $scriptModule }
+                   else { throw "Unable to locate module manifest file (.psd1) nor script module file (.psm1)." }
+    $MODULE_PATH = $moduleItem.FullName
+    $MODULE_DIR = $moduleItem.Directory
 
     # Install Pester if needed
     "Checking Pester version" | Write-Host
