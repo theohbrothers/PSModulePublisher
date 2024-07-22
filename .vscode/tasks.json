@@ -28,12 +28,24 @@
             "type": "pickString",
             "options": [
                 "true",
-                "false",
+                "false"
             ],
             "default": "true"
-        },
+        }
     ],
     "tasks": [
+        {
+            "label": "Build, Test, Publish module (pwsh)",
+            "type": "shell",
+            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' pwsh -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = \"Continue\"; Import-Module \"./src/${workspaceFolderBasename}/${workspaceFolderBasename}.psm1\" -Force; Invoke-PSModulePublisher -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
+            "group": "build"
+        },
+        {
+            "label": "Build, Test, Publish module (powershell)",
+            "type": "shell",
+            "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = \"Continue\"; Import-Module \"./src/${workspaceFolderBasename}/${workspaceFolderBasename}.psm1\" -Force; Invoke-PSModulePublisher -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
+            "group": "build"
+        },
         {
             "label": "Build module (pwsh)",
             "type": "shell",
@@ -69,6 +81,6 @@
             "type": "shell",
             "command": "NUGET_API_KEY='${input:NUGET_API_KEY}' MODULE_VERSION='${input:MODULE_VERSION}' powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = \"Continue\"; Import-Module \"./src/${workspaceFolderBasename}/${workspaceFolderBasename}.psm1\" -Force; Invoke-Publish -Repository \"${input:Repository}\" -DryRun:$([System.Convert]::ToBoolean(\"${input:DryRun}\"))'",
             "group": "build"
-        },
+        }
     ]
 }
