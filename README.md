@@ -154,7 +154,7 @@ The [individual cmdlets](#via-cmdlets) may also be used for executing the projec
 
 #### VSCode
 
-The project includes samples of [`.vscode/tasks.json`](docs/samples/.vscode) for executing build, test, and publish steps with the included cmdlets via [*Build Tasks*](https://code.visualstudio.com/docs/editor/tasks) in [VSCode](https://code.visualstudio.com/). Simply execute relevant build task(s) while entering custom or default values per variable prompt.
+The project includes [samples](docs/samples/.vscode) of `.vscode/tasks.json` for executing build, test, and publish steps with the included cmdlets via [*Build Tasks*](https://code.visualstudio.com/docs/editor/tasks) in [VSCode](https://code.visualstudio.com/). Simply execute relevant build task(s) while entering custom or default values per variable prompt.
 
 ### Continuous Integration (CI)
 
