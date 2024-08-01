@@ -11,8 +11,8 @@ function Get-ProjectVariables {
         if ($env:PROJECT_DIRECTORY) {
             $script:PROJECT['BASE_DIR'] = $env:PROJECT_DIRECTORY | Convert-Path
         }else {
-            $script:PROJECT['SUPERPROJECT_BASE_DIR'] = if (git rev-parse --show-superproject-working-tree) { git rev-parse --show-superproject-working-tree | Convert-Path }
-            $script:PROJECT['BASE_DIR'] = if ($script:PROJECT['SUPERPROJECT_BASE_DIR']) { $script:PROJECT['SUPERPROJECT_BASE_DIR'] } else { git rev-parse --show-toplevel | Convert-Path }
+            $script:PROJECT['SUPERPROJECT_BASE_DIR'] = if (git rev-parse --show-superproject-working-tree) { Convert-Path (git rev-parse --show-superproject-working-tree) }
+            $script:PROJECT['BASE_DIR'] = if ($script:PROJECT['SUPERPROJECT_BASE_DIR']) { $script:PROJECT['SUPERPROJECT_BASE_DIR'] } else { Convert-Path (git rev-parse --show-toplevel) }
         }
         $script:PROJECT['BUILD_DIR'] = Join-Path $script:PROJECT['BASE_DIR'] 'build'
         $script:PROJECT['SOURCE_DIR'] = Join-Path $script:PROJECT['BASE_DIR'] 'src'
