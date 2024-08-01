@@ -136,7 +136,7 @@ To perform the project's build, test, and publish steps for a given Powershell m
 
 ```powershell
 # Process applicable environment variables
-$env:PROJECT_DIRECTORY="$(git rev-parse --show-toplevel)"
+$env:PROJECT_DIRECTORY = git rev-parse --show-toplevel
 
 # Build and Test steps (Generates module manifest, Tests module via module manifest)
 Invoke-PSModulePublisher
