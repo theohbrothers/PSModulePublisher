@@ -3,7 +3,7 @@ steps:
     $ErrorActionPreference = 'Stop'
     $ErrorView = 'NormalView'
     $VerbosePreference = 'Continue'
-    "PUBLISH_DRYRUN: '$($env:PUBLISH_DRYRUN)'" | Write-Verbose
+    "PUBLISH_DRYRUN: '$($env:PUBLISH_DRYRUN)'" | Write-Host
     Import-Module .\build\PSModulePublisher\src\PSModulePublisher\PSModulePublisher.psm1 -Force
     Invoke-Publish -Repository 'PSGallery' -DryRun:$([System.Convert]::ToBoolean($env:PUBLISH_DRYRUN))
   displayName: Publish module
