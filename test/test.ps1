@@ -2,7 +2,7 @@
 param (
     [Parameter(Mandatory=$false)]
     [ValidateNotNullOrEmpty()]
-    [string]$Tag = ''
+    [string]$Tag
 )
 
 Set-StrictMode -Version Latest
