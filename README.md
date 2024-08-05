@@ -245,21 +245,16 @@ In cases where the module needs to be tested across multiple operating systems a
 
 Sample CI files demonstrating use of this approach can be found [here](docs/samples/ci/azure-pipelines).
 
-### Managing the submodule
+## Maintenance
 
-#### Retrieving updates
-
-To update the submodule:
-
-```shell
-git submodule update --remote build/PSModulePublisher
-```
+### Submodule
 
 #### Using a specific tag
 
-To use a specific tag of the submodule:
-
 ```shell
+# Update the submodule
+git submodule update --remote build/PSModulePublisher
+
 # Checkout ref to use
 git --git-dir build/PSModulePublisher/.git checkout vx.x.x
 
