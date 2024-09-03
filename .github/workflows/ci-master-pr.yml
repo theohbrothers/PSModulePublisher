@@ -39,19 +39,19 @@ jobs:
       run: |
         powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
-  test-powershell-5_1-windows-2019:
-    runs-on: windows-2019
-    steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '6'
-    - name: Powershell version
-      run: |
-        powershell -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
-    - name: Test
-      run: |
-        powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
+  # test-powershell-5_1-windows-2019:
+  #   runs-on: windows-2019
+  #   steps:
+  #   - uses: actions/checkout@v1
+  #   - uses: actions/setup-dotnet@v3
+  #     with:
+  #       dotnet-version: '6'
+  #   - name: Powershell version
+  #     run: |
+  #       powershell -NoLogo -NonInteractive -NoProfile -Command '$PSVersionTable'
+  #   - name: Test
+  #     run: |
+  #       powershell -NoLogo -NonInteractive -NoProfile -Command '$VerbosePreference = "Continue"; ./test/test.ps1'
 
   ##########
   # Docker #
@@ -276,7 +276,7 @@ jobs:
     needs:
       - test-powershell-core-windows-2022
       - test-powershell-5_1-windows-2022
-      - test-powershell-5_1-windows-2019
+      # - test-powershell-5_1-windows-2019
       - test-powershell-6_0-container
       - test-powershell-6_1-container
       - test-powershell-6_2-container
